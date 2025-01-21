@@ -2,6 +2,9 @@ import axios from "axios";
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 
+const baseUri = import.meta.env.VITE_BASE_URI;
+const authenticatedEndpoint = import.meta.env.VITE_AUTHENTICATED_ENDPOINT;
+
 const Login = () => {
 
   const navigate = useNavigate();
@@ -22,7 +25,7 @@ const Login = () => {
 
     try {
       
-      const res = await axios.post('https://mywarehouse3-default-dev-admin.labs.bancolini.com:443/api/v2/authenticate', {
+      const res = await axios.post(`${baseUri}${authenticatedEndpoint}`, {
         auth:formData 
       });
 

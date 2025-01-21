@@ -2,6 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+const baseUri = import.meta.env.VITE_BASE_URI;
+const usersEndpoint = import.meta.env.VITE_USERS_ENDPOINT;
+
 const Dashboard = () => {
     const { id } = useParams();
 
@@ -14,7 +17,7 @@ const Dashboard = () => {
 
             const token = localStorage.getItem('accessToken');
 
-            const res = await axios.get(`https://mywarehouse3-default-dev-admin.labs.bancolini.com:443/api/v2/users/${id}`,
+            const res = await axios.get(`${baseUri}${usersEndpoint}${id}`,
                 {headers: {
                     "Authorization": token
                 }}
@@ -32,7 +35,7 @@ const Dashboard = () => {
             
             const token = localStorage.getItem('accessToken');
 
-            const res = await axios.get('https://mywarehouse3-default-dev-admin.labs.bancolini.com:443/api/v2/users',
+            const res = await axios.get(`${baseUri}${usersEndpoint}`,
                 {headers: {
                     "Authorization": token
                 }} 
