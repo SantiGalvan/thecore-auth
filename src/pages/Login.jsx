@@ -1,11 +1,14 @@
 import axios from "axios";
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
 const baseUri = import.meta.env.VITE_BASE_URI;
 const authenticatedEndpoint = import.meta.env.VITE_AUTHENTICATED_ENDPOINT;
 
 const Login = () => {
+
+  const { setIsAuthenticated} = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -35,7 +38,8 @@ const Login = () => {
       
       if (token) {
 
-        localStorage.setItem('accessToken', token)
+        localStorage.setItem('accessToken', token);
+        setIsAuthenticated(true);
         navigate(`/dashboard/${id}`);
 
       }

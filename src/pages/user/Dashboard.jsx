@@ -1,12 +1,15 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import {  useParams } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const baseUri = import.meta.env.VITE_BASE_URI;
 const usersEndpoint = import.meta.env.VITE_USERS_ENDPOINT;
 
 const Dashboard = () => {
     const { id } = useParams();
+
+    const {setIsAuthenticated} = useContext(AuthContext);
 
     const [user, setUser] = useState();
     const [users, setUsers] = useState();
@@ -52,6 +55,13 @@ const Dashboard = () => {
         }
     }
 
+    const logout = () => {
+
+        localStorage.removeItem('accessToken');
+        setIsAuthenticated(false);
+
+    }
+
     useEffect(() => {
         fetchUser();
     }, [])
@@ -59,7 +69,19 @@ const Dashboard = () => {
     return (
         <section>
             <div className="container mx-auto py-8">
-                <h1 className="text-4xl text-center text-slate-800">Hello World {user?.email}</h1>
+
+                <div className="flex items-center justify-center gap-8 h-20">
+
+                    <h1 className="text-4xl text-center text-slate-800">Hello World {user?.email}</h1>
+
+                    <button
+                        onClick={logout}
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+                    >
+                        Logout
+                    </button>
+
+                </div>
 
                 <div className="flex justify-center items-center my-12">
                     
