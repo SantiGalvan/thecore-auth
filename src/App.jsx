@@ -4,19 +4,19 @@ import Dashboard from "./pages/user/Dashboard";
 import AuthPage from "./middlewares/AuthPage";
 
 const App = () => {
-return (
-  <Routes>
+  return (
+    <Routes>
 
-    <Route path="/">
+      <Route path="/">
 
-      <Route index element={<Login/>} />
+        <Route index element={<Login/>} />
 
-    </Route>
+      </Route>
 
-    <Route path="/dashboard/:id" element={<AuthPage><Dashboard/></AuthPage>} />
+      <Route path="/dashboard/:id" element={<AuthPage><Dashboard/></AuthPage>} />
 
-  </Routes>
-)
+    </Routes>
+  )
 }
 
 export default App;

@@ -2,14 +2,13 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import {  useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
-
-const baseUri = import.meta.env.VITE_BASE_URI;
-const usersEndpoint = import.meta.env.VITE_USERS_ENDPOINT;
+import { ConfigContext } from "../../contexts/ConfigContext";
 
 const Dashboard = () => {
     const { id } = useParams();
 
     const {setIsAuthenticated} = useContext(AuthContext);
+    const {baseUri, usersEndpoint} = useContext(ConfigContext);
 
     const [user, setUser] = useState();
     const [users, setUsers] = useState();
