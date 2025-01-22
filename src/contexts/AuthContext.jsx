@@ -1,15 +1,19 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(null);
 
     useEffect(() =>{
         const token = localStorage.getItem('accessToken');
 
-        if(token) setIsAuthenticated(true);
+        if(token) {
+            setIsAuthenticated(true);
+        } else {
+            setIsAuthenticated(false);
+        }
     }, [])
 
 
@@ -20,4 +24,11 @@ const AuthProvider = ({children}) => {
     )
 } 
 
-export {AuthProvider, AuthContext} 
+const useAuth = () => {
+    const value = useContext(AuthContext);
+    if (value === undefined) throw new Error('Non sei dentro al Auth Provider');
+
+    return value;
+}
+
+export {AuthProvider, useAuth} 
