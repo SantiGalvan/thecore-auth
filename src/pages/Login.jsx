@@ -2,13 +2,12 @@ import axios from "axios";
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
-
-const baseUri = import.meta.env.VITE_BASE_URI;
-const authenticatedEndpoint = import.meta.env.VITE_AUTHENTICATED_ENDPOINT;
+import { ConfigContext } from "../contexts/ConfigContext";
 
 const Login = () => {
 
   const { setIsAuthenticated} = useContext(AuthContext);
+  const {baseUri, authenticatedEndpoint} = useContext(ConfigContext);
 
   const navigate = useNavigate();
 
