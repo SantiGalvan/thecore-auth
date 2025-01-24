@@ -62,8 +62,6 @@ const Dashboard = () => {
             const users = res.data
             setUsers(users);
 
-            console.log(users);
-
         } catch (err) {
             console.error(err);
         }

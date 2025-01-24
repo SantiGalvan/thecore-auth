@@ -120,10 +120,8 @@ const AuthProvider = ({children}) => {
         // Sessione infinita
         let timerToken;
         if(infiniteSession && currentToken && timeoutToken) {
-            console.log(timeoutToken / 60000 +  " minuti");
             timerToken = setInterval(() => {
 
-                console.log('Ho cambiato il Token')
                 fetchHeartbeat();
                 
             }, timeoutToken);
