@@ -8,14 +8,14 @@ import { ConfigProvider } from './contexts/ConfigContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ConfigProvider>
-      <AuthProvider>
-        <BrowserRouter>
+    <BrowserRouter>
+      <ConfigProvider>
+        <AuthProvider>
 
           <App />
 
-        </BrowserRouter>
-      </AuthProvider>
-    </ConfigProvider>
+        </AuthProvider>
+      </ConfigProvider>
+    </BrowserRouter>
   </StrictMode>,
 )
