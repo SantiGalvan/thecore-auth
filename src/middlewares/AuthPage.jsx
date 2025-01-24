@@ -1,11 +1,15 @@
-import { useContext } from 'react';
-import { Navigate } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
-const AuthPage = ({ children }) => {
-  const { isAuthenticated } = useContext(AuthContext);
+const AuthPage = () => {
+  const { isAuthenticated } = useAuth();
 
-  return isAuthenticated ? children : <Navigate to="/" />;
+  // Check per l'effettivo controllo del token
+  if (isAuthenticated === null) {
+    return null;
+  }
+
+  return isAuthenticated ? <Outlet /> : <Navigate to="/" />
 };
 
 export default AuthPage;

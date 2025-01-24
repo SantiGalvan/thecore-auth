@@ -1,15 +1,9 @@
-import axios from "axios";
-import { useContext, useState } from "react"
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
-import { ConfigContext } from "../contexts/ConfigContext";
+import { useState } from "react"
+import { useAuth } from "../contexts/AuthContext";
 
 const Login = () => {
 
-  const { setIsAuthenticated} = useContext(AuthContext);
-  const {baseUri, authenticatedEndpoint} = useContext(ConfigContext);
-
-  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const initialData = {
     email: '',
@@ -22,39 +16,12 @@ const Login = () => {
     setFormData(curr => ({...curr, [key]:value}))
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      
-      const res = await axios.post(`${baseUri}${authenticatedEndpoint}`, {
-        auth:formData 
-      });
-
-      const id = res.data.id
-      const token = res.headers.token;
-
-      
-      if (token) {
-
-        localStorage.setItem('accessToken', token);
-        setIsAuthenticated(true);
-        navigate(`/dashboard/${id}`);
-
-      }
-     
-    } catch (err) {
-      console.error(err)
-    }
-
-  }
-
 
   return (
     <section>
       <div className="container mx-auto flex items-center justify-center h-screen">
 
-        <form onSubmit={handleSubmit} className="w-[800px] rounded-lg shadow-lg bg-slate-50">
+        <form onSubmit={e => {login(e,formData)}} className="w-[800px] rounded-lg shadow-lg bg-slate-50">
           <h1 className="text-4xl text-center my-12">Login</h1>
 
           {/* Email */}

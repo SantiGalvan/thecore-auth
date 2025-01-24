@@ -1,17 +1,17 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import {  useParams } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { ConfigContext } from "../../contexts/ConfigContext";
+import {fetchConfig} from "../../utils/axiosInstance.js";
 
 const Dashboard = () => {
     const { id } = useParams();
 
-    const {setIsAuthenticated} = useContext(AuthContext);
-    const {baseUri, usersEndpoint} = useContext(ConfigContext);
+    const { logout } = useAuth();
+    const { usersEndpoint } = useContext(ConfigContext);
 
-    const [user, setUser] = useState();
-    const [users, setUsers] = useState();
+    const [user, setUser] = useState({});
+    const [users, setUsers] = useState(null);
 
     const fetchUser = async () => {
         
@@ -19,13 +19,22 @@ const Dashboard = () => {
 
             const token = localStorage.getItem('accessToken');
 
-            const res = await axios.get(`${baseUri}${usersEndpoint}${id}`,
+            if (!token) {
+                logout();
+                return;
+            }
+
+            const axiosInstance = await fetchConfig();
+
+            const res = await axiosInstance.get(`${usersEndpoint}${id}`,
                 {headers: {
                     "Authorization": token
                 }}
             );
 
-            setUser(res.data);
+            const user = res.data;
+
+            setUser(user);
             
         } catch (err) {
             console.error(err);
@@ -37,33 +46,30 @@ const Dashboard = () => {
             
             const token = localStorage.getItem('accessToken');
 
-            const res = await axios.get(`${baseUri}${usersEndpoint}`,
+            if (!token) {
+                logout();
+                return;
+            }
+
+            const axiosInstance = await fetchConfig();
+
+            const res = await axiosInstance.get(`${usersEndpoint}`,
                 {headers: {
                     "Authorization": token
                 }} 
-
             );
 
             const users = res.data
             setUsers(users);
-
-            console.log(users);
 
         } catch (err) {
             console.error(err);
         }
     }
 
-    const logout = () => {
-
-        localStorage.removeItem('accessToken');
-        setIsAuthenticated(false);
-
-    }
-
     useEffect(() => {
         fetchUser();
-    }, [])
+    }, []);
 
     return (
         <section>
@@ -71,7 +77,7 @@ const Dashboard = () => {
 
                 <div className="flex items-center justify-center gap-8 h-20">
 
-                    <h1 className="text-4xl text-center text-slate-800">Hello World {user?.email}</h1>
+                    <h1 className="text-4xl text-center text-slate-800">Email: {user.email}</h1>
 
                     <button
                         onClick={logout}
@@ -95,11 +101,11 @@ const Dashboard = () => {
 
                 <div className="flex justify-center items-center">
 
-                    <ul>
-                        {users?.map(user => (
+                    {users && <ul>
+                        {users.map(user => (
                             <li key={`user-${user.id}`} className="text-xl my-4">{user.id} - {user.email}</li>
                         ))}
-                    </ul>
+                    </ul>}
 
                 </div>
 

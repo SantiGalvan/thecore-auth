@@ -7,13 +7,19 @@ const App = () => {
   return (
     <Routes>
 
+      {/* Rotte pubbliche */}
       <Route path="/">
 
         <Route index element={<Login/>} />
 
       </Route>
 
-      <Route path="/dashboard/:id" element={<AuthPage><Dashboard/></AuthPage>} />
+      {/* Rotte private */}
+      <Route element={<AuthPage />}>
+
+       <Route path="/dashboard/:id" element={<Dashboard/>} />
+
+      </Route>
 
     </Routes>
   )

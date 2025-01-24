@@ -22,6 +22,11 @@ const ConfigProvider = ({children}) => {
         fetchConfig();
     }, []);
 
+    // Check per il controllo dell'effettivo arrivo dei dati dal config.json
+    if (Object.keys(config).length === 0) {
+        return null; 
+    }
+
     return (
         <ConfigContext.Provider value={config}>
             {children}
