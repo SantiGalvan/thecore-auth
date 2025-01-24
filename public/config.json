@@ -2,6 +2,7 @@
     "baseUri": "https://mywarehouse3-default-dev-admin.labs.bancolini.com:443/api/v2/",
     "authenticatedEndpoint": "authenticate",
     "usersEndpoint": "users/",
-    "infoHeartbeatEndpoint": "info/heartbeat",
-    "infiniteSession": true
+    "heartbeatEndpoint": "info/heartbeat",
+    "infiniteSession": true,
+    "timeDeducted": 60000
 }
