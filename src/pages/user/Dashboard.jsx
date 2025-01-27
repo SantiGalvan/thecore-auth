@@ -3,18 +3,18 @@ import {  useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { ConfigContext } from "../../contexts/ConfigContext";
 import {fetchConfig} from "../../utils/axiosInstance.js";
-import Loading from "../../components/Loading.jsx";
-import { LoadingContext } from "../../contexts/LoadingContext.jsx";
+import { useLoading } from "../../contexts/LoadingContext.jsx";
 
 const Dashboard = () => {
     const { id } = useParams();
 
     const { logout } = useAuth();
     const { usersEndpoint } = useContext(ConfigContext);
-    const { isLoading, setIsLoading} = useContext(LoadingContext);
+    const { setIsLoading } = useLoading();
 
     const [user, setUser] = useState({});
     const [users, setUsers] = useState(null);
+    const [disabled, setDisabled] = useState(false);
 
     const fetchUser = async () => {
         
@@ -40,8 +40,8 @@ const Dashboard = () => {
 
             setUser(userData);
 
-            if (user) setIsLoading(false);
-            
+            setIsLoading(false);
+
         } catch (err) {
             console.error(err);
         }
@@ -50,6 +50,8 @@ const Dashboard = () => {
     const fetchUsers = async () => {
         try {
             
+            setDisabled(true);
+
             const token = localStorage.getItem('accessToken');
 
             if (!token) {
@@ -68,6 +70,8 @@ const Dashboard = () => {
             const users = res.data
             setUsers(users);
 
+            console.log(users);
+
         } catch (err) {
             console.error(err);
         }
@@ -79,7 +83,6 @@ const Dashboard = () => {
 
     return (
         <section>
-           { isLoading ? <Loading /> :
             <div className="container mx-auto py-8">
 
                 <div className="flex items-center justify-center gap-8 h-20">
@@ -99,7 +102,8 @@ const Dashboard = () => {
                     
                     <button 
                         onClick={fetchUsers}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
+                        disabled={disabled}
                     >
                         Lista degli utenti
                     </button>
@@ -116,7 +120,7 @@ const Dashboard = () => {
 
                 </div>
 
-            </div>}
+            </div>
         </section>
     )
 }

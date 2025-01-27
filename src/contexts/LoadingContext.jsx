@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const LoadingContext = createContext();
 
@@ -13,4 +13,12 @@ const LoadingProvider = ({children}) => {
     )
 }
 
-export { LoadingProvider, LoadingContext }
+const useLoading = () => {
+    const value = useContext(LoadingContext);
+
+    if(value === undefined) throw new Error('Non puoi settare il loading');
+
+    return value;
+}
+
+export { LoadingProvider, useLoading }

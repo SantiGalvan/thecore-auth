@@ -2,23 +2,27 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/user/Dashboard";
 import AuthPage from "./middlewares/AuthPage";
+import DefaultLayout from "./layouts/DefaultLayout";
 
 const App = () => {
   return (
     <Routes>
 
-      {/* Rotte pubbliche */}
-      <Route path="/">
+      <Route element={<DefaultLayout />}>
 
-        <Route index element={<Login/>} />
+        {/* Rotte pubbliche */}
+        <Route path="/">
 
-      </Route>
+          <Route index element={<Login/>} />
 
-      {/* Rotte private */}
-      <Route element={<AuthPage />}>
+        </Route>
 
-       <Route path="/dashboard/:id" element={<Dashboard/>} />
+        {/* Rotte private */}
+        <Route element={<AuthPage />}>
 
+        <Route path="/dashboard/:id" element={<Dashboard/>} />
+
+        </Route>
       </Route>
 
     </Routes>
