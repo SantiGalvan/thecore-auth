@@ -4,12 +4,14 @@ import axios from "axios";
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 import {fetchConfig} from "../utils/axiosInstance.js";
+import { useLoading } from "./LoadingContext.jsx";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
 
     const { baseUri, heartbeatEndpoint, infiniteSession, timeDeducted, authenticatedEndpoint } = useContext(ConfigContext);
+    const {setIsLoading} = useLoading();
 
     const navigate = useNavigate();
 
@@ -23,6 +25,8 @@ const AuthProvider = ({children}) => {
     
         try {
           
+          setIsLoading(true);
+
           const axiosInstance = await fetchConfig();
     
           const res = await axiosInstance.post(authenticatedEndpoint, {
@@ -40,6 +44,8 @@ const AuthProvider = ({children}) => {
             setIsAuthenticated(true);
             setCurrentToken(token);
             navigate(`/dashboard/${id}`);
+
+            // setIsLoading(false);
     
           }
          

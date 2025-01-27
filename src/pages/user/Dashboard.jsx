@@ -3,20 +3,24 @@ import {  useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { ConfigContext } from "../../contexts/ConfigContext";
 import {fetchConfig} from "../../utils/axiosInstance.js";
+import { useLoading } from "../../contexts/LoadingContext.jsx";
 
 const Dashboard = () => {
     const { id } = useParams();
 
     const { logout } = useAuth();
     const { usersEndpoint } = useContext(ConfigContext);
+    const { setIsLoading } = useLoading();
 
     const [user, setUser] = useState({});
     const [users, setUsers] = useState(null);
+    const [disabled, setDisabled] = useState(false);
 
     const fetchUser = async () => {
         
         try {
 
+            setIsLoading(true);
             const token = localStorage.getItem('accessToken');
 
             if (!token) {
@@ -32,10 +36,12 @@ const Dashboard = () => {
                 }}
             );
 
-            const user = res.data;
+            const userData = res.data;
 
-            setUser(user);
-            
+            setUser(userData);
+
+            setIsLoading(false);
+
         } catch (err) {
             console.error(err);
         }
@@ -44,6 +50,8 @@ const Dashboard = () => {
     const fetchUsers = async () => {
         try {
             
+            setDisabled(true);
+
             const token = localStorage.getItem('accessToken');
 
             if (!token) {
@@ -61,6 +69,8 @@ const Dashboard = () => {
 
             const users = res.data
             setUsers(users);
+
+            console.log(users);
 
         } catch (err) {
             console.error(err);
@@ -92,7 +102,8 @@ const Dashboard = () => {
                     
                     <button 
                         onClick={fetchUsers}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
+                        disabled={disabled}
                     >
                         Lista degli utenti
                     </button>
