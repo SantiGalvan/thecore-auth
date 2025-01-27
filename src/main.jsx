@@ -5,17 +5,20 @@ import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext.jsx'
 import { ConfigProvider } from './contexts/ConfigContext.jsx'
+import { LoadingProvider } from './contexts/LoadingContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <ConfigProvider>
-        <AuthProvider>
+      <LoadingProvider>
+        <ConfigProvider>
+          <AuthProvider>
 
-          <App />
+            <App />
 
-        </AuthProvider>
-      </ConfigProvider>
+          </AuthProvider>
+        </ConfigProvider>
+      </LoadingProvider>
     </BrowserRouter>
   </StrictMode>,
 )
