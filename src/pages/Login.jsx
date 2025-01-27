@@ -1,9 +1,12 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useAuth } from "../contexts/AuthContext";
+import { LoadingContext } from "../contexts/LoadingContext";
+import Loading from "../components/Loading";
 
 const Login = () => {
 
   const { login } = useAuth();
+  const {isLoading} = useContext(LoadingContext);
 
   const initialData = {
     email: '',
@@ -19,6 +22,7 @@ const Login = () => {
 
   return (
     <section>
+      { isLoading ? <Loading/> : 
       <div className="container mx-auto flex items-center justify-center h-screen">
 
         <form onSubmit={e => {login(e,formData)}} className="w-[800px] rounded-lg shadow-lg bg-slate-50">
@@ -60,7 +64,7 @@ const Login = () => {
 
         </form>
 
-      </div>
+      </div>}
     </section>
   )
 }

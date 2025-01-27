@@ -3,12 +3,15 @@ import {  useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { ConfigContext } from "../../contexts/ConfigContext";
 import {fetchConfig} from "../../utils/axiosInstance.js";
+import Loading from "../../components/Loading.jsx";
+import { LoadingContext } from "../../contexts/LoadingContext.jsx";
 
 const Dashboard = () => {
     const { id } = useParams();
 
     const { logout } = useAuth();
     const { usersEndpoint } = useContext(ConfigContext);
+    const { isLoading, setIsLoading} = useContext(LoadingContext);
 
     const [user, setUser] = useState({});
     const [users, setUsers] = useState(null);
@@ -17,6 +20,7 @@ const Dashboard = () => {
         
         try {
 
+            setIsLoading(true);
             const token = localStorage.getItem('accessToken');
 
             if (!token) {
@@ -32,9 +36,11 @@ const Dashboard = () => {
                 }}
             );
 
-            const user = res.data;
+            const userData = res.data;
 
-            setUser(user);
+            setUser(userData);
+
+            if (user) setIsLoading(false);
             
         } catch (err) {
             console.error(err);
@@ -73,6 +79,7 @@ const Dashboard = () => {
 
     return (
         <section>
+           { isLoading ? <Loading /> :
             <div className="container mx-auto py-8">
 
                 <div className="flex items-center justify-center gap-8 h-20">
@@ -109,7 +116,7 @@ const Dashboard = () => {
 
                 </div>
 
-            </div>
+            </div>}
         </section>
     )
 }
