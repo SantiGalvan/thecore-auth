@@ -6,17 +6,20 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext.jsx'
 import { ConfigProvider } from './contexts/ConfigContext.jsx'
 import { LoadingProvider } from './contexts/LoadingContext.jsx'
+import { AlertProvider } from './contexts/AlertContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <LoadingProvider>
         <ConfigProvider>
-          <AuthProvider>
+          <AlertProvider>
+            <AuthProvider>
 
-            <App />
+              <App />
 
-          </AuthProvider>
+            </AuthProvider>
+          </AlertProvider>
         </ConfigProvider>
       </LoadingProvider>
     </BrowserRouter>
