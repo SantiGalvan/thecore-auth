@@ -26,7 +26,7 @@ const Login = () => {
     
     const id = localStorage.getItem('id');
 
-    if(isAuthenticated || id) {
+    if(isAuthenticated && id) {
       navigate(`/dashboard/${id}`);
 
       // Alert

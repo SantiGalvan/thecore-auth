@@ -27,6 +27,7 @@ const AuthProvider = ({children}) => {
         try {
           
           setIsLoading(true);
+          setShowAlert(false);
 
           const axiosInstance = await fetchAxiosConfig(setShowAlert, setTypeAlert, setMessageAlert);
     
@@ -83,7 +84,6 @@ const AuthProvider = ({children}) => {
 
             const newToken = res.headers.token;
             localStorage.setItem('accessToken', newToken);
-            console.log(newToken);
 
         } catch (err) {
             console.error(err);

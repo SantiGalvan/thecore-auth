@@ -142,7 +142,7 @@ const Dashboard = () => {
                     
                     <button 
                         onClick={fetchUsers}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:bg-blue-300 disabled:text-gray-500 disabled:cursor-not-allowed"
                         disabled={disabled}
                     >
                         Lista degli utenti
