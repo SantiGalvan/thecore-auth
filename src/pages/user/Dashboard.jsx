@@ -2,8 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import {  useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { ConfigContext } from "../../contexts/ConfigContext";
-import {fetchConfig} from "../../utils/axiosInstance.js";
+import {fetchAxiosConfig} from "../../utils/axiosInstance.js";
 import { useLoading } from "../../contexts/LoadingContext.jsx";
+import { useAlert } from "../../contexts/AlertContext.jsx";
 
 const Dashboard = () => {
     const { id } = useParams();
@@ -11,6 +12,7 @@ const Dashboard = () => {
     const { logout } = useAuth();
     const { usersEndpoint } = useContext(ConfigContext);
     const { setIsLoading } = useLoading();
+    const { setShowAlert, setTypeAlert, setMessageAlert } = useAlert();
 
     const [user, setUser] = useState({});
     const [users, setUsers] = useState(null);
@@ -25,10 +27,16 @@ const Dashboard = () => {
 
             if (!token) {
                 logout();
+
+                // Alert
+                setShowAlert(true);
+                setTypeAlert('danger');
+                setMessageAlert('Sessione scaduta');
+                
                 return;
             }
 
-            const axiosInstance = await fetchConfig();
+            const axiosInstance = await fetchAxiosConfig(setShowAlert, setTypeAlert, setMessageAlert);
 
             const res = await axiosInstance.get(`${usersEndpoint}${id}`,
                 {headers: {
@@ -44,6 +52,11 @@ const Dashboard = () => {
 
         } catch (err) {
             console.error(err);
+
+            setIsLoading(false);
+
+            logout();
+
         }
     }
 
@@ -56,10 +69,16 @@ const Dashboard = () => {
 
             if (!token) {
                 logout();
+
+                // Alert
+                setShowAlert(true);
+                setTypeAlert('danger');
+                setMessageAlert('Sessione scaduta');
+
                 return;
             }
 
-            const axiosInstance = await fetchConfig();
+            const axiosInstance = await fetchAxiosConfig(setShowAlert, setTypeAlert, setMessageAlert);
 
             const res = await axiosInstance.get(`${usersEndpoint}`,
                 {headers: {
@@ -70,11 +89,32 @@ const Dashboard = () => {
             const users = res.data
             setUsers(users);
 
-            console.log(users);
+            if(users) setDisabled(false);
 
         } catch (err) {
             console.error(err);
+
+            setIsLoading(false);
+
+            const statusError = err.status;
+
+          if(statusError === 401) {
+
+            logout();
+
+          }
+
+            setDisabled(false);
         }
+    }
+
+    const signOut = () => {
+        logout();
+
+        // Alert con messaggio e tipo
+        setShowAlert(true);
+        setTypeAlert('info');
+        setMessageAlert('Hai effettuato il logout');
     }
 
     useEffect(() => {
@@ -90,7 +130,7 @@ const Dashboard = () => {
                     <h1 className="text-4xl text-center text-slate-800">Email: {user.email}</h1>
 
                     <button
-                        onClick={logout}
+                        onClick={signOut}
                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
                     >
                         Logout
