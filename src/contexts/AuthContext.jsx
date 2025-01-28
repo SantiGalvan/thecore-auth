@@ -1,17 +1,18 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ConfigContext } from "./ConfigContext";
-import axios from "axios";
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
-import {fetchConfig} from "../utils/axiosInstance.js";
+import {fetchAxiosConfig} from "../utils/axiosInstance.js";
 import { useLoading } from "./LoadingContext.jsx";
+import { useAlert } from "./AlertContext.jsx";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
 
-    const { baseUri, heartbeatEndpoint, infiniteSession, timeDeducted, authenticatedEndpoint } = useContext(ConfigContext);
+    const { heartbeatEndpoint, infiniteSession, timeDeducted, authenticatedEndpoint } = useContext(ConfigContext);
     const {setIsLoading} = useLoading();
+    const { setShowAlert, setMessageAlert, setTypeAlert } = useAlert();
 
     const navigate = useNavigate();
 
@@ -26,8 +27,9 @@ const AuthProvider = ({children}) => {
         try {
           
           setIsLoading(true);
+          setShowAlert(false);
 
-          const axiosInstance = await fetchConfig();
+          const axiosInstance = await fetchAxiosConfig(setShowAlert, setTypeAlert, setMessageAlert);
     
           const res = await axiosInstance.post(authenticatedEndpoint, {
             auth:formData
@@ -41,16 +43,18 @@ const AuthProvider = ({children}) => {
           if (token) {
             
             localStorage.setItem('accessToken', token);
+            localStorage.setItem('id', id);
             setIsAuthenticated(true);
             setCurrentToken(token);
             navigate(`/dashboard/${id}`);
 
-            // setIsLoading(false);
-    
           }
-         
+
         } catch (err) {
-          console.error(err)
+          console.error(err);
+
+          // Chiudo il Loading
+          setIsLoading(false);
         }
     
     }
@@ -58,6 +62,7 @@ const AuthProvider = ({children}) => {
     const logout = () => {
 
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('id');
         setIsAuthenticated(false);
         setCurrentToken(null);
 
@@ -67,18 +72,25 @@ const AuthProvider = ({children}) => {
 
         try {
             
-            const res = await axios.get(`${baseUri}${heartbeatEndpoint}`, 
+            const token = localStorage.getItem('accessToken');
+
+            const axiosInstance = await fetchAxiosConfig(setShowAlert, setTypeAlert, setMessageAlert);
+
+            const res = await axiosInstance.get(`${heartbeatEndpoint}`, 
                 {headers: {
-                    "Authorization": currentToken
+                    "Authorization": token
                 }}
             );
 
             const newToken = res.headers.token;
             localStorage.setItem('accessToken', newToken);
 
-
         } catch (err) {
             console.error(err);
+
+            // Se c'è un errore faccio il logout
+            logout();
+
         }
     }
 
@@ -88,21 +100,15 @@ const AuthProvider = ({children}) => {
             return
         }
 
-        try {
-
-            const decoded = jwt_decode(currentToken);
-            const exp = decoded.exp;
-            
-            const currentTime = Math.floor(Date.now() / 1000); 
-            
-            const totalTime = (exp - currentTime) * 1000;
-            setSessionTimeout(totalTime);
-            
-            setTimeoutToken(totalTime - timeDeducted);
-
-        } catch (err) {
-            console.error(err);
-        }
+        const decoded = jwt_decode(currentToken);
+        const exp = decoded.exp;
+        
+        const currentTime = Math.floor(Date.now() / 1000); 
+        
+        const totalTime = (exp - currentTime) * 1000;
+        setSessionTimeout(totalTime);
+        
+        setTimeoutToken(totalTime - timeDeducted);
     }
 
     // useEffect per il controllo del Token
@@ -112,7 +118,9 @@ const AuthProvider = ({children}) => {
         if(token) {
             setIsAuthenticated(true);
         } else { 
-            navigate('/');
+            
+            setIsAuthenticated(false);
+
             return;
         }
         
@@ -122,7 +130,6 @@ const AuthProvider = ({children}) => {
     useEffect(() => {
         getTokenExpiry();
 
-        
         // Sessione infinita
         let timerToken;
         if(infiniteSession && currentToken && timeoutToken) {
@@ -140,6 +147,11 @@ const AuthProvider = ({children}) => {
             expirySession = setTimeout(() => {
                 
                 logout();
+
+                // Alert
+                setShowAlert(true);
+                setTypeAlert('danger');
+                setMessageAlert('Sessione scaduta');
                 
             }, sessionTimeout);
         }
@@ -159,8 +171,6 @@ const AuthProvider = ({children}) => {
     const value = {
         isAuthenticated,
         setIsAuthenticated,
-        currentToken,
-        setCurrentToken,
         login,
         logout
     }

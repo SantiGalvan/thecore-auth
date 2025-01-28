@@ -23,6 +23,7 @@ const App = () => {
         <Route path="/dashboard/:id" element={<Dashboard/>} />
 
         </Route>
+        
       </Route>
 
     </Routes>

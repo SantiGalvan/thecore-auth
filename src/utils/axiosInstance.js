@@ -2,11 +2,12 @@ import axios from "axios";
 
 let instance;
 
-const fetchConfig = async () => {
+const fetchAxiosConfig = async (show, type, message) => {
     try {
         const res = await fetch('/config.json');
         const data = await res.json();
         const baseURL = data.baseUri;
+        const { unauthorized, notFound, defaultMessage } = data.axiosErrors;
 
         instance = axios.create({
             baseURL,
@@ -22,10 +23,25 @@ const fetchConfig = async () => {
         instance.interceptors.response.use(
             response => response,
             (error) => {
-                if (error.response && error.response.status === 401) {
-                    localStorage.removeItem('accessToken');
-                }
 
+                if(error.response) {
+
+                    show(true);
+                    type('danger');
+                    
+                    switch (error.response.status) {
+                        case 401:
+                            localStorage.removeItem('accessToken');
+                            message(unauthorized);
+                            break;
+                        case 404:
+                            message(notFound);
+                            break;
+                        default:
+                            message(`${defaultMessage} ${error.response.status} ${error.response.data.error}`);
+                    }
+
+                }
                 return Promise.reject(error);
             }
         );
@@ -38,4 +54,4 @@ const fetchConfig = async () => {
 };
 
 
-export {fetchConfig};
+export {fetchAxiosConfig};

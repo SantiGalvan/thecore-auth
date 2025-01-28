@@ -1,9 +1,14 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useAlert } from "../contexts/AlertContext";
 
 const Login = () => {
 
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
+  const { setShowAlert, setTypeAlert, setMessageAlert } = useAlert();
+
+  const navigate = useNavigate();
 
   const initialData = {
     email: '',
@@ -16,6 +21,21 @@ const Login = () => {
     setFormData(curr => ({...curr, [key]:value}))
   }
 
+  // UseEffect per controllare che l'utente loggato non entri nella pagina di login
+  useEffect(() => {
+    
+    const id = localStorage.getItem('id');
+
+    if(isAuthenticated && id) {
+      navigate(`/dashboard/${id}`);
+
+      // Alert
+      setShowAlert(true);
+      setTypeAlert('info');
+      setMessageAlert('Sei già loggato');
+    }
+
+  }, []);
 
   return (
     <section>
