@@ -2,13 +2,15 @@ import { RxCross2 } from "react-icons/rx";
 import { AiFillWarning, AiFillInfoCircle } from "react-icons/ai";
 import { GiCheckMark } from "react-icons/gi";
 import { useAlert } from "../contexts/AlertContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ConfigContext } from "../contexts/ConfigContext";
 
 const Alert = () => {
 
     const { showAlert, setShowAlert, messageAlert, typeAlert } = useAlert();
     const { alertTimeout } = useContext(ConfigContext);
+
+    const [progress, setProgress] = useState(0);
     
     const alertConfig = {
         danger: {
@@ -17,7 +19,7 @@ const Alert = () => {
             buttonBg: "bg-red-50",
             hoverBg: "hover:bg-red-200",
             focusRing: "focus:ring-red-400",
-            message: ''
+            progressColor: "bg-red-400"
         },
         info : {
             bgColor: "bg-blue-50",
@@ -25,7 +27,7 @@ const Alert = () => {
             buttonBg: "bg-blue-50",
             hoverBg: "hover:bg-blue-200",
             focusRing: "focus:ring-blue-400",
-            message: ''
+            progressColor: "bg-blue-400"
         },
         success : {
             bgColor: "bg-green-50",
@@ -33,12 +35,12 @@ const Alert = () => {
             buttonBg: "bg-green-50",
             hoverBg: "hover:bg-green-200",
             focusRing: "focus:ring-green-400",
-            message: ''
+            progressColor: "bg-green-400"
         }
     }
 
     // Variabili per lo stile dell'Alert
-    const { bgColor, textColor, buttonBg, hoverBg, focusRing } = alertConfig[typeAlert];
+    const { bgColor, textColor, buttonBg, hoverBg, focusRing, progressColor } = alertConfig[typeAlert];
 
     // Restituisce l'icona giusta
     const getIcon = (type) => {
@@ -59,19 +61,39 @@ const Alert = () => {
     // UseEffect per rimuovere il messaggio dopo tot secondi, adesso 10sec
     useEffect(() => {
 
+        let interval;
+        const duration = alertTimeout / 100;
+        const step = 100 / duration;
+
+        interval = setInterval(() => {
+            setProgress((prev) => {
+                if (prev >= 100) {
+                    clearInterval(interval);
+                    return 100;
+                }
+                return prev + step;
+            });
+        }, 100);
+
+        // Chiusura dell'Alert
         const timeOut = setTimeout(() => {
             closeAlert();
         }, alertTimeout);
 
         return () => {
             clearTimeout(timeOut);
+            clearInterval(interval);
         }
 
     }, []);
 
     return(
         
-        <div className={`flex items-center p-4 ${textColor} rounded-lg ${bgColor} mx-auto fixed top-[calc(100vh-100px)] right-10`} role="alert">
+        <div className={`flex items-center p-4 pt-6 ${textColor} rounded-lg ${bgColor} mx-auto fixed top-[calc(100vh-100px)] right-10`} role="alert">
+
+            <div className="w-full bg-gray-200 rounded-t-lg overflow-hidden h-2.5 dark:bg-gray-700 absolute top-0 left-0 right-0">
+                <div className={`${progressColor} h-2.5 rounded-t-lg`} style={{width: `${progress}%`}}></div>
+            </div>
 
             {getIcon(typeAlert)}
 
