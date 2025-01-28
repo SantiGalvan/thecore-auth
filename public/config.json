@@ -4,5 +4,11 @@
     "usersEndpoint": "users/",
     "heartbeatEndpoint": "info/heartbeat",
     "infiniteSession": true,
-    "timeDeducted": 60000
+    "timeDeducted": 60000,
+    "alertTimeout": 10000,
+    "axiosErrors": {
+        "unauthorized":"Autenticazione negata",
+        "notFound": "Risorsa non trovata",
+        "defaultMessage": "Errore generico"
+    }
 }
