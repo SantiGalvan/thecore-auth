@@ -10,7 +10,9 @@
 				"bradlc.vscode-tailwindcss",
 				"Postman.postman-for-vscode",
 				"donjayamanne.githistory",
-				"eamodio.gitlens"
+				"eamodio.gitlens",
+				"vscode-icons-team.vscode-icons",
+				"aaron-bond.better-comments"
 			]
 		}
 	}
