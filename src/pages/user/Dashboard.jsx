@@ -9,7 +9,7 @@ import { useAlert } from "../../contexts/AlertContext.jsx";
 const Dashboard = () => {
     const { id } = useParams();
 
-    const { logout } = useAuth();
+    const { logout, setCurrentToken } = useAuth();
     const { usersEndpoint } = useContext(ConfigContext);
     const { setIsLoading } = useLoading();
     const { setShowAlert, setTypeAlert, setMessageAlert } = useAlert();
@@ -35,6 +35,8 @@ const Dashboard = () => {
                 
                 return;
             }
+
+            setCurrentToken(token);
 
             const axiosInstance = await fetchAxiosConfig(setShowAlert, setTypeAlert, setMessageAlert);
 

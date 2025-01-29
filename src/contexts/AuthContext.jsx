@@ -84,6 +84,7 @@ const AuthProvider = ({children}) => {
 
             const newToken = res.headers.token;
             localStorage.setItem('accessToken', newToken);
+            setCurrentToken(newToken);
 
         } catch (err) {
             console.error(err);
@@ -172,7 +173,8 @@ const AuthProvider = ({children}) => {
         isAuthenticated,
         setIsAuthenticated,
         login,
-        logout
+        logout,
+        setCurrentToken
     }
 
     return (
