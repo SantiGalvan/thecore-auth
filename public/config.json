@@ -10,5 +10,6 @@
         "unauthorized":"Autenticazione negata",
         "notFound": "Risorsa non trovata",
         "defaultMessage": "Errore generico"
-    }
+    },
+    "clearLoginFormOnError": true
 }
