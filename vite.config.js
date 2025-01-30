@@ -14,7 +14,7 @@ export default defineConfig({
       fileName: (format) => `thecore-auth.${format}.js`,
     },
     rollupOptions : {
-      external: ['react', 'react-dom', 'axios', 'react-router-dom'],
+      external: ['react', 'react-dom', 'axios', 'react-router-dom','react-icons','jwt-decode'],
       output: {
         globals: {
           react: 'React',
