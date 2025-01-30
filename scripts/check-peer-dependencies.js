@@ -4,8 +4,6 @@ import { execSync } from 'child_process';
 
 const installPeerDependencies = () => {
   const peerDependencies = {
-    react: "^18.0.0",
-    "react-dom": "^18.0.0",
     "react-router-dom": "^7.0.0",
     axios: "^1.0.0",
     tailwindcss: "^3.0.0",
