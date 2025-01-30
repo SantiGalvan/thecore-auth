@@ -70,27 +70,22 @@ const installTailwind = () => {
 const modifyTailwindConfig = () => {
   const tailwindConfigPath = path.resolve("tailwind.config.js");
 
-  // Verifica se il file tailwind.config.js esiste
   if (fs.existsSync(tailwindConfigPath)) {
     console.log("Modifying tailwind.config.js...");
 
-    // Leggi il contenuto del file
     const configContent = fs.readFileSync(tailwindConfigPath, "utf8");
 
-    // Aggiungi la configurazione content (assicurati che non esista già)
     if (!configContent.includes("content:")) {
+      // Trova il punto giusto per inserire la configurazione content
       const updatedConfigContent = configContent.replace(
+        "module.exports = {",
         `module.exports = {
-            content: [
-              "./src/**/*.{js,jsx,ts,tsx}",
-              "./public/index.html",
-            ],
-            theme: {
-              extend: {},
-            },
-            plugins: [],
-          };`
+          content: [
+            "./src/**/*.{js,jsx,ts,tsx}",
+            "./public/index.html",
+          ],`
       );
+
       fs.writeFileSync(tailwindConfigPath, updatedConfigContent);
       console.log("Added content path to tailwind.config.js.");
     } else {
@@ -104,18 +99,14 @@ const modifyTailwindConfig = () => {
 const modifyIndexCss = () => {
   const cssPath = path.resolve("src/index.css");
 
-  // Verifica se il file index.css esiste
   if (fs.existsSync(cssPath)) {
     console.log("Adding Tailwind directives to the beginning of index.css...");
 
-    // Leggi il contenuto del file CSS
     const cssContent = fs.readFileSync(cssPath, "utf8");
-
-    // Direttive di Tailwind da aggiungere
     const tailwindDirectives = `@tailwind base;\n@tailwind components;\n@tailwind utilities;\n`;
 
-    // Aggiungi le direttive all'inizio del file se non sono già presenti
-    if (!cssContent.includes("@tailwind base;")) {
+    // Verifica che le direttive non siano già presenti
+    if (!cssContent.startsWith(tailwindDirectives)) {
       const updatedCssContent = tailwindDirectives + cssContent;
       fs.writeFileSync(cssPath, updatedCssContent);
       console.log("Tailwind directives added to index.css.");
