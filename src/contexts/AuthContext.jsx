@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { ConfigContext } from "./ConfigContext";
+import { useConfig } from "./ConfigContext";
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 import {fetchAxiosConfig} from "../utils/axiosInstance.js";
@@ -10,7 +10,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
 
-    const { heartbeatEndpoint, infiniteSession, timeDeducted, authenticatedEndpoint } = useContext(ConfigContext);
+    const { heartbeatEndpoint, infiniteSession, timeDeducted, authenticatedEndpoint } = useConfig();;
     const {setIsLoading} = useLoading();
     const { setShowAlert, setMessageAlert, setTypeAlert } = useAlert();
 

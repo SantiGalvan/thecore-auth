@@ -1,15 +1,15 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "../contexts/AlertContext";
 import LoginForm from "../components/LoginForm";
-import { ConfigContext } from "../contexts/ConfigContext";
+import { useConfig } from "../contexts/ConfigContext";
 
 const Login = () => {
 
   const { login } = useAuth();
   const { setShowAlert, setTypeAlert, setMessageAlert } = useAlert();
-  const { clearLoginFormOnError } = useContext(ConfigContext);
+  const { clearLoginFormOnError } = useConfig();
 
   const navigate = useNavigate();
 

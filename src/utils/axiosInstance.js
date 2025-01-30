@@ -3,6 +3,8 @@ import axios from "axios";
 let instance;
 
 const fetchAxiosConfig = async (show, type, message) => {
+    if (instance) return instance;
+
     try {
         const res = await fetch('/config.json');
         const data = await res.json();

@@ -2,13 +2,13 @@ import { RxCross2 } from "react-icons/rx";
 import { AiFillWarning, AiFillInfoCircle } from "react-icons/ai";
 import { GiCheckMark } from "react-icons/gi";
 import { useAlert } from "../contexts/AlertContext";
-import { useContext, useEffect, useState } from "react";
-import { ConfigContext } from "../contexts/ConfigContext";
+import { useEffect, useState } from "react";
+import { useConfig } from "../contexts/ConfigContext";
 
 const Alert = () => {
 
     const { showAlert, setShowAlert, messageAlert, typeAlert } = useAlert();
-    const { alertTimeout } = useContext(ConfigContext);
+    const { alertTimeout } = useConfig();
 
     const [progress, setProgress] = useState(0);
     

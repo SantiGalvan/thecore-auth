@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const ConfigContext = createContext();
 
@@ -34,4 +34,12 @@ const ConfigProvider = ({children}) => {
     )
 }
 
-export {ConfigProvider, ConfigContext}
+const useConfig = () => {
+    const value = useContext(ConfigContext);
+
+    if(value === undefined) throw new Error('Non puoi leggere i config');
+
+    return value;
+}
+
+export {ConfigProvider, useConfig}

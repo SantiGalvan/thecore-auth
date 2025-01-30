@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from "react";
-import {  useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { ConfigContext } from "../../contexts/ConfigContext";
+import { useConfig } from "../../contexts/ConfigContext";
 import {fetchAxiosConfig} from "../../utils/axiosInstance.js";
 import { useLoading } from "../../contexts/LoadingContext.jsx";
 import { useAlert } from "../../contexts/AlertContext.jsx";
@@ -10,7 +10,7 @@ const Dashboard = () => {
     const { id } = useParams();
 
     const { logout, setCurrentToken } = useAuth();
-    const { usersEndpoint } = useContext(ConfigContext);
+    const { usersEndpoint } = useConfig();
     const { setIsLoading } = useLoading();
     const { setShowAlert, setTypeAlert, setMessageAlert } = useAlert();
 

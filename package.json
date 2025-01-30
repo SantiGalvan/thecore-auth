@@ -1,8 +1,16 @@
 {
-  "name": "hello-world",
-  "private": true,
+  "name": "thecore-auth",
+  "private": false,
   "version": "0.0.0",
   "type": "module",
+  "main": "dist/thecore-auth.csj.js",
+  "module": "dist/thecore-auth.esm.js",
+  "exports": {
+    ".": {
+      "import": "./dist/thecore-auth.esm.js",
+      "require": "./dist/thecore-auth.cjs.js"
+    }
+  },
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
@@ -31,5 +39,26 @@
     "postcss": "^8.5.1",
     "tailwindcss": "^3.4.17",
     "vite": "^6.0.5"
-  }
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SantiGalvan/thecore-auth"
+  },
+  "keywords": [
+    "react",
+    "authentication",
+    "jwt",
+    "react-router"
+  ],
+  "author": "Santiago Galvan<santiagogalvancolorado@gmail.com>",
+  "license": "MIT",
+  "description": "Un pacchetto per l'autenticazione in React utilizzando JWT nell'accezione implementata in thecore e React Router"
 }
