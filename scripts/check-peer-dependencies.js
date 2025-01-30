@@ -78,12 +78,12 @@ const modifyTailwindConfig = () => {
     if (!configContent.includes("content:")) {
       // Trova il punto giusto per inserire la configurazione content
       const updatedConfigContent = configContent.replace(
-        "module.exports = {",
+        /module\.exports\s*=\s*{/,
         `module.exports = {
-          content: [
-            "./src/**/*.{js,jsx,ts,tsx}",
-            "./public/index.html",
-          ],`
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./public/index.html",
+  ],`
       );
 
       fs.writeFileSync(tailwindConfigPath, updatedConfigContent);
