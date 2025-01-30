@@ -1,9 +1,9 @@
 {
   "name": "thecore-auth",
   "private": false,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
-  "main": "dist/thecore-auth.csj.js",
+  "main": "dist/thecore-auth.cjs.js",
   "module": "dist/thecore-auth.esm.js",
   "exports": {
     ".": {
