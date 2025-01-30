@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
 
+console.log('Sono entrato nello script');
+
 const installPeerDependencies = () => {
   const peerDependencies = {
     "react-router-dom": "^7.0.0",
