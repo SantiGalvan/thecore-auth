@@ -12,7 +12,8 @@
 				"donjayamanne.githistory",
 				"eamodio.gitlens",
 				"vscode-icons-team.vscode-icons",
-				"aaron-bond.better-comments"
+				"aaron-bond.better-comments",
+				"github.vscode-github-actions"
 			]
 		}
 	}

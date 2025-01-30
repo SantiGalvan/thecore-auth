@@ -1,0 +1,37 @@
+name: Build and Publish to npm
+
+on:
+  push:
+    branches:
+      - main # Si attiva su push alla branch principale (puoi modificare il nome della branch se usi un'altra)
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest # Usa una macchina virtuale Ubuntu per il job
+
+    steps:
+      # Checkout del codice dal repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Imposta Node.js (specifica la versione che vuoi usare, ad esempio v18)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22" # Usa la versione di Node.js desiderata
+
+      # Installa le dipendenze (sia di produzione che di sviluppo)
+      - name: Install dependencies
+        run: npm install
+
+      # Esegui il build del pacchetto
+      - name: Build the package
+        run: npm run build # Assicurati che il tuo package.json contenga il comando "build"
+
+      # Login a npm (usa i secrets di GitHub per la sicurezza)
+      - name: Authenticate to npm
+        run: npm login --username ${{ secrets.NPM_USERNAME }} --password ${{ secrets.NPM_PASSWORD }} --email ${{ secrets.NPM_EMAIL }}
+
+      # Pubblica il pacchetto su npm
+      - name: Publish to npm
+        run: npm publish --access public # Utilizza `--access public` per pacchetti pubblici (per pacchetti privati ometti questo)
