@@ -12,7 +12,6 @@ const requiredDependencies = [
   "react-router-dom",
   "react-icons",
   "jwt-decode",
-  "tailwindcss",
 ]
 
 // Funzione per trovare il package.json dell'applicazione principale
@@ -55,8 +54,8 @@ const printDependencies = (packageJsonPath) => {
   }
 };
 
-// Funzione per controllare se le dipendenze richieste sono installate
-const checkDependencies = (packageJsonPath) => {
+// Funzione per controllare le dipendenze e installare quelle mancanti
+const checkAndInstallDependencies = (packageJsonPath, appRoot) => {
   try {
     const packageJsonContent = fs.readFileSync(packageJsonPath, "utf-8");
     const packageJson = JSON.parse(packageJsonContent);
@@ -68,21 +67,37 @@ const checkDependencies = (packageJsonPath) => {
 
     console.log("📦 Verifica delle dipendenze richieste:");
 
-    let allDependenciesFound = true;
-    requiredDependencies.forEach((dep) => {
-      if (dependencies[dep]) {
-        console.log(`✅ ${dep} è installato (versione: ${dependencies[dep]})`);
-      } else {
-        console.log(`❌ ${dep} NON è installato`);
-        allDependenciesFound = false;
-      }
+    const missingDependencies = requiredDependencies.filter((dep) => !dependencies[dep]);
+
+    // Mostra quali dipendenze mancano
+    if (missingDependencies.length === 0) {
+      console.log("✅ Tutte le dipendenze richieste sono già installate!");
+      return;
+    }
+
+    missingDependencies.forEach((dep) => {
+      console.log(`❌ ${dep} NON è installato`);
     });
 
-    if (!allDependenciesFound) {
-      console.warn(
-        "\n⚠️ Alcune dipendenze richieste non sono installate. Assicurati di aggiungerle manualmente o tramite npm/yarn."
-      );
+    // Installa solo le dipendenze mancanti (escludendo tailwindcss)
+    const dependenciesToInstall = missingDependencies.filter((dep) => dep !== "tailwindcss");
+
+    if (dependenciesToInstall.length > 0) {
+      console.log(`📥 Installazione delle dipendenze mancanti: ${dependenciesToInstall.join(", ")}...`);
+
+      try {
+        execSync(`npm install ${dependenciesToInstall.join(" ")}`, {
+          cwd: appRoot,
+          stdio: "inherit",
+        });
+        console.log("✅ Dipendenze installate con successo!");
+      } catch (error) {
+        console.error("❌ Errore durante l'installazione delle dipendenze:", error);
+        process.exit(1);
+      }
     }
+
+    console.log("⚠️ NOTA: 'tailwindcss' non è stato installato automaticamente. Dovrai farlo manualmente.");
 
   } catch (error) {
     console.error("❌ Errore nella lettura del package.json:", error);
@@ -101,7 +116,7 @@ try {
   printDependencies(packageJsonPath);
 
   // Controlla le dipendenze
-  checkDependencies(packageJsonPath);
+  checkAndInstallDependencies(packageJsonPath, appRoot);
 
 } catch (error) {
   console.error("❌ Errore generale:", error);
