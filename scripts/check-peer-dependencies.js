@@ -89,7 +89,7 @@ const modifyTailwindConfig = () => {
 };
 
 const modifyIndexCss = () => {
-  const cssPath = path.resolve(__dirname, "../../src/index.css");
+  const cssPath = path.join(process.cwd(), "src", "index.css");
 
   if (!fs.existsSync(cssPath)) {
     console.log("index.css not found, creating it...");
