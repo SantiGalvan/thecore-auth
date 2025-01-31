@@ -13,7 +13,7 @@ const installPeerDependencies = () => {
     "jwt-decode": "^3.1.2"
   };
 
-  const packageJsonPath = path.resolve(process.cwd(), "package.json");
+  const packageJsonPath = path.resolve(__dirname, "../../package.json");
 
   if (!fs.existsSync(packageJsonPath)) {
     console.error("Error: package.json not found");
@@ -33,7 +33,7 @@ const installPeerDependencies = () => {
 
     if (!installedVersion) {
       console.log(`Peer dependency "${pkg}" is missing. Installing...`);
-      execSync(`npm install ${pkg}@${requiredVersion}`, { stdio: "inherit", cwd: process.cwd() });
+      execSync(`npm install ${pkg}@${requiredVersion}`, { stdio: "inherit", cwd: path.resolve(__dirname, "../../") });
     } else {
       console.log(`Peer dependency "${pkg}" is already installed (version: ${installedVersion}).`);
     }
@@ -44,13 +44,13 @@ const installTailwind = () => {
   console.log("Checking if Tailwind CSS is installed...");
 
   try {
-    const packageJsonPath = path.resolve(process.cwd(), "package.json");
+    const packageJsonPath = path.resolve(__dirname, "../../package.json");
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
 
     if (!packageJson.devDependencies || !packageJson.devDependencies.tailwindcss) {
       console.log("Tailwind CSS not found. Installing...");
-      execSync("npm install -D tailwindcss@3", { stdio: "inherit", cwd: process.cwd() });
-      execSync("npx tailwindcss init", { stdio: "inherit", cwd: process.cwd() });
+      execSync("npm install -D tailwindcss@3", { stdio: "inherit", cwd: path.resolve(__dirname, "../../") });
+      execSync("npx tailwindcss init", { stdio: "inherit", cwd: path.resolve(__dirname, "../../") });
       console.log("Tailwind CSS installed successfully.");
     } else {
       console.log("Tailwind CSS is already installed.");
@@ -62,7 +62,7 @@ const installTailwind = () => {
 };
 
 const modifyTailwindConfig = () => {
-  const tailwindConfigPath = path.resolve(process.cwd(), "tailwind.config.js");
+  const tailwindConfigPath = path.resolve(__dirname, "../../tailwind.config.js");
 
   if (fs.existsSync(tailwindConfigPath)) {
     console.log("Modifying tailwind.config.js...");
@@ -89,7 +89,7 @@ const modifyTailwindConfig = () => {
 };
 
 const modifyIndexCss = () => {
-  const cssPath = path.resolve(process.cwd(), "src/index.css");
+  const cssPath = path.resolve(__dirname, "../../src/index.css");
 
   if (!fs.existsSync(cssPath)) {
     console.log("index.css not found, creating it...");
