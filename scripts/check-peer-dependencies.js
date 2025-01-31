@@ -8,6 +8,21 @@ console.log('Sono entrato nello script');
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const findAppRoot = () => {
+  let dir = process.cwd();
+  while (!fs.existsSync(path.join(dir, "package.json"))) {
+    const parentDir = path.dirname(dir);
+    if (parentDir === dir) {
+      throw new Error("package.json not found in any parent directory.");
+    }
+    dir = parentDir;
+  }
+  return dir;
+};
+
+const appRoot = findAppRoot();
+const packageJsonPath = path.join(appRoot, "package.json");
+
 const installPeerDependencies = () => {
   const peerDependencies = {
     "react-router-dom": "^7.0.0",
@@ -17,29 +32,25 @@ const installPeerDependencies = () => {
     "jwt-decode": "^3.1.2"
   };
 
-  const packageJsonPath = path.resolve(__dirname, "../../package.json");
-
   if (!fs.existsSync(packageJsonPath)) {
     console.error("Error: package.json not found");
     return;
   }
 
-  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
-  const installedDependencies = {
-    ...packageJson.dependencies,
-    ...packageJson.devDependencies,
-    ...packageJson.peerDependencies,
-  };
-
   Object.keys(peerDependencies).forEach((pkg) => {
-    const requiredVersion = peerDependencies[pkg];
-    const installedVersion = installedDependencies[pkg];
+    try {
+      const installedVersion = execSync(`npm list ${pkg} --depth=0 --json`, { cwd: appRoot, encoding: "utf8" });
+      const parsedVersion = JSON.parse(installedVersion).dependencies?.[pkg]?.version;
 
-    if (!installedVersion) {
-      console.log(`Peer dependency "${pkg}" is missing. Installing...`);
-      execSync(`npm install ${pkg}@${requiredVersion}`, { stdio: "inherit", cwd: path.resolve(__dirname, "../../") });
-    } else {
-      console.log(`Peer dependency "${pkg}" is already installed (version: ${installedVersion}).`);
+      if (!parsedVersion) {
+        console.log(`📦 Installing ${pkg}@${peerDependencies[pkg]}...`);
+        execSync(`npm install ${pkg}@${peerDependencies[pkg]}`, { stdio: "inherit", cwd: appRoot });
+      } else {
+        console.log(`✅ ${pkg} already installed (version: ${parsedVersion}).`);
+      }
+    } catch (error) {
+      console.log(`📦 Installing ${pkg}@${peerDependencies[pkg]}...`);
+      execSync(`npm install ${pkg}@${peerDependencies[pkg]}`, { stdio: "inherit", cwd: appRoot });
     }
   });
 };
@@ -48,25 +59,23 @@ const installTailwind = () => {
   console.log("Checking if Tailwind CSS is installed...");
 
   try {
-    const packageJsonPath = path.resolve(__dirname, "../../package.json");
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
 
-    if (!packageJson.devDependencies || !packageJson.devDependencies.tailwindcss) {
-      console.log("Tailwind CSS not found. Installing...");
-      execSync("npm install -D tailwindcss@3", { stdio: "inherit", cwd: path.resolve(__dirname, "../../") });
-      execSync("npx tailwindcss init", { stdio: "inherit", cwd: path.resolve(__dirname, "../../") });
-      console.log("Tailwind CSS installed successfully.");
+    if (!packageJson.devDependencies?.tailwindcss) {
+      console.log("📦 Installing Tailwind CSS...");
+      execSync("npm install -D tailwindcss@3", { stdio: "inherit", cwd: appRoot });
+      execSync("npx tailwindcss init", { stdio: "inherit", cwd: appRoot });
+      console.log("✅ Tailwind CSS installed.");
     } else {
-      console.log("Tailwind CSS is already installed.");
+      console.log("✅ Tailwind CSS already installed.");
     }
   } catch (error) {
-    console.error("Error checking or installing Tailwind CSS:", error);
-    process.exit(1);
+    console.error("❌ Error installing Tailwind CSS:", error);
   }
 };
 
 const modifyTailwindConfig = () => {
-  const tailwindConfigPath = path.resolve(__dirname, "../../tailwind.config.js");
+  const tailwindConfigPath = path.join(appRoot, "tailwind.config.js");
 
   if (fs.existsSync(tailwindConfigPath)) {
     console.log("Modifying tailwind.config.js...");
@@ -93,7 +102,7 @@ const modifyTailwindConfig = () => {
 };
 
 const modifyIndexCss = () => {
-  const cssPath = path.join(process.cwd(), "src", "index.css");
+  const cssPath = path.join(appRoot, "src", "index.css");
 
   if (!fs.existsSync(cssPath)) {
     console.log("index.css not found, creating it...");
