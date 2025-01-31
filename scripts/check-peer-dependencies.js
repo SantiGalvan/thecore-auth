@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { execSync } from "child_process";
 
 // Trova il percorso assoluto dello script
 const __filename = fileURLToPath(import.meta.url);
