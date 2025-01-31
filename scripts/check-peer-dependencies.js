@@ -21,11 +21,41 @@ const findAppRoot = () => {
   return dir;
 };
 
+// Funzione per leggere e stampare le dipendenze
+const printDependencies = (packageJsonPath) => {
+  try {
+    const packageJsonContent = fs.readFileSync(packageJsonPath, "utf-8");
+    const packageJson = JSON.parse(packageJsonContent);
+
+    console.log("📦 Dipendenze installate:");
+    if (packageJson.dependencies) {
+      console.log("🔹 dependencies:", packageJson.dependencies);
+    } else {
+      console.log("⚠️ Nessuna dependencies trovata.");
+    }
+
+    if (packageJson.devDependencies) {
+      console.log("🔹 devDependencies:", packageJson.devDependencies);
+    } else {
+      console.log("⚠️ Nessuna devDependencies trovata.");
+    }
+
+  } catch (error) {
+    console.error("❌ Errore nella lettura del package.json:", error);
+    process.exit(1);
+  }
+};
+
+// Trova la root dell'app e stampa le dipendenze
 try {
   const appRoot = findAppRoot();
   const packageJsonPath = path.join(appRoot, "package.json");
   console.log("✅ package.json trovato in:", packageJsonPath);
+  
+  // Stampa le dipendenze
+  printDependencies(packageJsonPath);
+
 } catch (error) {
-  console.error("❌ Errore nella ricerca del package.json:", error);
+  console.error("❌ Errore generale:", error);
   process.exit(1);
 }
