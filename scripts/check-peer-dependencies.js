@@ -3,7 +3,7 @@ import path from 'path';
 import { execSync } from 'child_process';
 import { fileURLToPath } from "url";
 
-console.log('Sono entrato nello script');
+console.log('📌 Avvio dello script di installazione dipendenze...');
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,7 +13,7 @@ const findAppRoot = () => {
   while (!fs.existsSync(path.join(dir, "package.json"))) {
     const parentDir = path.dirname(dir);
     if (parentDir === dir) {
-      throw new Error("package.json not found in any parent directory.");
+      throw new Error("❌ package.json non trovato in nessuna directory superiore.");
     }
     dir = parentDir;
   }
@@ -22,6 +22,25 @@ const findAppRoot = () => {
 
 const appRoot = findAppRoot();
 const packageJsonPath = path.join(appRoot, "package.json");
+
+const installDependencies = (dependencies, isDev = false) => {
+  Object.keys(dependencies).forEach((pkg) => {
+    try {
+      const installedVersion = execSync(`npm list ${pkg} --depth=0 --json`, { cwd: appRoot, encoding: "utf8" });
+      const parsedVersion = JSON.parse(installedVersion).dependencies?.[pkg]?.version;
+
+      if (!parsedVersion) {
+        console.log(`📦 Installing ${pkg}@${dependencies[pkg]}...`);
+        execSync(`npm install ${isDev ? "-D" : ""} ${pkg}@${dependencies[pkg]}`, { stdio: "inherit", cwd: appRoot });
+      } else {
+        console.log(`✅ ${pkg} già installato (versione: ${parsedVersion}).`);
+      }
+    } catch (error) {
+      console.log(`📦 Installing ${pkg}@${dependencies[pkg]}...`);
+      execSync(`npm install ${isDev ? "-D" : ""} ${pkg}@${dependencies[pkg]}`, { stdio: "inherit", cwd: appRoot });
+    }
+  });
+};
 
 const installPeerDependencies = () => {
   const peerDependencies = {
@@ -32,53 +51,30 @@ const installPeerDependencies = () => {
     "jwt-decode": "^3.1.2"
   };
 
-  if (!fs.existsSync(packageJsonPath)) {
-    console.error("Error: package.json not found");
-    return;
-  }
-
-  Object.keys(peerDependencies).forEach((pkg) => {
-    try {
-      const installedVersion = execSync(`npm list ${pkg} --depth=0 --json`, { cwd: appRoot, encoding: "utf8" });
-      const parsedVersion = JSON.parse(installedVersion).dependencies?.[pkg]?.version;
-
-      if (!parsedVersion) {
-        console.log(`📦 Installing ${pkg}@${peerDependencies[pkg]}...`);
-        execSync(`npm install ${pkg}@${peerDependencies[pkg]}`, { stdio: "inherit", cwd: appRoot });
-      } else {
-        console.log(`✅ ${pkg} already installed (version: ${parsedVersion}).`);
-      }
-    } catch (error) {
-      console.log(`📦 Installing ${pkg}@${peerDependencies[pkg]}...`);
-      execSync(`npm install ${pkg}@${peerDependencies[pkg]}`, { stdio: "inherit", cwd: appRoot });
-    }
-  });
+  installDependencies(peerDependencies);
 };
 
 const installTailwind = () => {
-  console.log("Checking if Tailwind CSS is installed...");
-
+  console.log("🔍 Controllo installazione Tailwind CSS...");
   try {
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
-
     if (!packageJson.devDependencies?.tailwindcss) {
-      console.log("📦 Installing Tailwind CSS...");
-      execSync("npm install -D tailwindcss@3", { stdio: "inherit", cwd: appRoot });
+      console.log("📦 Installazione Tailwind CSS...");
+      installDependencies({ tailwindcss: "^3.0.0" }, true);
       execSync("npx tailwindcss init", { stdio: "inherit", cwd: appRoot });
-      console.log("✅ Tailwind CSS installed.");
+      console.log("✅ Tailwind CSS installato con successo.");
     } else {
-      console.log("✅ Tailwind CSS already installed.");
+      console.log("✅ Tailwind CSS già installato.");
     }
   } catch (error) {
-    console.error("❌ Error installing Tailwind CSS:", error);
+    console.error("❌ Errore durante l'installazione di Tailwind CSS:", error);
   }
 };
 
 const modifyTailwindConfig = () => {
   const tailwindConfigPath = path.join(appRoot, "tailwind.config.js");
-
   if (fs.existsSync(tailwindConfigPath)) {
-    console.log("Modifying tailwind.config.js...");
+    console.log("✍️ Modifica tailwind.config.js...");
     const configContent = fs.readFileSync(tailwindConfigPath, "utf8");
 
     if (!configContent.includes("content:")) {
@@ -86,18 +82,17 @@ const modifyTailwindConfig = () => {
         /module\.exports\s*=\s*{/,
         `module.exports = {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-    "./public/index.html",
+    \"./src/**/*.{js,jsx,ts,tsx}\",
+    \"./public/index.html\",
   ],`
       );
-
       fs.writeFileSync(tailwindConfigPath, updatedConfigContent);
-      console.log("Added content path to tailwind.config.js.");
+      console.log("✅ Percorsi content aggiunti a tailwind.config.js.");
     } else {
-      console.log("content path already present in tailwind.config.js.");
+      console.log("✅ Il file tailwind.config.js è già configurato correttamente.");
     }
   } else {
-    console.error("tailwind.config.js not found");
+    console.error("❌ tailwind.config.js non trovato");
   }
 };
 
@@ -105,24 +100,23 @@ const modifyIndexCss = () => {
   const cssPath = path.join(appRoot, "src", "index.css");
 
   if (!fs.existsSync(cssPath)) {
-    console.log("index.css not found, creating it...");
+    console.log("📄 Creazione file index.css...");
     fs.writeFileSync(cssPath, "");
   }
 
   if (fs.existsSync(cssPath)) {
-    console.log("Adding Tailwind directives to the beginning of index.css...");
+    console.log("✍️ Aggiunta direttive Tailwind a index.css...");
     const cssContent = fs.readFileSync(cssPath, "utf8");
     const tailwindDirectives = `@tailwind base;\n@tailwind components;\n@tailwind utilities;\n`;
 
     if (!cssContent.startsWith(tailwindDirectives)) {
-      const updatedCssContent = tailwindDirectives + cssContent;
-      fs.writeFileSync(cssPath, updatedCssContent);
-      console.log("Tailwind directives added to index.css.");
+      fs.writeFileSync(cssPath, tailwindDirectives + cssContent);
+      console.log("✅ Direttive Tailwind aggiunte a index.css.");
     } else {
-      console.log("Tailwind directives already present in index.css.");
+      console.log("✅ Le direttive Tailwind sono già presenti in index.css.");
     }
   } else {
-    console.error("index.css not found");
+    console.error("❌ index.css non trovato");
   }
 };
 
