@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 const scriptPath = path.join(__dirname, "scripts", "check-peer-dependencies.js");
 
 try {
-  console.log("🔄 Eseguendo check-peer-dependencies.js...");
+  console.log("Eseguendo check-peer-dependencies.js...");
   execSync(`node ${scriptPath}`, { stdio: "inherit" });
   console.log("check-peer-dependencies.js eseguito con successo!");
 } catch (error) {

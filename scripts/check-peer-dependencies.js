@@ -44,19 +44,13 @@ const installTailwind = () => {
   console.log("Checking if Tailwind CSS is installed...");
 
   try {
-    // Verifica se tailwindcss è già presente nelle dipendenze
     const packageJsonPath = path.resolve("package.json");
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
 
     if (!packageJson.devDependencies || !packageJson.devDependencies.tailwindcss) {
       console.log("Tailwind CSS not found. Installing...");
-
-      // Esegui i comandi per installare tailwindcss
       execSync("npm install -D tailwindcss@3", { stdio: "inherit" });
-
-      // Esegui npx per generare tailwind.config.js
       execSync("npx tailwindcss init", { stdio: "inherit" });
-
       console.log("Tailwind CSS installed successfully.");
     } else {
       console.log("Tailwind CSS is already installed.");
@@ -72,11 +66,9 @@ const modifyTailwindConfig = () => {
 
   if (fs.existsSync(tailwindConfigPath)) {
     console.log("Modifying tailwind.config.js...");
-
     const configContent = fs.readFileSync(tailwindConfigPath, "utf8");
 
     if (!configContent.includes("content:")) {
-      // Trova il punto giusto per inserire la configurazione content
       const updatedConfigContent = configContent.replace(
         /module\.exports\s*=\s*{/,
         `module.exports = {
@@ -99,22 +91,21 @@ const modifyTailwindConfig = () => {
 const modifyIndexCss = () => {
   const cssPath = path.resolve("src/index.css");
 
-  if (fs.existsSync(cssPath)) {
-    console.log("Adding Tailwind directives to the beginning of index.css...");
+  if (!fs.existsSync(cssPath)) {
+    console.log("index.css not found, creating it...");
+    fs.writeFileSync(cssPath, "\n");
+  }
 
-    const cssContent = fs.readFileSync(cssPath, "utf8");
-    const tailwindDirectives = `@tailwind base;\n@tailwind components;\n@tailwind utilities;\n`;
+  console.log("Adding Tailwind directives to the beginning of index.css...");
+  const cssContent = fs.readFileSync(cssPath, "utf8");
+  const tailwindDirectives = `@tailwind base;\n@tailwind components;\n@tailwind utilities;\n`;
 
-    // Verifica che le direttive non siano già presenti
-    if (!cssContent.startsWith(tailwindDirectives)) {
-      const updatedCssContent = tailwindDirectives + cssContent;
-      fs.writeFileSync(cssPath, updatedCssContent);
-      console.log("Tailwind directives added to index.css.");
-    } else {
-      console.log("Tailwind directives already present in index.css.");
-    }
+  if (!cssContent.startsWith(tailwindDirectives)) {
+    const updatedCssContent = tailwindDirectives + cssContent;
+    fs.writeFileSync(cssPath, updatedCssContent);
+    console.log("Tailwind directives added to index.css.");
   } else {
-    console.error("index.css not found");
+    console.log("Tailwind directives already present in index.css.");
   }
 };
 
@@ -125,5 +116,4 @@ const checkAndInstallDependencies = () => {
   modifyIndexCss();
 };
 
-// Esegui tutto
 checkAndInstallDependencies();
