@@ -69,7 +69,7 @@ const checkDependencies = (packageJsonPath) => {
     console.log("📦 Verifica delle dipendenze richieste:");
 
     let allDependenciesFound = true;
-    REQUIRED_DEPENDENCIES.forEach((dep) => {
+    requiredDependencies.forEach((dep) => {
       if (dependencies[dep]) {
         console.log(`✅ ${dep} è installato (versione: ${dependencies[dep]})`);
       } else {
@@ -99,7 +99,7 @@ try {
   
   // Stampa le dipendenze
   printDependencies(packageJsonPath);
-  
+
   // Controlla le dipendenze
   checkDependencies(packageJsonPath);
 
