@@ -12,6 +12,7 @@ import Loading from "./components/Loading";
 import Alert from "./components/Alert";
 import Input from "./components/inputs/Input";
 import InputLabel from "./components/inputs/InputLabel";
+import './index.css';
 
 export { 
     LoadingProvider,

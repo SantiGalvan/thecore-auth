@@ -24,6 +24,13 @@ export default defineConfig({
           'react-router-dom': 'ReactRouterDOM',
         }
       }
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "./src/index.css";`,
+        }
+      }
     }
   }
 });
