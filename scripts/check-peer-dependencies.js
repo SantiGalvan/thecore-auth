@@ -13,7 +13,7 @@ const installPeerDependencies = () => {
     "jwt-decode": "^3.1.2"
   };
 
-  const packageJsonPath = path.resolve("package.json");
+  const packageJsonPath = path.resolve(process.cwd(), "package.json");
 
   if (!fs.existsSync(packageJsonPath)) {
     console.error("Error: package.json not found");
@@ -33,7 +33,7 @@ const installPeerDependencies = () => {
 
     if (!installedVersion) {
       console.log(`Peer dependency "${pkg}" is missing. Installing...`);
-      execSync(`npm install ${pkg}@${requiredVersion}`, { stdio: "inherit" });
+      execSync(`npm install ${pkg}@${requiredVersion}`, { stdio: "inherit", cwd: process.cwd() });
     } else {
       console.log(`Peer dependency "${pkg}" is already installed (version: ${installedVersion}).`);
     }
@@ -44,13 +44,13 @@ const installTailwind = () => {
   console.log("Checking if Tailwind CSS is installed...");
 
   try {
-    const packageJsonPath = path.resolve("package.json");
+    const packageJsonPath = path.resolve(process.cwd(), "package.json");
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
 
     if (!packageJson.devDependencies || !packageJson.devDependencies.tailwindcss) {
       console.log("Tailwind CSS not found. Installing...");
-      execSync("npm install -D tailwindcss@3", { stdio: "inherit" });
-      execSync("npx tailwindcss init", { stdio: "inherit" });
+      execSync("npm install -D tailwindcss@3", { stdio: "inherit", cwd: process.cwd() });
+      execSync("npx tailwindcss init", { stdio: "inherit", cwd: process.cwd() });
       console.log("Tailwind CSS installed successfully.");
     } else {
       console.log("Tailwind CSS is already installed.");
@@ -62,7 +62,7 @@ const installTailwind = () => {
 };
 
 const modifyTailwindConfig = () => {
-  const tailwindConfigPath = path.resolve("tailwind.config.js");
+  const tailwindConfigPath = path.resolve(process.cwd(), "tailwind.config.js");
 
   if (fs.existsSync(tailwindConfigPath)) {
     console.log("Modifying tailwind.config.js...");
@@ -89,23 +89,27 @@ const modifyTailwindConfig = () => {
 };
 
 const modifyIndexCss = () => {
-  const cssPath = path.resolve("src/index.css");
+  const cssPath = path.resolve(process.cwd(), "src/index.css");
 
   if (!fs.existsSync(cssPath)) {
     console.log("index.css not found, creating it...");
-    fs.writeFileSync(cssPath, "\n");
+    fs.writeFileSync(cssPath, "");
   }
 
-  console.log("Adding Tailwind directives to the beginning of index.css...");
-  const cssContent = fs.readFileSync(cssPath, "utf8");
-  const tailwindDirectives = `@tailwind base;\n@tailwind components;\n@tailwind utilities;\n`;
+  if (fs.existsSync(cssPath)) {
+    console.log("Adding Tailwind directives to the beginning of index.css...");
+    const cssContent = fs.readFileSync(cssPath, "utf8");
+    const tailwindDirectives = `@tailwind base;\n@tailwind components;\n@tailwind utilities;\n`;
 
-  if (!cssContent.startsWith(tailwindDirectives)) {
-    const updatedCssContent = tailwindDirectives + cssContent;
-    fs.writeFileSync(cssPath, updatedCssContent);
-    console.log("Tailwind directives added to index.css.");
+    if (!cssContent.startsWith(tailwindDirectives)) {
+      const updatedCssContent = tailwindDirectives + cssContent;
+      fs.writeFileSync(cssPath, updatedCssContent);
+      console.log("Tailwind directives added to index.css.");
+    } else {
+      console.log("Tailwind directives already present in index.css.");
+    }
   } else {
-    console.log("Tailwind directives already present in index.css.");
+    console.error("index.css not found");
   }
 };
 
