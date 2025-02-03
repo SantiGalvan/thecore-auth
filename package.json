@@ -1,14 +1,16 @@
 {
   "name": "thecore-auth",
   "private": false,
-  "version": "0.0.38",
+  "version": "0.0.39",
   "type": "module",
   "main": "dist/thecore-auth.cjs.js",
+  "style": "dist/thecore-auth.css",
   "module": "dist/thecore-auth.esm.js",
   "exports": {
     ".": {
       "import": "./dist/thecore-auth.esm.js",
-      "require": "./dist/thecore-auth.cjs.js"
+      "require": "./dist/thecore-auth.cjs.js",
+      "style": "./dist/thecore-auth.css"
     }
   },
   "scripts": {
