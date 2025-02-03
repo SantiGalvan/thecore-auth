@@ -13,6 +13,7 @@ import Alert from "./components/Alert";
 import Input from "./components/inputs/Input";
 import InputLabel from "./components/inputs/InputLabel";
 import ErrorPage from "./pages/ErrorPage";
+import './index.css'
 
 export { 
     LoadingProvider,
