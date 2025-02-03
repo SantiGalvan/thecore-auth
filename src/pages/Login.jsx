@@ -5,39 +5,43 @@ import { useAlert } from "../contexts/AlertContext";
 import LoginForm from "../components/LoginForm";
 import { useConfig } from "../contexts/ConfigContext";
 
-const Login = (props) => {
+const Login = ({ formStyle, userData, userInput, title, buttonStyle }) => {
 
-  const {
-    formStyle =  {
-      size: 'w-[800px]',
-      bgColor: 'bg-slate-50',
-      rounded: 'rounded-lg',
-      shadow: 'shadow-lg'
-    },
-    userData,
-    userInput = {
-      label: 'Email',
-      type: 'email',
-      placeholder: 'email@email.it'
-    }, 
-    title = {
-      text: 'Login',
-      size: 'text-4xl',
-      position: 'text-center',
-      spacing: 'my-12'
-    },
-    buttonStyle = {
-      position: 'justify-center',
-      spacing: 'my-12',
-      color: 'bg-blue-500',
-      hoverColor: 'hover:bg-blue-700',
-      textColor: 'text-white',
-      size: 'py-2 px-4',
-      rounded: 'rounded-full',
-      text: 'Login'
-    }
+  // Applica i valori di default solo a quelle proprietà non passate
+  const finalFormStyle = { 
+    size: 'w-[800px]',
+    bgColor: 'bg-slate-50',
+    rounded: 'rounded-lg',
+    shadow: 'shadow-lg',
+    ...formStyle
+  };
 
-  } = props;
+  const finalUserInput = {
+    label: 'Email',
+    type: 'email',
+    placeholder: 'email@email.it',
+    ...userInput 
+  };
+
+  const finalTitle = {
+    text: 'Login',
+    size: 'text-4xl',
+    position: 'text-center',
+    spacing: 'my-12',
+    ...title 
+  };
+
+  const finalButtonStyle = {
+    position: 'justify-center',
+    spacing: 'my-12',
+    color: 'bg-blue-500',
+    hoverColor: 'hover:bg-blue-700',
+    textColor: 'text-white',
+    size: 'py-2 px-4',
+    rounded: 'rounded-full',
+    text: 'Login',
+    ...buttonStyle
+  };
 
   const { login } = useAuth();
   const { setShowAlert, setTypeAlert, setMessageAlert } = useAlert();
@@ -87,11 +91,11 @@ const Login = (props) => {
          formData={formData}
          changeValue={changeData}
          
-         formStyle={formStyle}
+         formStyle={finalFormStyle}
          userData={userData}
-         userInput={userInput}
-         title={title}
-         buttonStyle={buttonStyle}
+         userInput={finalUserInput}
+         title={finalTitle}
+         buttonStyle={finalButtonStyle}
         />
 
       </div>
