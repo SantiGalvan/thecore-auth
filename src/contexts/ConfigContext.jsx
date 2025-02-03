@@ -1,10 +1,31 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import ErrorPage from "../pages/ErrorPage";
 
 const ConfigContext = createContext();
 
 const ConfigProvider = ({children}) => {
 
     const [config, setConfig] = useState({});
+    const [errorShow, setErrorShow] = useState(false);
+
+    const errorMessage = `Creare un file config.json in public per il correto funzionamento
+Esempio di config.json:
+
+{
+    "baseUri": "",
+    "authenticatedEndpoint": "",
+    "usersEndpoint": "",
+    "heartbeatEndpoint": "",
+    "infiniteSession": ,
+    "timeDeducted": ,
+    "alertTimeout": ,
+    "axiosErrors": {
+        "unauthorized":"",
+        "notFound": "",
+        "defaultMessage": ""
+    },
+    "clearLoginFormOnError": 
+}`
 
     const fetchConfig = async () => {
 
@@ -14,6 +35,8 @@ const ConfigProvider = ({children}) => {
             setConfig(data);
         } catch (err) {
             console.error(err);
+
+            setErrorShow(true);
         }
         
     }
@@ -24,7 +47,7 @@ const ConfigProvider = ({children}) => {
 
     // Check per il controllo dell'effettivo arrivo dei dati dal config.json
     if (Object.keys(config).length === 0) {
-        return null; 
+        return (<ErrorPage errorShow={errorShow} errorMessage={errorMessage} />) 
     }
 
     return (
