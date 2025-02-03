@@ -20,7 +20,7 @@ const App = () => {
         {/* Rotte private */}
         <Route element={<AuthPage />}>
 
-        <Route path="/dashboard/:id" element={<Dashboard/>} />
+          <Route path="/dashboard/:id" element={<Dashboard/>} />
 
         </Route>
         

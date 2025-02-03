@@ -13,7 +13,7 @@ const fetchAxiosConfig = async (show, type, message) => {
 
         instance = axios.create({
             baseURL,
-            timeout: 3000,
+            timeout: 5000,
         });
 
         instance.interceptors.request.use(

@@ -43,7 +43,7 @@ const LoginForm = (props) => {
             </div>
 
             <div className={`flex ${buttonStyle.position} items-center ${buttonStyle.spacing}`}>
-                <button className={`${buttonStyle.color} ${buttonStyle.hoverColor} ${buttonStyle.textColor} font-bold ${buttonStyle.size} ${buttonStyle.rounded}`}>
+                <button className={`${buttonStyle.color} ${buttonStyle.hoverColor} ${buttonStyle.textColor} font-bold cursor-pointer ${buttonStyle.size} ${buttonStyle.rounded}`}>
                     {buttonStyle.text}
                 </button>
             </div>

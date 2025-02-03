@@ -133,7 +133,7 @@ const Dashboard = () => {
 
                     <button
                         onClick={signOut}
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full cursor-pointer"
                     >
                         Logout
                     </button>
@@ -144,7 +144,7 @@ const Dashboard = () => {
                     
                     <button 
                         onClick={fetchUsers}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:bg-blue-300 disabled:text-gray-500 disabled:cursor-not-allowed"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:bg-blue-300 disabled:text-gray-500 disabled:cursor-not-allowed cursor-pointer"
                         disabled={disabled}
                     >
                         Lista degli utenti
