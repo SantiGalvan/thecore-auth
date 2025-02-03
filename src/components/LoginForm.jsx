@@ -4,47 +4,27 @@ import InputLabel from "./inputs/InputLabel";
 const LoginForm = (props) => {
 
     const {
-        // Variabili funzionamento della Login
-        submitForm, 
-        formData, 
-        changeValue,
-        // Stile form 
-        formSize = 'w-[800px]',
-        formBgColor = 'bg-slate-50',
-        formRounded = 'rounded-lg',
-        formShadow = 'shadow-lg',
-        // Input email/username
+        formStyle,
         userData,
-        userLabel = 'Email',
-        userType = 'email',
-        userPlaceholder = 'email@email.it',
-        // Titolo
-        formTitle = 'Login',
-        titleSize = 'text-4xl',
-        titlePosition = 'text-center',
-        titleSpacing = 'my-12',
-        // Bottone
-        buttonPosition = 'justify-center',
-        buttonSpacing = 'my-12',
-        buttonColor = 'bg-blue-500',
-        buttonHoverColor = 'hoverbg-blue-700',
-        buttonTextColor = 'text-white',
-        buttonSize = 'py-2 px-4',
-        buttonRounded = 'rounded-full',
-        buttonText = 'Login'
+        userInput,
+        title,
+        buttonStyle,
+        formData,
+        changeValue,
+        submitForm
     } = props;
 
     return (
-        <form onSubmit={submitForm} className={`${formSize} ${formRounded} ${formShadow} ${formBgColor}`}>
-            <h1 className={`${titleSize} ${titlePosition} ${titleSpacing}`}>{formTitle}</h1>
+        <form onSubmit={submitForm} className={`${formStyle.size} ${formStyle.rounded} ${formStyle.shadow} ${formStyle.bgColor}`}>
+            <h1 className={`${title.size} ${title.position} ${title.spacing}`}>{title.text}</h1>
 
             {/* Eamil */}
             <div className="flex justify-center flex-col gap-1 my-4 w-1/2 mx-auto">
-                <InputLabel labelId={'user-email'} label={userLabel} />
+                <InputLabel labelId={'user-email'} label={userInput.label} />
                 <Input 
-                    inputType={userType} 
+                    inputType={userInput.label} 
                     inputId={'user-email'} 
-                    inputPlaceholder={userPlaceholder} 
+                    inputPlaceholder={userInput.placeholder} 
                     inputValue={userData ? formData[userData] : formData.email}  
                     inputChange={e => {changeValue(userData || 'email' , e.target.value)}}
                 />
@@ -62,9 +42,9 @@ const LoginForm = (props) => {
                 />
             </div>
 
-            <div className={`flex ${buttonPosition} items-center ${buttonSpacing}`}>
-                <button className={`${buttonColor} ${buttonHoverColor} ${buttonTextColor} font-bold ${buttonSize} ${buttonRounded}`}>
-                    {buttonText}
+            <div className={`flex ${buttonStyle.position} items-center ${buttonStyle.spacing}`}>
+                <button className={`${buttonStyle.color} ${buttonStyle.hoverColor} ${buttonStyle.textColor} font-bold ${buttonStyle.size} ${buttonStyle.rounded}`}>
+                    {buttonStyle.text}
                 </button>
             </div>
 
