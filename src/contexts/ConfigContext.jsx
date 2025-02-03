@@ -8,7 +8,7 @@ const ConfigProvider = ({children}) => {
     const [config, setConfig] = useState({});
     const [errorShow, setErrorShow] = useState(false);
 
-    const errorMessage = `Creare un file config.json in public per il correto funzionamento
+    const errorMessage = `Creare un file config.json in public per il corretto funzionamento
 Esempio di config.json:
 
 {

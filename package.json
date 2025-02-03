@@ -9,8 +9,7 @@
   "exports": {
     ".": {
       "import": "./dist/thecore-auth.esm.js",
-      "require": "./dist/thecore-auth.cjs.js",
-      "style": "./dist/thecore-auth.css"
+      "require": "./dist/thecore-auth.cjs.js"
     }
   },
   "scripts": {
