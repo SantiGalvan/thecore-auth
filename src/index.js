@@ -12,6 +12,7 @@ import Loading from "./components/Loading";
 import Alert from "./components/Alert";
 import Input from "./components/inputs/Input";
 import InputLabel from "./components/inputs/InputLabel";
+import ErrorPage from "./pages/ErrorPage";
 
 export { 
     LoadingProvider,
@@ -27,5 +28,6 @@ export {
     Loading,
     Alert,
     Input,
-    InputLabel
+    InputLabel,
+    ErrorPage
 }
