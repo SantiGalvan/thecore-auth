@@ -9,26 +9,36 @@
   --shadow-primary: 0 4px 10px rgba(245,105,7,0.3),0 2px 4px rgba(245,105,7,0.2);
   --shadow-primary-hover: 0 6px 14px rgba(245,105,7,0.4),0 3px 6px rgba(245,105,7,0.3);
   --shadow-primary-active: 0 2px 5px rgba(245,105,7,0.3);
+  --shadow-primary-input: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(245, 105, 7, 0.6);
   --padding-primary-button: 8px 16px;
   --margin-primary-button: 32px 0px;
   --radius-primary-button: calc(infinity * 1px);
   --justify-primary: center;
 
   /*? Dimensioni card form */
-  --height-form: 55vh;
-  --width-form: 85vw;
-  --max-width-form: 1136px;
+  --height-card-form: 55vh;
+  --width-card-form: 85vw;
+  --max-width-card-form: 1136px;
   --border-form-size: 2px;
   --form-radius: 2em;
-  
-  /*? Colore form */
+  --text-input-label: 14px;
+  --color-color-label: #111827;
+  --label-display: block;
+  --padding-input: 10px;
+
+  /*? Colore card form */
   --color-form: #fff;
   --color-form-border: #D3D3D3;
+
+  /*? Dimensione form */
+  --basis-form: 50%;
+  --input-form-width: 70%;
+  --margin-input-form: 16px 0;
 
   /*? Titolo del form */
   --text-form-title-size: 2.25rem;
   --margin-form-title: 32px 0;
-  --title-display: block;
+  --title-display: none;
   --title-position: center;
 
   /*? Immagine di sfondo */
@@ -61,6 +71,7 @@
   /*? Logo del Login */
   --login-logo-width: 20vw;
   --login-logo-max-width: 300px;
+
 }
 
 /* Posizione del bottone */
@@ -78,19 +89,34 @@
   text-align: var(--title-position);
 }
 
-/* Dimensione form */
+/* Dimensione card del form */
 .form-style {
-  height: var(--height-form);
-  width: var(--width-form);
-  max-width: var(--max-width-form);
+  height: var(--height-card-form);
+  width: var(--width-card-form);
+  max-width: var(--max-width-card-form);
   border: var(--border-form-size) solid var(--color-form-border);
   border-radius: var(--form-radius);
+}
+
+/* Dimensione form */
+.form-size {
+  flex-basis: var(--basis-form);
+}
+
+/* Dimensione input del form */
+.input-size {
+  width: var(--input-form-width);
 }
 
 /* Dimensioni e colori logo della Login */
 .login-logo {
   width: var(--login-logo-width);
   max-width: var(--login-logo-max-width);
+}
+
+/* Flag per la visione del label */
+.show-label {
+  display: var(--label-display);
 }
 
 /* Sfondo della sezione di Login */

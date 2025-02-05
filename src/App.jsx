@@ -13,7 +13,7 @@ const App = () => {
         {/* Rotte pubbliche */}
         <Route path="/">
 
-          <Route index element={<Login/>} />
+          <Route index element={<Login />} />
 
         </Route>
 

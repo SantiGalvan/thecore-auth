@@ -16,11 +16,11 @@ const LoginForm = (props) => {
     } = props;
 
     return (
-        <form onSubmit={submitForm} className="basis-1/2">
+        <form onSubmit={submitForm} className="form-size">
             <h1 className={`text-form-title-size show-title title-position m-form-title`}>{title}</h1>
 
             {/* Eamil */}
-            <div className="flex justify-center flex-col gap-1 my-4 w-[70%] mx-auto">
+            <div className="flex justify-center flex-col gap-1 m-input-form input-size mx-auto">
                 <InputLabel labelId={'user-email'} label={label} />
                 <Input 
                     inputType={type} 
@@ -33,7 +33,7 @@ const LoginForm = (props) => {
             </div>
 
             {/* Password */}
-            <div className="flex justify-center flex-col gap-1 my-4 w-[70%] mx-auto">
+            <div className="flex justify-center flex-col gap-1 my-4 input-size mx-auto">
                 <InputLabel labelId={'password'} label={'Password'} />
                 <Input 
                     inputType={'password'} 

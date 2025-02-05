@@ -16,7 +16,11 @@ const Login = (props) => {
     inputPlaceholder = 'example@example.it',
     buttonText = 'Accedi',
     LogoImg = Logo,
-    userData
+    userData,
+
+    styleForm,
+    styleContainerLogo,
+    styleLogo,
 
   } = props;
 
@@ -63,11 +67,11 @@ const Login = (props) => {
     <section id="login-page">
       <div className="container mx-auto flex items-center justify-center h-screen">
         
-        <div className="form-style bg-form flex items-center justify-center">
+        <div className={`form-style bg-form flex items-center justify-center ${styleForm}`}>
 
-          <div className="basis-1/2 flex items-center justify-center">
+          <div className={`basis-1/2 flex items-center justify-center ${styleContainerLogo}`}>
 
-            {LogoImg && <LogoImg className='login-logo' />}
+            {LogoImg && <LogoImg className={`login-logo ${styleLogo}`} />}
 
           </div>
 
