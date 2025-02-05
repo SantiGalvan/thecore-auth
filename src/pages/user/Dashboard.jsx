@@ -133,7 +133,7 @@ const Dashboard = () => {
 
                     <button
                         onClick={signOut}
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full cursor-pointer"
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full cursor-pointer shadow-[0_4px_10px_rgba(239,68,68,0.3),0_2px_4px_rgba(239,68,68,0.2)] hover:shadow-[0_6px_14px_rgba(185,28,28,0.4),0_3px_6px_rgba(185,28,28,0.3)] active:shadow-[0_2px_5px_rgba(239,68,68,0.3)] transition-all duration-200 active:translate-y-[2px]"
                     >
                         Logout
                     </button>
@@ -144,7 +144,7 @@ const Dashboard = () => {
                     
                     <button 
                         onClick={fetchUsers}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:bg-blue-300 disabled:text-gray-500 disabled:cursor-not-allowed cursor-pointer"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:bg-blue-300 disabled:text-gray-500 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 active:translate-y-[2px] shadow-[0_4px_10px_rgba(59,130,246,0.3),0_2px_4px_rgba(59,130,246,0.2)] hover:shadow-[0_6px_14px_rgba(29,78,216,0.4),0_3px_6px_rgba(29,78,216,0.3)] active:shadow-[0_2px_5px_rgba(59,130,246,0.3)]"
                         disabled={disabled}
                     >
                         Lista degli utenti
