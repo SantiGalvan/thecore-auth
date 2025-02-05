@@ -4,34 +4,36 @@ import InputLabel from "./inputs/InputLabel";
 const LoginForm = (props) => {
 
     const {
-        formStyle,
-        userData,
-        userInput,
         title,
-        buttonStyle,
+        label,
+        type,
+        placeholder,
+        buttonText,
+        userData,
         formData,
         changeValue,
         submitForm
     } = props;
 
     return (
-        <form onSubmit={submitForm} className={`${formStyle.size} ${formStyle.rounded} ${formStyle.shadow} ${formStyle.bgColor}`}>
-            <h1 className={`${title.size} ${title.position} ${title.spacing}`}>{title.text}</h1>
+        <form onSubmit={submitForm} className="basis-1/2">
+            <h1 className={`text-form-title-size show-title title-position m-form-title`}>{title}</h1>
 
             {/* Eamil */}
-            <div className="flex justify-center flex-col gap-1 my-4 w-1/2 mx-auto">
-                <InputLabel labelId={'user-email'} label={userInput.label} />
+            <div className="flex justify-center flex-col gap-1 my-4 w-[70%] mx-auto">
+                <InputLabel labelId={'user-email'} label={label} />
                 <Input 
-                    inputType={userInput.label} 
+                    inputType={type} 
                     inputId={'user-email'} 
-                    inputPlaceholder={userInput.placeholder} 
+                    inputPlaceholder={placeholder} 
                     inputValue={userData ? formData[userData] : formData.email}  
                     inputChange={e => {changeValue(userData || 'email' , e.target.value)}}
+                    autoFocus={true}
                 />
             </div>
 
             {/* Password */}
-            <div className="flex justify-center flex-col gap-1 my-4 w-1/2 mx-auto">
+            <div className="flex justify-center flex-col gap-1 my-4 w-[70%] mx-auto">
                 <InputLabel labelId={'password'} label={'Password'} />
                 <Input 
                     inputType={'password'} 
@@ -42,9 +44,9 @@ const LoginForm = (props) => {
                 />
             </div>
 
-            <div className={`flex ${buttonStyle.position} items-center ${buttonStyle.spacing}`}>
-                <button className={`${buttonStyle.color} ${buttonStyle.hoverColor} ${buttonStyle.textColor} font-bold cursor-pointer ${buttonStyle.size} ${buttonStyle.rounded}`}>
-                    {buttonStyle.text}
+            <div className={`flex button-position items-center m-primary-button`}>
+                <button className={`font-bold cursor-pointer shadow-primary transition-all duration-200 hover:shadow-primary-hover active:shadow-primary-active active:translate-y-[2px] p-primary-button rounded-primary-button bg-primary hover:bg-primary-hover text-primary-text`}>
+                    {buttonText}
                 </button>
             </div>
 

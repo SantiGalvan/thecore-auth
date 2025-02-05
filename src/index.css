@@ -1,1 +1,109 @@
 @import 'tailwindcss';
+
+@theme {
+
+  /*? Colore primary, colore aziendale */
+  --color-primary: #f56907;
+  --color-primary-hover: #f88b29;
+  --color-primary-text: #fff;
+  --shadow-primary: 0 4px 10px rgba(245,105,7,0.3),0 2px 4px rgba(245,105,7,0.2);
+  --shadow-primary-hover: 0 6px 14px rgba(245,105,7,0.4),0 3px 6px rgba(245,105,7,0.3);
+  --shadow-primary-active: 0 2px 5px rgba(245,105,7,0.3);
+  --padding-primary-button: 8px 16px;
+  --margin-primary-button: 32px 0px;
+  --radius-primary-button: calc(infinity * 1px);
+  --justify-primary: center;
+
+  /*? Dimensioni card form */
+  --height-form: 55vh;
+  --width-form: 85vw;
+  --max-width-form: 1136px;
+  --border-form-size: 2px;
+  --form-radius: 2em;
+  
+  /*? Colore form */
+  --color-form: #fff;
+  --color-form-border: #D3D3D3;
+
+  /*? Titolo del form */
+  --text-form-title-size: 2.25rem;
+  --margin-form-title: 32px 0;
+  --title-display: block;
+  --title-position: center;
+
+  /*? Immagine di sfondo */
+  --bg-image: url(https://mywarehouse3-default-dev-admin.labs.bancolini.com/assets/login_background-8925936876ab327a837979287ada0c0bf46715d795a2ee09d35fa849a03b5fa6.svg);
+
+  /*? Alert - Danger */
+  --color-danger: #FEE2E2;
+  --color-danger-text: #B91C1C;
+  --color-danger-hover: #FECACA;
+  --color-danger-progress: #F87171;
+
+  /*? Alert - Info */
+  --color-info: #EFF6FF;
+  --color-info-text: #1D4ED8;
+  --color-info-hover: #BFDBFE;
+  --color-info-progress: #60A5FA;
+
+  /*? Alert - Success */
+  --color-success: #ECFDF5;
+  --color-success-text: #15803D;
+  --color-success-hover: #A7F3D0;
+  --color-success-progress: #34D399;
+
+  /*? Alert - Warning */
+  --color-warning: #F9FAEB;
+  --color-warning-text: #D97706;
+  --color-warning-hover: #FDE047;
+  --color-warning-progress: #FACC15;
+
+  /*? Logo del Login */
+  --login-logo-width: 20vw;
+  --login-logo-max-width: 300px;
+}
+
+/* Posizione del bottone */
+.button-position {
+  justify-content: var(--justify-primary);
+}
+
+/* Flag per la visione del titolo */
+.show-title {
+  display: var(--title-display);
+}
+
+/* Posizione del titolo */
+.title-position {
+  text-align: var(--title-position);
+}
+
+/* Dimensione form */
+.form-style {
+  height: var(--height-form);
+  width: var(--width-form);
+  max-width: var(--max-width-form);
+  border: var(--border-form-size) solid var(--color-form-border);
+  border-radius: var(--form-radius);
+}
+
+/* Dimensioni e colori logo della Login */
+.login-logo {
+  width: var(--login-logo-width);
+  max-width: var(--login-logo-max-width);
+}
+
+/* Sfondo della sezione di Login */
+#login-page:before {
+    background-image: var(--bg-image) !important;
+    background-color: #f1f1f1;
+    opacity: .5;
+    content: " ";
+    position: absolute;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100%;
+    z-index: -9999;
+}

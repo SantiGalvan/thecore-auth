@@ -1,9 +1,11 @@
 import { RxCross2 } from "react-icons/rx";
-import { AiFillWarning, AiFillInfoCircle } from "react-icons/ai";
 import { GiCheckMark } from "react-icons/gi";
 import { useAlert } from "../contexts/AlertContext";
 import { useEffect, useState } from "react";
 import { useConfig } from "../contexts/ConfigContext";
+import DangerLogo from '../assets/danger.svg?react';
+import InfoLogo from '../assets/info.svg?react';
+import WarningLogo from '../assets/warning.svg?react';
 
 const Alert = () => {
 
@@ -14,28 +16,36 @@ const Alert = () => {
     
     const alertConfig = {
         danger: {
-            bgColor: "bg-red-50",
-            textColor: "text-red-700",
-            buttonBg: "bg-red-50",
-            hoverBg: "hover:bg-red-200",
-            focusRing: "focus:ring-red-400",
-            progressColor: "bg-red-400"
+            bgColor: "bg-danger",
+            textColor: "text-danger-text",
+            buttonBg: "bg-danger",
+            hoverBg: "hover:bg-danger-hover",
+            focusRing: "focus:ring-danger-progress",
+            progressColor: "bg-danger-progress"
         },
         info : {
-            bgColor: "bg-blue-50",
-            textColor: "text-blue-700",
-            buttonBg: "bg-blue-50",
-            hoverBg: "hover:bg-blue-200",
-            focusRing: "focus:ring-blue-400",
-            progressColor: "bg-blue-400"
+            bgColor: "bg-info",
+            textColor: "text-info-text",
+            buttonBg: "bg-info",
+            hoverBg: "hover:bg-info-hover",
+            focusRing: "focus:ring-info-progress",
+            progressColor: "bg-info-progress"
         },
         success : {
-            bgColor: "bg-green-50",
-            textColor: "text-green-700",
-            buttonBg: "bg-green-50",
-            hoverBg: "hover:bg-green-200",
-            focusRing: "focus:ring-green-400",
-            progressColor: "bg-green-400"
+            bgColor: "bg-success",
+            textColor: "text-success-text",
+            buttonBg: "bg-success",
+            hoverBg: "hover:bg-success-hover",
+            focusRing: "focus:ring-success-progress",
+            progressColor: "bg-success-progress"
+        },
+        warning: {
+            bgColor: "bg-warning",
+            textColor: "text-warning-text",
+            buttonBg: "bg-warning",
+            hoverBg: "hover:bg-warning-hover",
+            focusRing: "focus:ring-warning-progress",
+            progressColor: "bg-warning-progress"
         }
     }
 
@@ -46,11 +56,13 @@ const Alert = () => {
     const getIcon = (type) => {
         switch (type) {
             case 'danger':
-                return <AiFillWarning className="text-xl"/>
+                return <DangerLogo className="w-[20px] h-[20px]" />
             case 'info':
-                return <AiFillInfoCircle className="text-xl"/>
+                return <InfoLogo className="w-[20px] h-[20px]"/>
             case 'success':
                 return <GiCheckMark className="text-xl"/>
+            case 'warning':
+                return <WarningLogo className="w-[20px] h-[20px]"/>
         }
     }
 
@@ -91,7 +103,7 @@ const Alert = () => {
         
         <div className={`flex items-center p-4 pt-6 ${textColor} rounded-lg ${bgColor} mx-auto fixed top-[calc(100vh-100px)] right-10`} role="alert">
 
-            <div className="w-full bg-gray-200 rounded-t-lg overflow-hidden h-2.5 dark:bg-gray-700 absolute top-0 left-0 right-0">
+            <div className="w-full bg-gray-200 rounded-t-lg overflow-hidden h-2.5 absolute top-0 left-0 right-0">
                 <div className={`${progressColor} h-2.5 rounded-t-lg`} style={{width: `${progress}%`}}></div>
             </div>
 

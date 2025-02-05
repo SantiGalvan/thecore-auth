@@ -2,46 +2,23 @@ import { useEffect, useState } from "react"
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "../contexts/AlertContext";
-import LoginForm from "../components/LoginForm";
 import { useConfig } from "../contexts/ConfigContext";
+import LoginForm from "../components/LoginForm";
+import Logo from '../assets/MyWarehouse.svg?react';
 
-const Login = ({ formStyle, userData, userInput, title, buttonStyle }) => {
 
-  // Applica i valori di default solo a quelle proprietà non passate
-  const finalFormStyle = { 
-    size: 'w-[800px]',
-    bgColor: 'bg-slate-50',
-    rounded: 'rounded-lg',
-    shadow: 'shadow-lg',
-    ...formStyle
-  };
+const Login = (props) => {
 
-  const finalUserInput = {
-    label: 'Email',
-    type: 'email',
-    placeholder: 'email@email.it',
-    ...userInput 
-  };
+  const {
+    formTitle = 'Accedi',
+    inputLabel = 'Email',
+    inputType = 'email',
+    inputPlaceholder = 'example@example.it',
+    buttonText = 'Accedi',
+    LogoImg = Logo,
+    userData
 
-  const finalTitle = {
-    text: 'Login',
-    size: 'text-4xl',
-    position: 'text-center',
-    spacing: 'my-12',
-    ...title 
-  };
-
-  const finalButtonStyle = {
-    position: 'justify-center',
-    spacing: 'my-12',
-    color: 'bg-blue-500',
-    hoverColor: 'hover:bg-blue-700',
-    textColor: 'text-white',
-    size: 'py-2 px-4',
-    rounded: 'rounded-full',
-    text: 'Login',
-    ...buttonStyle
-  };
+  } = props;
 
   const { login } = useAuth();
   const { setShowAlert, setTypeAlert, setMessageAlert } = useAlert();
@@ -83,20 +60,33 @@ const Login = ({ formStyle, userData, userInput, title, buttonStyle }) => {
   }, []);
 
   return (
-    <section>
+    <section id="login-page">
       <div className="container mx-auto flex items-center justify-center h-screen">
+        
+        <div className="form-style bg-form flex items-center justify-center">
 
-        <LoginForm 
-         submitForm={handleLogin}
-         formData={formData}
-         changeValue={changeData}
-         
-         formStyle={finalFormStyle}
-         userData={userData}
-         userInput={finalUserInput}
-         title={finalTitle}
-         buttonStyle={finalButtonStyle}
-        />
+          <div className="basis-1/2 flex items-center justify-center">
+
+            {LogoImg && <LogoImg className='login-logo' />}
+
+          </div>
+
+          <LoginForm 
+            submitForm={handleLogin}
+            formData={formData}
+            changeValue={changeData}
+            
+            title={formTitle}
+            label={inputLabel}
+            type={inputType}
+            placeholder={inputPlaceholder}
+            buttonText={buttonText}
+
+            userData={userData}
+          />
+
+        </div>
+
 
       </div>
     </section>
