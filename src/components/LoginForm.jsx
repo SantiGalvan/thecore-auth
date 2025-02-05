@@ -45,7 +45,7 @@ const LoginForm = (props) => {
             </div>
 
             <div className={`flex button-position items-center m-primary-button`}>
-                <button className={`font-bold cursor-pointer shadow-primary transition-all duration-200 hover:shadow-primary-hover active:shadow-primary-active active:translate-y-[2px] p-primary-button rounded-primary-button bg-primary hover:bg-primary-hover text-primary-text`}>
+                <button className={`font-bold cursor-pointer shadow-(--shadow-primary) transition-all duration-200 hover:shadow-(--shadow-primary-hover) active:shadow-(--shadow-primary-active) active:translate-y-[2px] p-primary-button rounded-primary-button bg-primary hover:bg-primary-hover text-primary-text`}>
                     {buttonText}
                 </button>
             </div>

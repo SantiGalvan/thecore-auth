@@ -18,7 +18,7 @@ const Input = (props) => {
             type={type}
             autoFocus={autoFocus}
             id={inputId} 
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-primary focus:border-primary focus:outline-none focus:shadow-primary-input block w-full p-input" 
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-primary focus:border-primary focus:outline-none focus:shadow-(--shadow-primary-input) block w-full p-input" 
             placeholder={inputPlaceholder}
             required={inputRequired ?? true}
             value={inputValue}
