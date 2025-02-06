@@ -22,13 +22,20 @@
   --border-form-size: 2px;
   --form-radius: 2em;
   --text-input-label: 14px;
+  --text-input-placeholder: 14px;
   --color-color-label: #111827;
   --label-display: block;
   --padding-input: 10px;
+  --input-radius: 8px;
 
   /*? Colore card form */
   --color-form: #fff;
   --color-form-border: #D3D3D3;
+
+  /*? Colori input */
+  --color-input-bg: #f9fafb;
+  --color-input-border: #d1d5db;
+  --color-input-text: #111827;
 
   /*? Dimensione form */
   --basis-form: 50%;
@@ -106,6 +113,11 @@
 /* Dimensione input del form */
 .input-size {
   width: var(--input-form-width);
+}
+
+/* Radius dell'input */
+.input-rounded {
+  border-radius: var(--input-radius);
 }
 
 /* Dimensioni e colori logo della Login */

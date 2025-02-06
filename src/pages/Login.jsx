@@ -18,7 +18,7 @@ const Login = (props) => {
     LogoImg = Logo,
     userData,
 
-    styleForm,
+    styleCardForm,
     styleContainerLogo,
     styleLogo,
 
@@ -67,7 +67,7 @@ const Login = (props) => {
     <section id="login-page">
       <div className="container mx-auto flex items-center justify-center h-screen">
         
-        <div className={`form-style bg-form flex items-center justify-center ${styleForm}`}>
+        <div className={`form-style bg-form flex items-center justify-center ${styleCardForm}`}>
 
           <div className={`basis-1/2 flex items-center justify-center ${styleContainerLogo}`}>
 
