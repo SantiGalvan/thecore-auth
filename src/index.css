@@ -133,7 +133,7 @@
 
 /* Sfondo della sezione di Login */
 #login-page:before {
-    background-image: var(--bg-image) !important;
+    background-image: var(--bg-image);
     background-color: #f1f1f1;
     opacity: .5;
     content: " ";
