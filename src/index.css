@@ -42,7 +42,7 @@
   --title-position: center;
 
   /*? Immagine di sfondo */
-  --bg-image: url(https://mywarehouse3-default-dev-admin.labs.bancolini.com/assets/login_background-8925936876ab327a837979287ada0c0bf46715d795a2ee09d35fa849a03b5fa6.svg);
+  --bg-image: url(./assets/login-background.svg);
 
   /*? Alert - Danger */
   --color-danger: #FEE2E2;
