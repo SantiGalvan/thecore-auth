@@ -133,15 +133,19 @@
 
 /* Sfondo della sezione di Login */
 #login-page:before {
-    background-image: var(--bg-image);
-    background-color: #f1f1f1;
-    opacity: .5;
-    content: " ";
-    position: absolute;
-    width: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    height: 100%;
-    z-index: -9999;
+  background-image: var(--bg-image);
+  background-color: #f1f1f1;
+  opacity: .5;
+  content: " ";
+  position: absolute;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100%;
+  z-index: -9999;
+}
+
+#login-page {
+  user-select: none;
 }
