@@ -2,6 +2,9 @@ import { LoadingProvider } from "./contexts/LoadingContext";
 import { ConfigProvider } from "./contexts/ConfigContext";
 import { AlertProvider } from "./contexts/AlertContext";
 import { AuthProvider } from "./contexts/AuthContext";
+import { RouteProvider } from "./contexts/RouteContext";
+import { useRoutesInjection } from "./contexts/RouteContext";
+import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/AuthPage";
 import DefaultLayout from "./layouts/DefaultLayout";
 import Login from "./pages/Login";
@@ -20,6 +23,9 @@ export {
     ConfigProvider,
     AlertProvider,
     AuthProvider,
+    RouteProvider,
+    useRoutesInjection,
+    PackageRoutes,
     AuthPage,
     DefaultLayout,
     Login,
