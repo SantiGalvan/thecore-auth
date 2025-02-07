@@ -1,22 +1,13 @@
+import { useLoginForm } from "../contexts/LoginFormContext";
 import Input from "./inputs/Input";
 import InputLabel from "./inputs/InputLabel";
 
-const LoginForm = (props) => {
+const LoginForm = () => {
 
-    const {
-        title,
-        label,
-        type,
-        placeholder,
-        buttonText,
-        userData,
-        formData,
-        changeValue,
-        submitForm
-    } = props;
+    const { title, label, type, placeholder, buttonText, formData, changeData, handleLogin } = useLoginForm();
 
     return (
-        <form onSubmit={submitForm} className="form-size">
+        <form onSubmit={handleLogin} className="form-size">
             <h1 className={`text-form-title-size show-title title-position m-form-title`}>{title}</h1>
 
             {/* Eamil */}
@@ -26,8 +17,8 @@ const LoginForm = (props) => {
                     inputType={type} 
                     inputId={'user-email'} 
                     inputPlaceholder={placeholder} 
-                    inputValue={userData ? formData[userData] : formData.email}  
-                    inputChange={e => {changeValue(userData || 'email' , e.target.value)}}
+                    inputValue={formData.email}  
+                    inputChange={e => {changeData('email' , e.target.value)}}
                     autoFocus={true}
                 />
             </div>
@@ -40,7 +31,7 @@ const LoginForm = (props) => {
                     inputId={'password'} 
                     inputPlaceholder={"Password"}
                     inputValue={formData.password}
-                    inputChange={e => {changeValue('password', e.target.value)}}
+                    inputChange={e => {changeData('password', e.target.value)}}
                 />
             </div>
 
