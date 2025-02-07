@@ -6,6 +6,7 @@ import { RouteProvider } from "./contexts/RouteContext";
 import { useRoutesInjection } from "./contexts/RouteContext";
 import { LoginFormProvider } from "./contexts/LoginFormContext";
 import { useLoginForm } from "./contexts/LoginFormContext";
+import { BrowserRouter } from "react-router-dom";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/AuthPage";
 import DefaultLayout from "./layouts/DefaultLayout";
@@ -21,6 +22,7 @@ import ErrorPage from "./pages/ErrorPage";
 import './index.css'
 
 export { 
+    BrowserRouter,
     LoadingProvider,
     ConfigProvider,
     AlertProvider,
