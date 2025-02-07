@@ -15,8 +15,6 @@ const Login = ({Logo}) => {
   // UseEffect per controllare che l'utente loggato non entri nella pagina di login
   useEffect(() => {
 
-    // console.log(LogoImg);
-    
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('accessToken');
 

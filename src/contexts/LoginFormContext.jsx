@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import Logo from '../assets/MyWarehouse.svg?react';
 import { useAuth } from "./AuthContext";
 import { useConfig } from "./ConfigContext";
 
