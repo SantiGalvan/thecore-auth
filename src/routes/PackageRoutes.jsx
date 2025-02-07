@@ -5,10 +5,22 @@ import AuthPage from "../middlewares/AuthPage";
 import Dashboard from "../pages/user/Dashboard";
 import { useRoutesInjection } from "../contexts/RouteContext";
 import Logo from '../assets/MyWarehouse.svg?react';
+import { useEffect } from "react";
 
-const PackageRoutes = ({logoImg = Logo}) => {
+const PackageRoutes = ({logoImg = Logo, pathImg = './src/assets/MyWarehouse.svg'}) => {
 
     const { publicRoutes, privateRoutes } = useRoutesInjection();
+
+
+    const iconUpdater = () => {
+        const favicon = document.querySelector("link[rel='icon']");
+
+        if(pathImg) favicon.href = pathImg;
+    }
+
+    useEffect(() => {
+        iconUpdater();
+    }, [pathImg]);
 
     return (
         <Routes>
