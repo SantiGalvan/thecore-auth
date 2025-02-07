@@ -1,53 +1,21 @@
-import { useEffect, useState } from "react"
-import { useAuth } from "../contexts/AuthContext";
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "../contexts/AlertContext";
-import { useConfig } from "../contexts/ConfigContext";
 import LoginForm from "../components/LoginForm";
-import Logo from '../assets/MyWarehouse.svg?react';
+import { useLoginForm } from "../contexts/LoginFormContext";
 
 
-const Login = (props) => {
+const Login = ({Logo}) => {
 
-  const {
-    formTitle = 'Accedi',
-    inputLabel = 'Email',
-    inputType = 'email',
-    inputPlaceholder = 'example@example.it',
-    buttonText = 'Accedi',
-    LogoImg = Logo,
-    userData,
-
-    styleCardForm,
-    styleContainerLogo,
-    styleLogo,
-
-  } = props;
-
-  const { login } = useAuth();
   const { setShowAlert, setTypeAlert, setMessageAlert } = useAlert();
-  const { clearLoginFormOnError } = useConfig();
+  const { styleCardForm, styleContainerLogo, styleLogo } = useLoginForm();
 
   const navigate = useNavigate();
 
-  const initialData = {
-    email: '',
-    password: ''
-  }
-
-  const [formData, setFormData] = useState(initialData);
-
-  const changeData = (key, value) => {
-    setFormData(curr => ({...curr, [key]:value}))
-  }
-
-  const handleLogin = e => {
-    login(e,formData);
-    if (clearLoginFormOnError) setFormData(initialData);
-  }
-
   // UseEffect per controllare che l'utente loggato non entri nella pagina di login
   useEffect(() => {
+
+    // console.log(LogoImg);
     
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('accessToken');
@@ -71,23 +39,11 @@ const Login = (props) => {
 
           <div className={`basis-1/2 flex items-center justify-center ${styleContainerLogo}`}>
 
-            {LogoImg && <LogoImg className={`login-logo ${styleLogo}`} />}
+            {Logo && <Logo className={`login-logo ${styleLogo}`} />}
 
           </div>
 
-          <LoginForm 
-            submitForm={handleLogin}
-            formData={formData}
-            changeValue={changeData}
-            
-            title={formTitle}
-            label={inputLabel}
-            type={inputType}
-            placeholder={inputPlaceholder}
-            buttonText={buttonText}
-
-            userData={userData}
-          />
+          <LoginForm />
 
         </div>
 
