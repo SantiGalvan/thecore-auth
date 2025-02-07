@@ -4,8 +4,9 @@ import Login from "../pages/Login";
 import AuthPage from "../middlewares/AuthPage";
 import Dashboard from "../pages/user/Dashboard";
 import { useRoutesInjection } from "../contexts/RouteContext";
+import Logo from '../assets/MyWarehouse.svg?react';
 
-const PackageRoutes = () => {
+const PackageRoutes = ({LogoImg = Logo}) => {
 
     const { publicRoutes, privateRoutes } = useRoutesInjection();
 
@@ -17,7 +18,7 @@ const PackageRoutes = () => {
                 {/* Rotte pubbliche */}
                 <Route path="/">
 
-                    <Route index element={<Login />} />
+                    <Route index element={<Login Logo={LogoImg} />} />
 
                     {/* Nuove rotte da inserire con il Context */}
                     {publicRoutes.map((route, i) => (
