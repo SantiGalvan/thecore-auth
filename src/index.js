@@ -4,6 +4,8 @@ import { AlertProvider } from "./contexts/AlertContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import { RouteProvider } from "./contexts/RouteContext";
 import { useRoutesInjection } from "./contexts/RouteContext";
+import { LoginFormProvider } from "./contexts/LoginFormContext";
+import { useLoginForm } from "./contexts/LoginFormContext";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/AuthPage";
 import DefaultLayout from "./layouts/DefaultLayout";
@@ -25,6 +27,8 @@ export {
     AuthProvider,
     RouteProvider,
     useRoutesInjection,
+    LoginFormProvider,
+    useLoginForm,
     PackageRoutes,
     AuthPage,
     DefaultLayout,
