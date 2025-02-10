@@ -16,7 +16,7 @@
   --justify-primary: center;
 
   /*? Dimensioni card form */
-  --height-card-form: 55vh;
+  --height-card-form: 70vh;
   --width-card-form: 85vw;
   --max-width-card-form: 1136px;
   --border-form-size: 2px;
@@ -96,13 +96,17 @@
   text-align: var(--title-position);
 }
 
-/* Dimensione card del form */
-.form-style {
+/* Stile della card del form */
+.card-style {
+  border: var(--border-form-size) solid var(--color-form-border);
+  border-radius: var(--form-radius);
+}
+
+/* Dimensioni della card del form */
+.card-size {
   height: var(--height-card-form);
   width: var(--width-card-form);
   max-width: var(--max-width-card-form);
-  border: var(--border-form-size) solid var(--color-form-border);
-  border-radius: var(--form-radius);
 }
 
 /* Dimensione form */
@@ -148,4 +152,11 @@
 
 #login-page {
   user-select: none;
+}
+
+/*? Media query */
+@media (min-width: 640px) {
+  :root {
+    --height-card-form: 55vh;
+  }
 }
