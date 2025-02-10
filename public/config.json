@@ -11,5 +11,8 @@
         "notFound": "Risorsa non trovata",
         "defaultMessage": "Errore generico"
     },
-    "clearLoginFormOnError": true
+    "clearLoginFormOnError": true,
+    "autoLogin": false,
+    "autoLoginEmail": "",
+    "autoLoginPassword": ""
 }
