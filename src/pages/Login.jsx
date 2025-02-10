@@ -31,10 +31,10 @@ const Login = ({Logo}) => {
 
   return (
     <section id="login-page">
-      
+
       <div className="container mx-auto flex items-center justify-center h-screen">
         
-        <div className="bg-form card-style card-size flex flex-col sm:flex-row sm:items-center justify-center">
+        <div className={`bg-form card-style card-size flex flex-col sm:flex-row sm:items-center justify-center ${styleCardForm}`}>
 
           <div className={`basis-1/2 flex items-center justify-center ${styleContainerLogo}`}>
 

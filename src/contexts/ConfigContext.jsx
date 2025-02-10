@@ -24,7 +24,10 @@ Esempio di config.json:
         "notFound": "",
         "defaultMessage": ""
     },
-    "clearLoginFormOnError": 
+    "clearLoginFormOnError": ,
+    "autoLogin": ,
+    "autoLoginEmail": ,
+    "autoLoginPassword": 
 }`
 
     const fetchConfig = async () => {

@@ -10,7 +10,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
 
-    const { heartbeatEndpoint, infiniteSession, timeDeducted, authenticatedEndpoint } = useConfig();;
+    const { heartbeatEndpoint, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, autoLoginEmail, autoLoginPassword } = useConfig();
     const {setIsLoading} = useLoading();
     const { setShowAlert, setMessageAlert, setTypeAlert } = useAlert();
 
@@ -21,8 +21,11 @@ const AuthProvider = ({children}) => {
     const [timeoutToken, setTimeoutToken] = useState();
     const [sessionTimeout, setSessionTimeout] = useState();
 
-    const login = async (e, formData) => {
-        e.preventDefault();
+    const login = async (e = null, formData) => {
+
+        if (e) {
+            e.preventDefault();
+        }
     
         try {
           
@@ -123,6 +126,21 @@ const AuthProvider = ({children}) => {
             setIsAuthenticated(false);
 
             return;
+        }
+        
+    }, []);
+
+    // useEffect per l'auto login
+    useEffect(() => {
+
+        if(autoLogin) {
+
+            const formData = {
+                email: autoLoginEmail,
+                password: autoLoginPassword
+            }
+
+            login(null, formData);
         }
         
     }, []);
