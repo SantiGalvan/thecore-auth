@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useAlert } from "../contexts/AlertContext";
 import LoginForm from "../components/LoginForm";
 import { useLoginForm } from "../contexts/LoginFormContext";
+import { useConfig } from "../contexts/ConfigContext";
 
 
 const Login = ({Logo}) => {
 
   const { setShowAlert, setTypeAlert, setMessageAlert } = useAlert();
   const { styleCardForm, styleContainerLogo, styleLogo } = useLoginForm();
+  const { firstPrivatePath } = useConfig();
 
   const navigate = useNavigate();
 
@@ -19,7 +21,7 @@ const Login = ({Logo}) => {
     const token = localStorage.getItem('accessToken');
 
     if(token && id) {
-      navigate(`/dashboard/${id}`);
+      navigate(`${firstPrivatePath}${id}`);
 
       // Alert
       setShowAlert(true);
