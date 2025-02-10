@@ -1,4 +1,5 @@
 import { LoadingProvider } from "./contexts/LoadingContext";
+import { useLoading } from "./contexts/LoadingContext";
 import { ConfigProvider } from "./contexts/ConfigContext";
 import { AlertProvider } from "./contexts/AlertContext";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -24,6 +25,7 @@ import './index.css'
 export { 
     BrowserRouter,
     LoadingProvider,
+    useLoading,
     ConfigProvider,
     AlertProvider,
     AuthProvider,

@@ -3,6 +3,7 @@
     "authenticatedEndpoint": "authenticate",
     "usersEndpoint": "users/",
     "heartbeatEndpoint": "info/heartbeat",
+    "firstPrivatePath": "/dashboard/",
     "infiniteSession": true,
     "timeDeducted": 60000,
     "alertTimeout": 10000,

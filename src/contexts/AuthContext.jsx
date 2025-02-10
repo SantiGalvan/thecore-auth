@@ -10,7 +10,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
 
-    const { heartbeatEndpoint, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, autoLoginEmail, autoLoginPassword } = useConfig();
+    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, autoLoginEmail, autoLoginPassword } = useConfig();
     const {setIsLoading} = useLoading();
     const { setShowAlert, setMessageAlert, setTypeAlert } = useAlert();
 
@@ -49,7 +49,7 @@ const AuthProvider = ({children}) => {
             localStorage.setItem('id', id);
             setIsAuthenticated(true);
             setCurrentToken(token);
-            navigate(`/dashboard/${id}`);
+            navigate(`${firstPrivatePath}${id}`);
 
           }
 

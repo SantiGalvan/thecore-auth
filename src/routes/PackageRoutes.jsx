@@ -6,11 +6,18 @@ import Dashboard from "../pages/user/Dashboard";
 import { useRoutesInjection } from "../contexts/RouteContext";
 import Logo from '../assets/MyWarehouse.svg?react';
 import { useEffect } from "react";
+import { useConfig } from "../contexts/ConfigContext";
 
-const PackageRoutes = ({logoImg = Logo, pathImg = './src/assets/MyWarehouse.svg'}) => {
+const PackageRoutes = (props) => {
 
     const { publicRoutes, privateRoutes } = useRoutesInjection();
+    const { firstPrivatePath } = useConfig();
 
+    const {
+        logoImg = Logo, 
+        pathImg = './src/assets/MyWarehouse.svg', 
+        firstPrivateElement = <Dashboard/>
+    } = props;
 
     const iconUpdater = () => {
         const favicon = document.querySelector("link[rel='icon']");
@@ -42,7 +49,7 @@ const PackageRoutes = ({logoImg = Logo, pathImg = './src/assets/MyWarehouse.svg'
                 {/* Rotte private */}
                 <Route element={<AuthPage />}>
 
-                    <Route path="/dashboard/:id" element={<Dashboard/>} />
+                    <Route path={`${firstPrivatePath}:id`} element={firstPrivateElement} />
 
                     {/* Nuove rotte da inserire con il Context */}
                     {privateRoutes.map((route, i) => (
