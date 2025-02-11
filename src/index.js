@@ -14,6 +14,7 @@ import { Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { useMatch } from "react-router-dom";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/AuthPage";
 import DefaultLayout from "./layouts/DefaultLayout";
@@ -44,6 +45,7 @@ export {
     Link,
     NavLink,
     useLocation,
+    useMatch,
     useLoginForm,
     PackageRoutes,
     AuthPage,
