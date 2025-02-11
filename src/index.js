@@ -11,6 +11,8 @@ import { BrowserRouter } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/AuthPage";
 import DefaultLayout from "./layouts/DefaultLayout";
@@ -38,6 +40,8 @@ export {
     Outlet,
     Route,
     Routes,
+    Link,
+    NavLink,
     useLoginForm,
     PackageRoutes,
     AuthPage,
