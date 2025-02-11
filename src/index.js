@@ -13,6 +13,7 @@ import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/AuthPage";
 import DefaultLayout from "./layouts/DefaultLayout";
@@ -42,6 +43,7 @@ export {
     Routes,
     Link,
     NavLink,
+    useLocation,
     useLoginForm,
     PackageRoutes,
     AuthPage,
