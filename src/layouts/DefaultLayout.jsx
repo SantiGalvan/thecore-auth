@@ -13,10 +13,8 @@ const DefaultLayout = () => {
         <>
            {isLoading && <Loading />}
            
-           <main className={isLoading ? 'hidden' : ''}>
-               {showAlert && <Alert />}
-               <Outlet />
-           </main>
+            {showAlert && <Alert />}
+            <Outlet />
         </>
     )
 }
