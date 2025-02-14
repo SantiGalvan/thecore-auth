@@ -1,8 +1,11 @@
 import { LoadingProvider } from "./contexts/LoadingContext";
 import { useLoading } from "./contexts/LoadingContext";
 import { ConfigProvider } from "./contexts/ConfigContext";
+import { useConfig } from "./contexts/ConfigContext";
 import { AlertProvider } from "./contexts/AlertContext";
+import { useAlert } from "./contexts/AlertContext";
 import { AuthProvider } from "./contexts/AuthContext";
+import { useAuth } from "./contexts/AuthContext";
 import { RouteProvider } from "./contexts/RouteContext";
 import { useRoutesInjection } from "./contexts/RouteContext";
 import { LoginFormProvider } from "./contexts/LoginFormContext";
@@ -34,8 +37,11 @@ export {
     LoadingProvider,
     useLoading,
     ConfigProvider,
+    useConfig,
     AlertProvider,
+    useAlert,
     AuthProvider,
+    useAuth,
     RouteProvider,
     useRoutesInjection,
     LoginFormProvider,
