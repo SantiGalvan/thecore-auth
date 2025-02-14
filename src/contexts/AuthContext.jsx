@@ -133,7 +133,10 @@ const AuthProvider = ({children}) => {
     // useEffect per l'auto login
     useEffect(() => {
 
-        if(autoLogin) {
+        const token = localStorage.getItem('accessToken')
+
+        // Se la falg autoLogin è su true e se il token non c'è allora fai l'autologin
+        if(autoLogin && !token) {
 
             const formData = {
                 email: autoLoginEmail,
