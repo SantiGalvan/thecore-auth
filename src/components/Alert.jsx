@@ -101,7 +101,7 @@ const Alert = () => {
 
     return(
         
-        <div className={`flex items-center p-4 pt-6 ${textColor} rounded-lg ${bgColor} mx-auto fixed top-[calc(100vh-100px)] sm:right-10 right-1/2 translate-x-1/2 sm:translate-0`} role="alert">
+        <div className={`flex items-center p-4 pt-6 ${textColor} rounded-lg ${bgColor} mx-auto fixed top-[calc(100vh-100px)] sm:right-10 right-1/2 translate-x-1/2 sm:translate-0 z-[999]`} role="alert">
 
             <div className="w-full bg-gray-200 rounded-t-lg overflow-hidden h-2.5 absolute top-0 left-0 right-0">
                 <div className={`${progressColor} h-2.5 rounded-t-lg`} style={{width: `${progress}%`}}></div>
