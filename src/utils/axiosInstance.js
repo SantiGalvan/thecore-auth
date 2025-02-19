@@ -10,10 +10,11 @@ const fetchAxiosConfig = async (show, type, message) => {
         const data = await res.json();
         const baseURL = data.baseUri;
         const { unauthorized, notFound, defaultMessage } = data.axiosErrors;
+        const timeout = data.axiosTimeout;
 
         instance = axios.create({
             baseURL,
-            timeout: 5000,
+            timeout
         });
 
         instance.interceptors.request.use(

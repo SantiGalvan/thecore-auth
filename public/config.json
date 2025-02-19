@@ -7,6 +7,7 @@
     "infiniteSession": true,
     "timeDeducted": 60000,
     "alertTimeout": 10000,
+    "axiosTimeout": 5000,
     "axiosErrors": {
         "unauthorized":"Autenticazione negata",
         "notFound": "Risorsa non trovata",
