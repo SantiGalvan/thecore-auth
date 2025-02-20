@@ -79,6 +79,10 @@
   --login-logo-width: 20vw;
   --login-logo-max-width: 300px;
 
+  /*? Loading */
+  --color-loading-bg: #4B556366;
+  --color-spinner: #fff;
+
 }
 
 /* Posizione del bottone */
