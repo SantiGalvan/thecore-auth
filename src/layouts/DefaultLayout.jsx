@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Loading from "../components/Loading";
+import Loading from "../components/loading/Loading";
 import { useLoading } from "../contexts/LoadingContext";
 import Alert from "../components/Alert";
 import { useAlert } from "../contexts/AlertContext";

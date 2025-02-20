@@ -25,7 +25,8 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/user/Dashboard";
 import { fetchAxiosConfig } from "./utils/axiosInstance"
 import LoginForm from "./components/LoginForm";
-import Loading from "./components/Loading";
+import Loading from "./components/loading/Loading";
+import LoadingComponent from "./components/loading/LoadingComponent";
 import Alert from "./components/Alert";
 import Input from "./components/inputs/Input";
 import InputLabel from "./components/inputs/InputLabel";
@@ -61,6 +62,7 @@ export {
     fetchAxiosConfig,
     LoginForm,
     Loading,
+    LoadingComponent,
     Alert,
     Input,
     InputLabel,
