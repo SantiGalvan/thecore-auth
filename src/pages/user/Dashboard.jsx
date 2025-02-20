@@ -63,8 +63,9 @@ const Dashboard = () => {
     }
 
     const fetchUsers = async () => {
+
         try {
-            
+
             setDisabled(true);
 
             const token = localStorage.getItem('accessToken');
@@ -97,16 +98,8 @@ const Dashboard = () => {
             console.error(err);
 
             setIsLoading(false);
-
-            const statusError = err.status;
-
-          if(statusError === 401) {
-
-            logout();
-
-          }
-
             setDisabled(false);
+
         }
     }
 
@@ -153,7 +146,7 @@ const Dashboard = () => {
                 </div>
 
                 <div className="flex justify-center items-center">
-
+                   
                     {users && <ul>
                         {users.map(user => (
                             <li key={`user-${user.id}`} className="text-xl my-4">{user.id} - {user.email}</li>
