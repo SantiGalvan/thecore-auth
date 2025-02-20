@@ -5,9 +5,10 @@ const LoadingContext = createContext();
 const LoadingProvider = ({children}) => {
 
     const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingComponent, setIsLoadingComponent] = useState(false);
 
     return (
-        <LoadingContext.Provider value={{isLoading, setIsLoading}}>
+        <LoadingContext.Provider value={{isLoading, setIsLoading, isLoadingComponent, setIsLoadingComponent}}>
             {children}
         </LoadingContext.Provider>
     )
