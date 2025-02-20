@@ -19,6 +19,7 @@ Esempio di config.json:
     "infiniteSession": ,
     "timeDeducted": ,
     "alertTimeout": ,
+    "axiosTimeout": ,
     "axiosErrors": {
         "unauthorized":"",
         "notFound": "",
