@@ -4,7 +4,7 @@ import { useLoading } from "../contexts/LoadingContext";
 import Alert from "../components/Alert";
 import { useAlert } from "../contexts/AlertContext";
 
-const DefaultLayout = () => {
+const DefaultLayout = ({isMain = true}) => {
 
     const {isLoading} = useLoading();
     const{showAlert} = useAlert();
@@ -14,7 +14,14 @@ const DefaultLayout = () => {
            {isLoading && <Loading />}
            
             {showAlert && <Alert />}
-            <Outlet />
+            {isMain ? 
+                <main className={isLoading ? 'hidden' : ''}>
+                    {showAlert && <Alert />}
+                    <Outlet />
+                </main> 
+                :
+                <Outlet />
+            }
         </>
     )
 }
