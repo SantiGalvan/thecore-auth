@@ -16,8 +16,12 @@ const PackageRoutes = (props) => {
     const {
         logoImg = Logo, 
         pathImg = './src/assets/MyWarehouse.svg', 
-        firstPrivateElement = <Dashboard/>
+        firstPrivateElement = <Dashboard/>,
+        globalLayout,
+        isMain
     } = props;
+
+    const layout = globalLayout ? globalLayout : <DefaultLayout isMain={isMain} />
 
     const iconUpdater = () => {
         const favicon = document.querySelector("link[rel='icon']");
@@ -32,7 +36,7 @@ const PackageRoutes = (props) => {
     return (
         <Routes>
 
-            <Route element={<DefaultLayout />}>
+            <Route element={globalLayout === 'none' ? '' : layout}>
 
                 {/* Rotte pubbliche */}
                 <Route path="/">
