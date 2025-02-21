@@ -7,7 +7,9 @@ const Input = (props) => {
         inputRequired,
         inputValue,
         inputChange,
-        autoFocus
+        autoFocus,
+        inputStyle,
+        overrideStyle
     } = props;
 
     const validTypes = ['text', 'email', 'password', 'search', 'tel', 'url'];
@@ -18,7 +20,7 @@ const Input = (props) => {
             type={type}
             autoFocus={autoFocus}
             id={inputId} 
-            className="bg-input-bg border border-input-border text-input-text text-input-placeholder input-rounded focus:ring focus:ring-primary focus:border-primary focus:outline-none focus:shadow-(--shadow-primary-input) block w-full p-input" 
+            className={overrideStyle || `bg-input-bg border border-input-border text-input-text text-input-placeholder input-rounded focus:ring focus:ring-primary focus:border-primary focus:outline-none focus:shadow-(--shadow-primary-input) block w-full p-input ${inputStyle}`} 
             placeholder={inputPlaceholder}
             required={inputRequired ?? true}
             value={inputValue}
