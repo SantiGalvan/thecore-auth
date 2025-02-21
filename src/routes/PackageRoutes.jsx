@@ -5,7 +5,7 @@ import AuthPage from "../middlewares/AuthPage";
 import Dashboard from "../pages/user/Dashboard";
 import { useRoutesInjection } from "../contexts/RouteContext";
 import Logo from '../assets/MyWarehouse.svg?react';
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useConfig } from "../contexts/ConfigContext";
 
 const PackageRoutes = (props) => {
@@ -18,10 +18,13 @@ const PackageRoutes = (props) => {
         pathImg = './src/assets/MyWarehouse.svg', 
         firstPrivateElement = <Dashboard/>,
         globalLayout,
-        isMain
+        isMain,
+        privateProvider,
+        customProvider
     } = props;
 
     const layout = globalLayout ? globalLayout : <DefaultLayout isMain={isMain} />
+    const provider = privateProvider ? (React.cloneElement(privateProvider, {}, customProvider)) : (<AuthPage>{customProvider}</AuthPage>);
 
     const iconUpdater = () => {
         const favicon = document.querySelector("link[rel='icon']");
@@ -31,12 +34,12 @@ const PackageRoutes = (props) => {
 
     useEffect(() => {
         iconUpdater();
-    }, [pathImg]);
+    }, []);
 
     return (
         <Routes>
 
-            <Route element={globalLayout === 'none' ? '' : layout}>
+            <Route element={globalLayout === 'none' ? null : layout}>
 
                 {/* Rotte pubbliche */}
                 <Route path="/">
@@ -51,7 +54,7 @@ const PackageRoutes = (props) => {
                 </Route>
 
                 {/* Rotte private */}
-                <Route element={<AuthPage />}>
+                <Route element={provider}>
 
                     <Route path={`${firstPrivatePath}:id`} element={firstPrivateElement} />
 
