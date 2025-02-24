@@ -4,13 +4,14 @@ import { useAlert } from '../contexts/AlertContext';
 import { useEffect } from 'react';
 
 const AuthPage = () => {
+  
   const { isAuthenticated } = useAuth();
 
   const {setShowAlert, setTypeAlert, setMessageAlert} = useAlert();
-
-  const token = localStorage.getItem('accessToken');
-
+  
   useEffect(() => {
+
+    const token = localStorage.getItem('accessToken');
 
     if(!isAuthenticated && !token) {
 

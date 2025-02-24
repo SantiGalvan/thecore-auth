@@ -20,6 +20,7 @@ const AuthProvider = ({children}) => {
     const [currentToken, setCurrentToken] = useState();
     const [timeoutToken, setTimeoutToken] = useState();
     const [sessionTimeout, setSessionTimeout] = useState();
+    const [isLoggingIn, setIsLoggingIn] = useState(false);
 
     const login = async (e = null, formData) => {
 
@@ -27,6 +28,8 @@ const AuthProvider = ({children}) => {
             e.preventDefault();
         }
     
+        setIsLoggingIn(true);
+
         try {
           
           setIsLoading(true);
@@ -54,10 +57,15 @@ const AuthProvider = ({children}) => {
           }
 
         } catch (err) {
+
           console.error(err);
 
+        } finally {
+
+          setIsLoggingIn(false);
           // Chiudo il Loading
           setIsLoading(false);
+
         }
     
     }
@@ -88,6 +96,9 @@ const AuthProvider = ({children}) => {
             const newToken = res.headers.token;
             localStorage.setItem('accessToken', newToken);
             setCurrentToken(newToken);
+
+            console.log('vecchio token: ', token);
+            console.log('nuovo token: ', newToken);
 
         } catch (err) {
             console.error(err);
@@ -136,7 +147,7 @@ const AuthProvider = ({children}) => {
         const token = localStorage.getItem('accessToken')
 
         // Se la falg autoLogin è su true e se il token non c'è allora fai l'autologin
-        if(autoLogin && !token) {
+        if(autoLogin && !token && !isLoggingIn) {
 
             const formData = {
                 email: autoLoginEmail,
@@ -146,7 +157,7 @@ const AuthProvider = ({children}) => {
             login(null, formData);
         }
         
-    }, []);
+    }, [autoLogin, isLoggingIn]);
 
     // UseEffect per la sessione infinita e la sessione con scadenza del Token
     useEffect(() => {

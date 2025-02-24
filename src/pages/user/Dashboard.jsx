@@ -50,14 +50,16 @@ const Dashboard = () => {
 
             setUser(userData);
 
-            setIsLoading(false);
 
         } catch (err) {
             console.error(err);
 
-            setIsLoading(false);
-
             logout();
+
+        } finally {
+
+          // Chiudo il Loading
+          setIsLoading(false);
 
         }
     }
@@ -92,14 +94,15 @@ const Dashboard = () => {
             const users = res.data
             setUsers(users);
 
-            if(users) setDisabled(false);
-
         } catch (err) {
             console.error(err);
 
             setIsLoading(false);
-            setDisabled(false);
 
+        } finally {
+
+            setDisabled(false);
+            
         }
     }
 
