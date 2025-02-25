@@ -21,11 +21,12 @@ const PackageRoutes = (props) => {
         isMain,
         headerComponent,
         showHeaderOnLogin,
+        headerExcludedRoutes,
         privateProvider,
         customProvider
     } = props;
 
-    const layout = globalLayout ? globalLayout : <DefaultLayout isMain={isMain} headerComponent={headerComponent} showHeaderOnLogin={showHeaderOnLogin} />
+    const layout = globalLayout ? globalLayout : <DefaultLayout isMain={isMain} headerComponent={headerComponent} showHeaderOnLogin={showHeaderOnLogin} headerExcludedRoutes={headerExcludedRoutes} />
     const provider = privateProvider ? (React.cloneElement(privateProvider, {}, customProvider)) : (<AuthPage>{customProvider}</AuthPage>);
 
     const iconUpdater = () => {
