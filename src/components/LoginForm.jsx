@@ -7,11 +7,11 @@ const LoginForm = () => {
     const { title, label, type, placeholder, buttonText, formData, changeData, handleLogin, overrideStyle } = useLoginForm();
 
     return (
-        <form onSubmit={handleLogin} className={overrideStyle.form || `form-sizeoverrideStyle.form || `}>
+        <form onSubmit={handleLogin} className={overrideStyle.form || `form-size`}>
             <h1 className={overrideStyle.title || `text-form-title-size show-title title-position m-form-title`}>{title}</h1>
 
             {/* Eamil */}
-            <div className={overrideStyle.containerEmail || `flex justify-center flex-col gap-1 m-input-form input-size mx-autooverrideStyle.containerEmail || `}>
+            <div className={overrideStyle.containerEmail || `flex justify-center flex-col gap-1 m-input-form input-size mx-auto`}>
                 <InputLabel labelId={'user-email'} label={label} />
                 <Input 
                     inputType={type} 
@@ -24,7 +24,7 @@ const LoginForm = () => {
             </div>
 
             {/* Password */}
-            <div className={overrideStyle.containerPassword || `flex justify-center flex-col gap-1 my-4 input-size mx-autooverrideStyle.containerPassword || `}>
+            <div className={overrideStyle.containerPassword || `flex justify-center flex-col gap-1 my-4 input-size mx-auto`}>
                 <InputLabel labelId={'password'} label={'Password'} />
                 <Input 
                     inputType={'password'} 
