@@ -4,14 +4,14 @@ import InputLabel from "./inputs/InputLabel";
 
 const LoginForm = () => {
 
-    const { title, label, type, placeholder, buttonText, formData, changeData, handleLogin } = useLoginForm();
+    const { title, label, type, placeholder, buttonText, formData, changeData, handleLogin, overrideStyle } = useLoginForm();
 
     return (
-        <form onSubmit={handleLogin} className="form-size">
-            <h1 className={`text-form-title-size show-title title-position m-form-title`}>{title}</h1>
+        <form onSubmit={handleLogin} className={overrideStyle.form || `form-sizeoverrideStyle.form || `}>
+            <h1 className={overrideStyle.title || `text-form-title-size show-title title-position m-form-title`}>{title}</h1>
 
             {/* Eamil */}
-            <div className="flex justify-center flex-col gap-1 m-input-form input-size mx-auto">
+            <div className={overrideStyle.containerEmail || `flex justify-center flex-col gap-1 m-input-form input-size mx-autooverrideStyle.containerEmail || `}>
                 <InputLabel labelId={'user-email'} label={label} />
                 <Input 
                     inputType={type} 
@@ -24,7 +24,7 @@ const LoginForm = () => {
             </div>
 
             {/* Password */}
-            <div className="flex justify-center flex-col gap-1 my-4 input-size mx-auto">
+            <div className={overrideStyle.containerPassword || `flex justify-center flex-col gap-1 my-4 input-size mx-autooverrideStyle.containerPassword || `}>
                 <InputLabel labelId={'password'} label={'Password'} />
                 <Input 
                     inputType={'password'} 
@@ -35,8 +35,8 @@ const LoginForm = () => {
                 />
             </div>
 
-            <div className={`flex button-position items-center m-primary-button`}>
-                <button className={`font-bold cursor-pointer shadow-(--shadow-primary) transition-all duration-200 hover:shadow-(--shadow-primary-hover) active:shadow-(--shadow-primary-active) active:translate-y-[2px] p-primary-button rounded-primary-button bg-primary hover:bg-primary-hover text-primary-text`}>
+            <div className={overrideStyle.containerButton || `flex button-position items-center m-primary-button`}>
+                <button className={overrideStyle.button || `font-bold cursor-pointer shadow-(--shadow-primary) transition-all duration-200 hover:shadow-(--shadow-primary-hover) active:shadow-(--shadow-primary-active) active:translate-y-[2px] p-primary-button rounded-primary-button bg-primary hover:bg-primary-hover text-primary-text`}>
                     {buttonText}
                 </button>
             </div>

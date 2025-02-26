@@ -32,6 +32,9 @@ const LoginFormProvider = ({children}) => {
     const [styleContainerLogo, setStyleContainerLogo] = useState();
     const [styleLogo, setStyleLogo] = useState();
 
+    // Override dello style
+    const [overrideStyle, setOverrideStyle] = useState({});
+
     const changeData = (key, value) => {
         setFormData(curr => ({...curr, [key]:value}));
     }
@@ -42,6 +45,8 @@ const LoginFormProvider = ({children}) => {
     }
 
     const value = {
+        overrideStyle,
+        setOverrideStyle,
         title,
         setTitle,
         label,
