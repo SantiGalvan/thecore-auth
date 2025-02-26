@@ -16,6 +16,7 @@ Esempio di config.json:
     "authenticatedEndpoint": "",
     "usersEndpoint": "",
     "heartbeatEndpoint": "",
+    "firstPrivatePath": "",
     "infiniteSession": ,
     "timeDeducted": ,
     "alertTimeout": ,

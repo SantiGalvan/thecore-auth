@@ -71,7 +71,7 @@ const PackageRoutes = (props) => {
                 {/* Rotte private */}
                 <Route element={provider}>
 
-                    <Route path={`${firstPrivatePath}:id`} element={firstPrivateElement} />
+                    <Route path={`${firstPrivatePath ?? '/dashboard/'}:id`} element={firstPrivateElement} />
 
                     {/* Nuove rotte da inserire con il Context */}
                     {privateRoutes.map((route, i) => (
