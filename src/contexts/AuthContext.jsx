@@ -22,6 +22,21 @@ const AuthProvider = ({children}) => {
     const [sessionTimeout, setSessionTimeout] = useState();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
+    const setCurrentDate = () => {
+        const currentDate = new Date();
+        
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const year = currentDate.getFullYear();
+        const hours = String(currentDate.getHours()).padStart(2, '0');
+        const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+        const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+        
+        const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+
+        return formattedDate;
+    }
+
     const login = async (e = null, formData) => {
 
         if (e) {
@@ -97,8 +112,7 @@ const AuthProvider = ({children}) => {
             localStorage.setItem('accessToken', newToken);
             setCurrentToken(newToken);
 
-            console.log('vecchio token: ', token);
-            console.log('nuovo token: ', newToken);
+            console.log('nuovo token: ', newToken, 'Data:', setCurrentDate());
 
         } catch (err) {
             console.error(err);
