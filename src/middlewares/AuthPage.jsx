@@ -6,7 +6,7 @@ import { useConfig } from '../contexts/ConfigContext';
 
 const AuthPage = () => {
   
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated } = useAuth();
   const {setShowAlert, setTypeAlert, setMessageAlert} = useAlert();
   const { autoLogin } = useConfig();
   
@@ -20,11 +20,9 @@ const AuthPage = () => {
       setTypeAlert('danger');
       setMessageAlert('Non sei autorizzato');
 
-      logout();
-
     }
 
-  }, [isAuthenticated]);
+  }, []);
 
   // Check per l'effettivo controllo del token
   if (isAuthenticated === null) {
