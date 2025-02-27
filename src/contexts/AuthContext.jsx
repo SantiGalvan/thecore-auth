@@ -201,6 +201,22 @@ const AuthProvider = ({children}) => {
 
     }, [currentToken, timeoutToken]);
 
+    // useEffect per il controllo dell'autologin quando 
+    useEffect(() => {
+        if(isAuthenticated) return;
+
+        if(autoLogin && !isLoggingIn) {
+
+            const formData = {
+                email: autoLoginEmail,
+                password: autoLoginPassword
+            }
+
+            login(null, formData);
+        }
+
+    }, [isAuthenticated]);
+
     const value = {
         isAuthenticated,
         setIsAuthenticated,
