@@ -12,7 +12,7 @@ const AuthProvider = ({children}) => {
 
     const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, autoLoginEmail, autoLoginPassword } = useConfig();
     const {setIsLoading} = useLoading();
-    const { setShowAlert, setMessageAlert, setTypeAlert } = useAlert();
+    const { setShowAlert, setMessageAlert, setTypeAlert, activeAlert } = useAlert();
 
     const navigate = useNavigate();
 
@@ -196,9 +196,7 @@ const AuthProvider = ({children}) => {
                 logout();
 
                 // Alert
-                setShowAlert(true);
-                setTypeAlert('danger');
-                setMessageAlert('Sessione scaduta');
+                activeAlert('danger', 'Sessione scaduta');
                 
             }, sessionTimeout);
         }

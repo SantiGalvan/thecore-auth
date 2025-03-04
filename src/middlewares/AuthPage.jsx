@@ -7,7 +7,7 @@ import { useConfig } from '../contexts/ConfigContext';
 const AuthPage = () => {
   
   const { isAuthenticated } = useAuth();
-  const {setShowAlert, setTypeAlert, setMessageAlert} = useAlert();
+  const { activeAlert } = useAlert();
   const { autoLogin } = useConfig();
   
   useEffect(() => {
@@ -16,9 +16,7 @@ const AuthPage = () => {
 
     if(!isAuthenticated && !token && !autoLogin) {
 
-      setShowAlert(true);
-      setTypeAlert('danger');
-      setMessageAlert('Non sei autorizzato');
+      activeAlert('danger', 'Non sei autorizzato');
 
     }
 

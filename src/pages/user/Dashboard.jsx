@@ -5,6 +5,7 @@ import { useConfig } from "../../contexts/ConfigContext";
 import {fetchAxiosConfig} from "../../utils/axiosInstance.js";
 import { useLoading } from "../../contexts/LoadingContext.jsx";
 import { useAlert } from "../../contexts/AlertContext.jsx";
+import Modal from "../../components/Modal.jsx";
 
 const Dashboard = () => {
     const { id } = useParams();
@@ -12,11 +13,13 @@ const Dashboard = () => {
     const { logout, setCurrentToken } = useAuth();
     const { usersEndpoint } = useConfig();
     const { setIsLoading } = useLoading();
-    const { setShowAlert, setTypeAlert, setMessageAlert } = useAlert();
+    const { setShowAlert, setTypeAlert, setMessageAlert, activeAlert } = useAlert();
 
     const [user, setUser] = useState({});
     const [users, setUsers] = useState(null);
     const [disabled, setDisabled] = useState(false);
+
+    const [openModal, setOpenModal] = useState(false);
 
     const fetchUser = async () => {
         
@@ -29,9 +32,7 @@ const Dashboard = () => {
                 logout();
 
                 // Alert
-                setShowAlert(true);
-                setTypeAlert('danger');
-                setMessageAlert('Sessione scaduta');
+                activeAlert('danger', 'Sessione Scaduta');
                 
                 return;
             }
@@ -76,9 +77,7 @@ const Dashboard = () => {
                 logout();
 
                 // Alert
-                setShowAlert(true);
-                setTypeAlert('danger');
-                setMessageAlert('Sessione scaduta');
+                activeAlert('danger', 'Sessione Scaduta');
 
                 return;
             }
@@ -110,10 +109,12 @@ const Dashboard = () => {
         logout();
 
         // Alert con messaggio e tipo
-        setShowAlert(true);
-        setTypeAlert('info');
-        setMessageAlert('Hai effettuato il logout');
+        activeAlert('info', 'Hai effettuato il logout');
     }
+
+    const handleClose = () => {
+        setOpenModal(false);
+      };
 
     useEffect(() => {
         fetchUser();
@@ -121,6 +122,7 @@ const Dashboard = () => {
 
     return (
         <section>
+            {openModal && <Modal isOpen={openModal} onClose={handleClose} />}
             <div className="container mx-auto py-8">
 
                 <div className="flex items-center justify-center gap-8 h-20">

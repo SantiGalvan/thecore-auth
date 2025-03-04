@@ -8,7 +8,7 @@ import { useConfig } from "../contexts/ConfigContext";
 
 const Login = ({Logo}) => {
 
-  const { setShowAlert, setTypeAlert, setMessageAlert } = useAlert();
+  const { activeAlert } = useAlert();
   const { styleCardForm, styleContainerLogo, styleLogo, overrideStyle } = useLoginForm();
   const { firstPrivatePath } = useConfig();
 
@@ -24,9 +24,7 @@ const Login = ({Logo}) => {
       navigate(`${firstPrivatePath}${id}`);
 
       // Alert
-      setShowAlert(true);
-      setTypeAlert('info');
-      setMessageAlert('Sei già loggato');
+      activeAlert('info', 'Sei già loggato');
     }
 
   }, []);

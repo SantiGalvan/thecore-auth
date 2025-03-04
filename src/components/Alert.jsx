@@ -1,74 +1,18 @@
 import { RxCross2 } from "react-icons/rx";
-import { GiCheckMark } from "react-icons/gi";
 import { useAlert } from "../contexts/AlertContext";
 import { useEffect, useState } from "react";
 import { useConfig } from "../contexts/ConfigContext";
-import DangerLogo from '../assets/danger.svg?react';
-import InfoLogo from '../assets/info.svg?react';
-import WarningLogo from '../assets/warning.svg?react';
+
 
 const Alert = () => {
 
-    const { showAlert, setShowAlert, messageAlert, typeAlert } = useAlert();
+    const { messageAlert, typeAlert, alertConfig, getIcon, closeAlert } = useAlert();
     const { alertTimeout } = useConfig();
 
     const [progress, setProgress] = useState(0);
-    
-    const alertConfig = {
-        danger: {
-            bgColor: "bg-danger",
-            textColor: "text-danger-text",
-            buttonBg: "bg-danger",
-            hoverBg: "hover:bg-danger-hover",
-            focusRing: "focus:ring-danger-progress",
-            progressColor: "bg-danger-progress"
-        },
-        info : {
-            bgColor: "bg-info",
-            textColor: "text-info-text",
-            buttonBg: "bg-info",
-            hoverBg: "hover:bg-info-hover",
-            focusRing: "focus:ring-info-progress",
-            progressColor: "bg-info-progress"
-        },
-        success : {
-            bgColor: "bg-success",
-            textColor: "text-success-text",
-            buttonBg: "bg-success",
-            hoverBg: "hover:bg-success-hover",
-            focusRing: "focus:ring-success-progress",
-            progressColor: "bg-success-progress"
-        },
-        warning: {
-            bgColor: "bg-warning",
-            textColor: "text-warning-text",
-            buttonBg: "bg-warning",
-            hoverBg: "hover:bg-warning-hover",
-            focusRing: "focus:ring-warning-progress",
-            progressColor: "bg-warning-progress"
-        }
-    }
 
     // Variabili per lo stile dell'Alert
     const { bgColor, textColor, buttonBg, hoverBg, focusRing, progressColor } = alertConfig[typeAlert];
-
-    // Restituisce l'icona giusta
-    const getIcon = (type) => {
-        switch (type) {
-            case 'danger':
-                return <DangerLogo className="w-[20px] h-[20px]" />
-            case 'info':
-                return <InfoLogo className="w-[20px] h-[20px]"/>
-            case 'success':
-                return <GiCheckMark className="text-xl"/>
-            case 'warning':
-                return <WarningLogo className="w-[20px] h-[20px]"/>
-        }
-    }
-
-    const closeAlert = () => {
-        setShowAlert(!showAlert);
-    }
 
     // UseEffect per rimuovere il messaggio dopo tot secondi, adesso 10sec
     useEffect(() => {
