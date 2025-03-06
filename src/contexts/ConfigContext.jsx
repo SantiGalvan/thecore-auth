@@ -6,7 +6,6 @@ const ConfigContext = createContext();
 const ConfigProvider = ({children}) => {
 
     const [config, setConfig] = useState({}); // State delle variabili del config e delle funzioni del db
-    const [indexedDb, setIndexedDb] = useState(null); // State del database del browser (IndexedDB)
     const [errorShow, setErrorShow] = useState(false);
 
     // Messaggio di errore se il file config.json non è stato creato
@@ -49,44 +48,31 @@ Esempio di config.json:
                 }
             }
             
-            request.onsuccess = e => {
-                console.log("IndexedDB aperto con successo");
-                const db = e.target.result;
-                setIndexedDb(db);
-                resolve(db);
-            }
+            request.onsuccess = e => resolve(e.target.result);
     
-            request.onerror = e => {
-                console.error("Errore nell'aprire IndexedDB:", e.target.error);
-                reject(e.target.error);
-            }
+            request.onerror = e => reject(e.target.error);
         })
     }
 
     // Richiedi dati
     const getDataIndexedDB = async (storeName, key) => {
 
-        if (!indexedDb) await openIndexedDB();
+        
+        let db = await openIndexedDB();
 
         return new Promise((resolve, reject) => {
-            if(!indexedDb){
+            if(!db){
                 reject("Errore: DB non disponibile");
                 return;
             }
 
-            const transaction = indexedDb?.transaction(storeName, "readonly");
+            const transaction = db?.transaction(storeName, "readonly");
             const store = transaction?.objectStore(storeName);
             const request = store?.get(key);
 
-            request.onsuccess = () => {
-                console.log("Dati recuperati:", request.result);
-                resolve(request.result);
-            };
+            request.onsuccess = () => resolve(request.result);
 
-            request.onerror = e => {
-                console.error("Errore nel recupero dati:", e.target.error);
-                reject(e.target.error);
-            };
+            request.onerror = e => reject(e.target.error);
 
         });
     }
@@ -94,27 +80,21 @@ Esempio di config.json:
     // Modifica dati
     const setDataIndexedDB = async (storeName, data) => {
 
-        if (!indexedDb) await openIndexedDB();
+        let db = await openIndexedDB();
 
         return new Promise((resolve, reject) => {
-            if(!indexedDb){
+            if(!db){
                 reject("Errore: DB non disponibile");
                 return;
             }
 
-            const transaction = indexedDb?.transaction(storeName, "readwrite");
+            const transaction = db?.transaction(storeName, "readwrite");
             const store = transaction?.objectStore(storeName);
             const request = store?.put(data);
 
-            request.onsuccess = () => {
-                console.log("Scrittura effettuata:", data);
-                resolve(request.result);
-            };
+            request.onsuccess = () => resolve(request.result);
 
-            request.onerror = e => {
-                console.error("Errore nella scrittura dati:", e.target.error);
-                reject(e.target.error);
-            };
+            request.onerror = e => reject(e.target.error);
         })
     }
 
@@ -125,7 +105,9 @@ Esempio di config.json:
         let existingData;
         do {
             existingData = await getDataIndexedDB(storeName, uniqueId);
+
             if(existingData) uniqueId++;
+
         } while(existingData);
 
         return uniqueId;
@@ -133,9 +115,8 @@ Esempio di config.json:
 
     // Modifica dati con id automatico
     const setDataWithAutoId = async (storeName, data) => {
-        if (!data.id) {
-            data.id = await generateUniqueId(storeName);
-        }
+
+        if (!data.id) data.id = await generateUniqueId(storeName);
 
         await setDataIndexedDB(storeName, data);
     }
