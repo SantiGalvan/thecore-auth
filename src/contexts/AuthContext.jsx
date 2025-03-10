@@ -10,7 +10,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
 
-    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, autoLoginEmail, autoLoginPassword } = useConfig();
+    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, autoLoginEmail, autoLoginPassword, setCurrentDate } = useConfig();
     const {setIsLoading} = useLoading();
     const { setShowAlert, setMessageAlert, setTypeAlert, activeAlert } = useAlert();
 
@@ -21,21 +21,6 @@ const AuthProvider = ({children}) => {
     const [timeoutToken, setTimeoutToken] = useState();
     const [sessionTimeout, setSessionTimeout] = useState();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
-
-    const setCurrentDate = () => {
-        const currentDate = new Date();
-        
-        const day = String(currentDate.getDate()).padStart(2, '0');
-        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-        const year = currentDate.getFullYear();
-        const hours = String(currentDate.getHours()).padStart(2, '0');
-        const minutes = String(currentDate.getMinutes()).padStart(2, '0');
-        const seconds = String(currentDate.getSeconds()).padStart(2, '0');
-        
-        const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-
-        return formattedDate;
-    }
 
     const login = async (e = null, formData) => {
 
