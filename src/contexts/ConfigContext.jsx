@@ -71,7 +71,7 @@ Esempio di config.json:
     const getDataIndexedDB = async (storeName, key) => {
 
         
-        let db = await openIndexedDB();
+        let db = await openIndexedDB(storeName);
 
         return new Promise((resolve, reject) => {
             if(!db){
@@ -93,7 +93,7 @@ Esempio di config.json:
     // Modifica dati
     const setDataIndexedDB = async (storeName, data) => {
 
-        let db = await openIndexedDB();
+        let db = await openIndexedDB(storeName);
 
         return new Promise((resolve, reject) => {
             if(!db){
