@@ -1,7 +1,7 @@
 {
   "name": "thecore-auth",
   "private": false,
-  "version": "0.0.75",
+  "version": "0.0.76",
   "type": "module",
   "main": "dist/thecore-auth.cjs.js",
   "style": "dist/thecore-auth.css",
@@ -23,7 +23,7 @@
     "react-dom": "^19.0.0"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.0.3",
+    "@tailwindcss/vite": "^4.0.12",
     "axios": "^1.7.9",
     "jwt-decode": "^3.1.2",
     "react-icons": "^5.4.0",
@@ -46,7 +46,7 @@
     "postcss": "^8.5.1",
     "react-icons": "^5.4.0",
     "react-router-dom": "^7.1.3",
-    "tailwindcss": "^4.0.3",
+    "tailwindcss": "^4.0.12",
     "vite": "^6.0.5",
     "vite-plugin-svgr": "^4.3.0"
   },

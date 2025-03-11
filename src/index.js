@@ -31,6 +31,7 @@ import Alert from "./components/Alert";
 import Input from "./components/inputs/Input";
 import InputLabel from "./components/inputs/InputLabel";
 import ErrorPage from "./pages/ErrorPage";
+import axios from "axios";
 import './index.css'
 
 export { 
@@ -66,5 +67,6 @@ export {
     Alert,
     Input,
     InputLabel,
-    ErrorPage
+    ErrorPage,
+    axios
 }
