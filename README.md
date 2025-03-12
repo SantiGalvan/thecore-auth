@@ -15,6 +15,10 @@ After installation, create a `config.json` file inside the `public/` folder. Thi
   "usersEndpoint": "",                  // Users endpoint
   "heartbeatEndpoint": "",              // Heartbeat endpoint for token renewal
   "firstPrivatePath": "/dashboard/",    // Path of the first private route
+  "firstPrivateTitle": "",              // Title of the first private page
+  "configRoutes": [
+    {"path": "", "title": "", "element": ""} // Adding new routes
+  ],
   "infiniteSession": 60000,              // Milliseconds subtracted from the token expiration time
   "alertTimeout": 5000,                  // Duration in milliseconds of the alert timeout
   "axiosTimeout": 3000,                 // Maximum duration in milliseconds of an axios call

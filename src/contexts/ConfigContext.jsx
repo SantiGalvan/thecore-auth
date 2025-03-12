@@ -18,6 +18,10 @@ Esempio di config.json:
     "usersEndpoint": "",
     "heartbeatEndpoint": "",
     "firstPrivatePath": "",
+    "firstPrivateTitle": "",
+    "configRoutes": [
+        {"path": "", "title": "", "element": ""}
+    ],
     "infiniteSession": ,
     "timeDeducted": ,
     "alertTimeout": ,

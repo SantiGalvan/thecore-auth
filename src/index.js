@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useMatch } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/AuthPage";
 import DefaultLayout from "./layouts/DefaultLayout";
@@ -68,5 +69,6 @@ export {
     Input,
     InputLabel,
     ErrorPage,
-    axios
+    axios,
+    useNavigate
 }
