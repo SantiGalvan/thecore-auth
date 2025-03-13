@@ -9,7 +9,8 @@ const Input = (props) => {
         inputChange,
         autoFocus,
         inputStyle,
-        overrideStyle
+        overrideStyle,
+        disabled
     } = props;
 
     const validTypes = ['text', 'email', 'password', 'search', 'tel', 'url'];
@@ -25,6 +26,7 @@ const Input = (props) => {
             required={inputRequired ?? true}
             value={inputValue}
             onChange={inputChange}
+            disabled={disabled}
         />
     )
 }
