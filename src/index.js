@@ -21,6 +21,7 @@ import { useMatch } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/AuthPage";
+import AuthAdmin from "./middlewares/AuthAdmin";
 import DefaultLayout from "./layouts/DefaultLayout";
 import Login from "./pages/Login";
 import Dashboard from "./pages/user/Dashboard";
@@ -58,6 +59,7 @@ export {
     useLoginForm,
     PackageRoutes,
     AuthPage,
+    AuthAdmin,
     DefaultLayout,
     Login,
     Dashboard,

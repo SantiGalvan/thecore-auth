@@ -44,12 +44,13 @@ const AuthProvider = ({children}) => {
     
           const id = res.data.id;
           const token = res.headers.token;
-          
+          const user = res.data;
           
           if (token) {
             
             localStorage.setItem('accessToken', token);
             localStorage.setItem('id', id);
+            localStorage.setItem('user', JSON.stringify(user));
             setIsAuthenticated(true);
             setCurrentToken(token);
             navigate(`${firstPrivatePath}${id}`);
@@ -74,6 +75,7 @@ const AuthProvider = ({children}) => {
 
         localStorage.removeItem('accessToken');
         localStorage.removeItem('id');
+        localStorage.removeItem('user');
         setIsAuthenticated(false);
         setCurrentToken(null);
 

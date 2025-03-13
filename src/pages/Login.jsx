@@ -1,6 +1,5 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "../contexts/AlertContext";
 import LoginForm from "../components/LoginForm";
 import { useLoginForm } from "../contexts/LoginFormContext";
 import { useConfig } from "../contexts/ConfigContext";
@@ -8,7 +7,6 @@ import { useConfig } from "../contexts/ConfigContext";
 
 const Login = ({Logo}) => {
 
-  const { activeAlert } = useAlert();
   const { styleCardForm, styleContainerLogo, styleLogo, overrideStyle } = useLoginForm();
   const { firstPrivatePath } = useConfig();
 
@@ -20,12 +18,7 @@ const Login = ({Logo}) => {
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('accessToken');
 
-    if(token && id) {
-      navigate(`${firstPrivatePath}${id}`);
-
-      // Alert
-      activeAlert('info', 'Sei già loggato');
-    }
+    if(token && id)  navigate(`${firstPrivatePath}${id}`);
 
   }, []);
 
