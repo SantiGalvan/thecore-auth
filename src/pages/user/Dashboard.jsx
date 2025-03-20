@@ -39,7 +39,7 @@ const Dashboard = () => {
             const res = await axiosInstance.get(`${usersEndpoint}`,
                 {
                     headers: {
-                        "Authorization": token
+                        "Authorization": `Bearer ${token}`
                     }
                 }
             );
