@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useConfig } from "../../contexts/ConfigContext";
-import {fetchAxiosConfig} from "../../utils/axiosInstance.js";
+import { fetchAxiosConfig } from "../../utils/axiosInstance.js";
 import { useLoading } from "../../contexts/LoadingContext.jsx";
 import { useAlert } from "../../contexts/AlertContext.jsx";
 
@@ -39,9 +39,11 @@ const Dashboard = () => {
             const axiosInstance = await fetchAxiosConfig(setShowAlert, setTypeAlert, setMessageAlert);
 
             const res = await axiosInstance.get(`${usersEndpoint}`,
-                {headers: {
-                    "Authorization": token
-                }} 
+                {
+                    headers: {
+                        "Authorization": token
+                    }
+                }
             );
 
             const users = res.data
@@ -55,7 +57,7 @@ const Dashboard = () => {
         } finally {
 
             setDisabled(false);
-            
+
         }
     }
 
@@ -69,7 +71,7 @@ const Dashboard = () => {
     useEffect(() => {
         const token = localStorage.getItem('accessToken');
 
-        if(token) setCurrentToken(token);
+        if (token) setCurrentToken(token);
 
     }, []);
 
@@ -91,25 +93,19 @@ const Dashboard = () => {
                 </div>
 
                 <div className="flex justify-center items-center my-12 gap-8">
-                    
-                    <button 
+
+                    <button
                         onClick={fetchUsers}
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:bg-blue-300 disabled:text-gray-500 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 active:translate-y-[2px] shadow-[0_4px_10px_rgba(59,130,246,0.3),0_2px_4px_rgba(59,130,246,0.2)] hover:shadow-[0_6px_14px_rgba(29,78,216,0.4),0_3px_6px_rgba(29,78,216,0.3)] active:shadow-[0_2px_5px_rgba(59,130,246,0.3)]"
                         disabled={disabled}
                     >
                         Lista degli utenti
                     </button>
-                    {user.admin && <Link 
-                        to={`/about/${id}`}
-                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full disabled:bg-green-300 disabled:text-gray-500 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 active:translate-y-[2px] shadow-[0_4px_10px_rgba(59,130,246,0.3),0_2px_4px_rgba(59,130,246,0.2)] hover:shadow-[0_6px_14px_rgba(29,78,216,0.4),0_3px_6px_rgba(29,78,216,0.3)] active:shadow-[0_2px_5px_rgba(59,130,246,0.3)]"
-                    >
-                        About Page
-                    </Link>}
 
                 </div>
 
                 <div className="flex justify-center items-center">
-                   
+
                     {users && <ul>
                         {users.map(user => (
                             <li key={`user-${user.id}`} className="text-xl my-4">{user.id} - {user.email}</li>
