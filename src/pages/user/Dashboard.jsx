@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useConfig } from "../../contexts/ConfigContext";
 import { fetchAxiosConfig } from "../../utils/axiosInstance.js";
@@ -7,7 +6,6 @@ import { useLoading } from "../../contexts/LoadingContext.jsx";
 import { useAlert } from "../../contexts/AlertContext.jsx";
 
 const Dashboard = () => {
-    const { id } = useParams();
 
     const { logout, setCurrentToken } = useAuth();
     const { usersEndpoint } = useConfig();
