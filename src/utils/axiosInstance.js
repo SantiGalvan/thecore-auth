@@ -27,11 +27,11 @@ const fetchAxiosConfig = async (show, type, message) => {
             response => response,
             (error) => {
 
-                if(error.response) {
+                if (error.response) {
 
                     show(true);
                     type('danger');
-                    
+
                     switch (error.response.status) {
                         case 401:
                             localStorage.removeItem('accessToken');
@@ -41,7 +41,7 @@ const fetchAxiosConfig = async (show, type, message) => {
                             message(notFound);
                             break;
                         default:
-                            message(`${defaultMessage} ${error.response.status} ${error.response.data.error}`);
+                            message(`${defaultMessage} ${error.response.status || ''} ${error.response.data.error || ''}`);
                     }
 
                 }
@@ -57,4 +57,4 @@ const fetchAxiosConfig = async (show, type, message) => {
 };
 
 
-export {fetchAxiosConfig};
+export { fetchAxiosConfig };
