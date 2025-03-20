@@ -36,7 +36,7 @@ import ErrorPage from "./pages/ErrorPage";
 import axios from "axios";
 import './index.css'
 
-export { 
+export {
     BrowserRouter,
     LoadingProvider,
     useLoading,

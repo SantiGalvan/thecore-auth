@@ -2,16 +2,16 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useConfig } from "./ConfigContext";
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
-import {fetchAxiosConfig} from "../utils/axiosInstance.js";
+import { fetchAxiosConfig } from "../utils/axiosInstance.js";
 import { useLoading } from "./LoadingContext.jsx";
 import { useAlert } from "./AlertContext.jsx";
 
 const AuthContext = createContext();
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
 
-    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, autoLoginEmail, autoLoginPassword, setCurrentDate } = useConfig();
-    const {setIsLoading} = useLoading();
+    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, autoLoginEmail, autoLoginPassword, setCurrentDate, isDebug } = useConfig();
+    const { setIsLoading } = useLoading();
     const { setShowAlert, setMessageAlert, setTypeAlert, activeAlert } = useAlert();
 
     const navigate = useNavigate();
@@ -22,53 +22,59 @@ const AuthProvider = ({children}) => {
     const [sessionTimeout, setSessionTimeout] = useState();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
+    const createAxiosInstances = async () => {
+        const axios = await fetchAxiosConfig(setShowAlert, setTypeAlert, setMessageAlert);
+
+        return axios;
+    }
+
     const login = async (e = null, formData) => {
 
         if (e) {
             e.preventDefault();
         }
-    
+
         setIsLoggingIn(true);
 
         try {
-          
-          setIsLoading(true);
-          setShowAlert(false);
 
-          const axiosInstance = await fetchAxiosConfig(setShowAlert, setTypeAlert, setMessageAlert);
-    
-          const res = await axiosInstance.post(authenticatedEndpoint, {
-            auth:formData
-          });
-    
-    
-          const id = res.data.id;
-          const token = res.headers.token;
-          const user = res.data;
-          
-          if (token) {
-            
-            localStorage.setItem('accessToken', token);
-            localStorage.setItem('id', id);
-            localStorage.setItem('user', JSON.stringify(user));
-            setIsAuthenticated(true);
-            setCurrentToken(token);
-            navigate(`${firstPrivatePath}${id}`);
+            setIsLoading(true);
+            setShowAlert(false);
 
-          }
+            const axiosInstance = await createAxiosInstances();
+
+            const res = await axiosInstance.post(authenticatedEndpoint, {
+                auth: formData
+            });
+
+
+            const id = res.data.id;
+            const token = res.headers.token;
+            const user = res.data;
+
+            if (token) {
+
+                localStorage.setItem('accessToken', token);
+                localStorage.setItem('id', id);
+                localStorage.setItem('user', JSON.stringify(user));
+                setIsAuthenticated(true);
+                setCurrentToken(token);
+                navigate(`${firstPrivatePath}${id}`);
+
+            }
 
         } catch (err) {
 
-          console.error(err);
+            console.error(err);
 
         } finally {
 
-          setIsLoggingIn(false);
-          // Chiudo il Loading
-          setIsLoading(false);
+            setIsLoggingIn(false);
+            // Chiudo il Loading
+            setIsLoading(false);
 
         }
-    
+
     }
 
     const logout = () => {
@@ -84,22 +90,24 @@ const AuthProvider = ({children}) => {
     const fetchHeartbeat = async () => {
 
         try {
-            
+
             const token = localStorage.getItem('accessToken');
 
-            const axiosInstance = await fetchAxiosConfig(setShowAlert, setTypeAlert, setMessageAlert);
+            const axiosInstance = await createAxiosInstances();
 
-            const res = await axiosInstance.get(`${heartbeatEndpoint}`, 
-                {headers: {
-                    "Authorization": token
-                }}
+            const res = await axiosInstance.get(`${heartbeatEndpoint}`,
+                {
+                    headers: {
+                        "Authorization": token
+                    }
+                }
             );
 
             const newToken = res.headers.token;
             localStorage.setItem('accessToken', newToken);
             setCurrentToken(newToken);
 
-            console.log('nuovo token: ', newToken, 'Data:', setCurrentDate());
+            if (isDebug) console.log('nuovo token: ', newToken, 'Data:', setCurrentDate());
 
         } catch (err) {
             console.error(err);
@@ -118,12 +126,12 @@ const AuthProvider = ({children}) => {
 
         const decoded = jwt_decode(currentToken);
         const exp = decoded.exp;
-        
-        const currentTime = Math.floor(Date.now() / 1000); 
-        
+
+        const currentTime = Math.floor(Date.now() / 1000);
+
         const totalTime = (exp - currentTime) * 1000;
         setSessionTimeout(totalTime);
-        
+
         setTimeoutToken(totalTime - timeDeducted);
     }
 
@@ -131,15 +139,15 @@ const AuthProvider = ({children}) => {
     useEffect(() => {
         const token = localStorage.getItem('accessToken');
 
-        if(token) {
+        if (token) {
             setIsAuthenticated(true);
-        } else { 
-            
+        } else {
+
             setIsAuthenticated(false);
 
             return;
         }
-        
+
     }, []);
 
     // useEffect per l'auto login
@@ -148,7 +156,7 @@ const AuthProvider = ({children}) => {
         const token = localStorage.getItem('accessToken')
 
         // Se la falg autoLogin è su true e se il token non c'è allora fai l'autologin
-        if(autoLogin && !token && !isLoggingIn) {
+        if (autoLogin && !token && !isLoggingIn) {
 
             const formData = {
                 email: autoLoginEmail,
@@ -157,7 +165,7 @@ const AuthProvider = ({children}) => {
 
             login(null, formData);
         }
-        
+
     }, [autoLogin, isLoggingIn]);
 
     // UseEffect per la sessione infinita e la sessione con scadenza del Token
@@ -166,11 +174,11 @@ const AuthProvider = ({children}) => {
 
         // Sessione infinita
         let timerToken;
-        if(infiniteSession && currentToken && timeoutToken) {
+        if (infiniteSession && currentToken && timeoutToken) {
             timerToken = setInterval(() => {
 
                 fetchHeartbeat();
-                
+
             }, timeoutToken);
         }
 
@@ -179,12 +187,12 @@ const AuthProvider = ({children}) => {
         if (!infiniteSession && currentToken && sessionTimeout) {
 
             expirySession = setTimeout(() => {
-                
+
                 logout();
 
                 // Alert
                 activeAlert('danger', 'Sessione scaduta');
-                
+
             }, sessionTimeout);
         }
 
@@ -193,7 +201,7 @@ const AuthProvider = ({children}) => {
                 clearInterval(timerToken);
             }
 
-            if(expirySession) {
+            if (expirySession) {
                 clearTimeout(expirySession);
             }
         }
@@ -202,9 +210,9 @@ const AuthProvider = ({children}) => {
 
     // useEffect per il controllo dell'autologin quando 
     useEffect(() => {
-        if(isAuthenticated) return;
+        if (isAuthenticated) return;
 
-        if(autoLogin && !isLoggingIn) {
+        if (autoLogin && !isLoggingIn) {
 
             const formData = {
                 email: autoLoginEmail,
@@ -221,7 +229,8 @@ const AuthProvider = ({children}) => {
         setIsAuthenticated,
         login,
         logout,
-        setCurrentToken
+        setCurrentToken,
+        createAxiosInstances
     }
 
     return (
@@ -229,7 +238,7 @@ const AuthProvider = ({children}) => {
             {children}
         </AuthContext.Provider>
     )
-} 
+}
 
 const useAuth = () => {
     const value = useContext(AuthContext);
@@ -238,4 +247,4 @@ const useAuth = () => {
     return value;
 }
 
-export {AuthProvider, useAuth}
+export { AuthProvider, useAuth }

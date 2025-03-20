@@ -3,7 +3,7 @@ import ErrorPage from "../pages/ErrorPage";
 
 const ConfigContext = createContext();
 
-const ConfigProvider = ({children}) => {
+const ConfigProvider = ({ children }) => {
 
     const [config, setConfig] = useState({}); // State delle variabili del config e delle funzioni del db
     const [errorShow, setErrorShow] = useState(false);
@@ -35,18 +35,19 @@ Esempio di config.json:
     "autoLogin": ,
     "autoLoginEmail": ,
     "autoLoginPassword": 
+    "isDebug":
 }`
 
     const setCurrentDate = () => {
         const currentDate = new Date();
-        
+
         const day = String(currentDate.getDate()).padStart(2, '0');
         const month = String(currentDate.getMonth() + 1).padStart(2, '0');
         const year = currentDate.getFullYear();
         const hours = String(currentDate.getHours()).padStart(2, '0');
         const minutes = String(currentDate.getMinutes()).padStart(2, '0');
         const seconds = String(currentDate.getSeconds()).padStart(2, '0');
-        
+
         const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 
         return formattedDate;
@@ -57,16 +58,16 @@ Esempio di config.json:
         return new Promise((resolve, reject) => {
 
             const request = indexedDB.open("configDatabase", 1);
-    
+
             request.onupgradeneeded = e => {
                 const db = e.target.result;
-                if(!db.objectStoreNames.contains(storeName)) {
-                    db.createObjectStore(storeName, { keyPath: "id"});
+                if (!db.objectStoreNames.contains(storeName)) {
+                    db.createObjectStore(storeName, { keyPath: "id" });
                 }
             }
-            
+
             request.onsuccess = e => resolve(e.target.result);
-    
+
             request.onerror = e => reject(e.target.error);
         })
     }
@@ -74,11 +75,11 @@ Esempio di config.json:
     // Richiedi dati
     const getDataIndexedDB = async (storeName, key) => {
 
-        
+
         let db = await openIndexedDB(storeName);
 
         return new Promise((resolve, reject) => {
-            if(!db){
+            if (!db) {
                 reject("Errore: DB non disponibile");
                 return;
             }
@@ -100,7 +101,7 @@ Esempio di config.json:
         let db = await openIndexedDB(storeName);
 
         return new Promise((resolve, reject) => {
-            if(!db){
+            if (!db) {
                 reject("Errore: DB non disponibile");
                 return;
             }
@@ -123,9 +124,9 @@ Esempio di config.json:
         do {
             existingData = await getDataIndexedDB(storeName, uniqueId);
 
-            if(existingData) uniqueId++;
+            if (existingData) uniqueId++;
 
-        } while(existingData);
+        } while (existingData);
 
         return uniqueId;
     }
@@ -169,7 +170,7 @@ Esempio di config.json:
 
     // Check per il controllo dell'effettivo arrivo dei dati dal config.json
     if (Object.keys(config).length === 0) {
-        return (<ErrorPage errorShow={errorShow} errorMessage={errorMessage} />) 
+        return (<ErrorPage errorShow={errorShow} errorMessage={errorMessage} />)
     }
 
     return (
@@ -182,9 +183,9 @@ Esempio di config.json:
 const useConfig = () => {
     const value = useContext(ConfigContext);
 
-    if(value === undefined) throw new Error('Non puoi leggere i config');
+    if (value === undefined) throw new Error('Non puoi leggere i config');
 
     return value;
 }
 
-export {ConfigProvider, useConfig}
+export { ConfigProvider, useConfig }

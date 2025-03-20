@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useConfig } from "../../contexts/ConfigContext";
-import { fetchAxiosConfig } from "../../utils/axiosInstance.js";
 import { useLoading } from "../../contexts/LoadingContext.jsx";
 import { useAlert } from "../../contexts/AlertContext.jsx";
 
 const Dashboard = () => {
 
-    const { logout, setCurrentToken } = useAuth();
+    const { logout, setCurrentToken, axiocreateAxiosInstances } = useAuth();
     const { usersEndpoint } = useConfig();
     const { setIsLoading } = useLoading();
-    const { setShowAlert, setTypeAlert, setMessageAlert, activeAlert } = useAlert();
+    const { activeAlert } = useAlert();
 
     const [users, setUsers] = useState(null);
     const [disabled, setDisabled] = useState(false);
@@ -34,7 +33,7 @@ const Dashboard = () => {
                 return;
             }
 
-            const axiosInstance = await fetchAxiosConfig(setShowAlert, setTypeAlert, setMessageAlert);
+            const axiosInstance = await axiocreateAxiosInstances();
 
             const res = await axiosInstance.get(`${usersEndpoint}`,
                 {
