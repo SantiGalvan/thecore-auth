@@ -1,62 +1,46 @@
-import { useContext, useEffect, useState } from "react"
-import { useAuth } from "../contexts/AuthContext";
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "../contexts/AlertContext";
 import LoginForm from "../components/LoginForm";
-import { ConfigContext } from "../contexts/ConfigContext";
+import { useLoginForm } from "../contexts/LoginFormContext";
+import { useConfig } from "../contexts/ConfigContext";
 
-const Login = () => {
 
-  const { login } = useAuth();
-  const { setShowAlert, setTypeAlert, setMessageAlert } = useAlert();
-  const { clearLoginFormOnError } = useContext(ConfigContext);
+const Login = ({ Logo }) => {
+
+  const { styleCardForm, styleContainerLogo, styleLogo, overrideStyle } = useLoginForm();
+  const { firstPrivatePath } = useConfig();
 
   const navigate = useNavigate();
 
-  const initialData = {
-    email: '',
-    password: ''
-  }
-
-  const [formData, setFormData] = useState(initialData);
-
-  const changeData = (key, value) => {
-    setFormData(curr => ({...curr, [key]:value}))
-  }
-
-  const handleLogin = e => {
-    login(e,formData);
-    if (clearLoginFormOnError) setFormData(initialData);
-  }
-
   // UseEffect per controllare che l'utente loggato non entri nella pagina di login
   useEffect(() => {
-    
-    const id = localStorage.getItem('id');
+
+    const user = JSON.parse(localStorage.getItem('user'));
     const token = localStorage.getItem('accessToken');
 
-    if(token && id) {
-      navigate(`/dashboard/${id}`);
-
-      // Alert
-      setShowAlert(true);
-      setTypeAlert('info');
-      setMessageAlert('Sei già loggato');
-    }
+    if (token && user.id) navigate(`${firstPrivatePath}${user.id}`);
 
   }, []);
 
   return (
-    <section>
-      <div className="container mx-auto flex items-center justify-center h-screen">
+    <section id="login-page">
 
-        <LoginForm 
-          submitForm={handleLogin}
-          formData={formData}
-          changeValue={changeData}
-        />
+      <div className={overrideStyle.container || `container mx-auto flex items-center justify-center h-screen`}>
+
+        <div className={overrideStyle.cardForm || `bg-form card-style card-size flex flex-col sm:flex-row sm:items-center justify-center ${styleCardForm}`}>
+
+          <div className={overrideStyle.containerLogo || `basis-1/2 flex items-center justify-center ${styleContainerLogo}`}>
+
+            {Logo && <Logo className={overrideStyle.logo || `login-logo h-full sm:h-auto ${styleLogo}`} />}
+
+          </div>
+
+          <LoginForm />
+
+        </div>
 
       </div>
+
     </section>
   )
 }

@@ -2,21 +2,22 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useAlert } from '../contexts/AlertContext';
 import { useEffect } from 'react';
+import { useConfig } from '../contexts/ConfigContext';
 
 const AuthPage = () => {
+  
   const { isAuthenticated } = useAuth();
-
-  const {setShowAlert, setTypeAlert, setMessageAlert} = useAlert();
-
-  const token = localStorage.getItem('accessToken');
-
+  const { activeAlert } = useAlert();
+  const { autoLogin } = useConfig();
+  
   useEffect(() => {
 
-    if(!isAuthenticated && !token) {
+    const token = localStorage.getItem('accessToken');
 
-      setShowAlert(true);
-      setTypeAlert('danger');
-      setMessageAlert('Non sei autorizzato');
+    if(!isAuthenticated && !token && !autoLogin) {
+
+      activeAlert('danger', 'Non sei autorizzato');
+
     }
 
   }, []);
@@ -26,7 +27,7 @@ const AuthPage = () => {
     return null;
   }
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/" />
+  return isAuthenticated ? <Outlet /> : <Navigate to="/" replace />
  
 };
 

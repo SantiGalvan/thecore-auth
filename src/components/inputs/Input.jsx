@@ -6,7 +6,11 @@ const Input = (props) => {
         inputPlaceholder,
         inputRequired,
         inputValue,
-        inputChange
+        inputChange,
+        autoFocus,
+        inputStyle,
+        overrideStyle,
+        disabled
     } = props;
 
     const validTypes = ['text', 'email', 'password', 'search', 'tel', 'url'];
@@ -15,12 +19,14 @@ const Input = (props) => {
     return (
         <input 
             type={type}
+            autoFocus={autoFocus}
             id={inputId} 
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
+            className={overrideStyle || `bg-input-bg border border-input-border text-input-text text-input-placeholder input-rounded focus:ring focus:ring-primary focus:border-primary focus:outline-none focus:shadow-(--shadow-primary-input) block w-full p-input ${inputStyle}`} 
             placeholder={inputPlaceholder}
             required={inputRequired ?? true}
             value={inputValue}
             onChange={inputChange}
+            disabled={disabled}
         />
     )
 }

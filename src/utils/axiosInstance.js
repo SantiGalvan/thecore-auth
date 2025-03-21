@@ -3,15 +3,18 @@ import axios from "axios";
 let instance;
 
 const fetchAxiosConfig = async (show, type, message) => {
+    if (instance) return instance;
+
     try {
         const res = await fetch('/config.json');
         const data = await res.json();
         const baseURL = data.baseUri;
         const { unauthorized, notFound, defaultMessage } = data.axiosErrors;
+        const timeout = data.axiosTimeout;
 
         instance = axios.create({
             baseURL,
-            timeout: 3000,
+            timeout
         });
 
         instance.interceptors.request.use(
@@ -24,11 +27,11 @@ const fetchAxiosConfig = async (show, type, message) => {
             response => response,
             (error) => {
 
-                if(error.response) {
+                if (error.response) {
 
                     show(true);
                     type('danger');
-                    
+
                     switch (error.response.status) {
                         case 401:
                             localStorage.removeItem('accessToken');
@@ -38,7 +41,7 @@ const fetchAxiosConfig = async (show, type, message) => {
                             message(notFound);
                             break;
                         default:
-                            message(`${defaultMessage} ${error.response.status} ${error.response.data.error}`);
+                            message(`${defaultMessage} ${error.response.status || ''} ${error.response.data.error || ''}`);
                     }
 
                 }
@@ -54,4 +57,4 @@ const fetchAxiosConfig = async (show, type, message) => {
 };
 
 
-export {fetchAxiosConfig};
+export { fetchAxiosConfig };
