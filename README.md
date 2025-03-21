@@ -10,29 +10,50 @@ After installation, create a `config.json` file inside the `public/` folder. Thi
 ### Example:
 ```json
 {
-  "baseUri": "",                        // Back-end base URI
-  "authenticatedEndpoint": "",           // Authentication endpoint
-  "usersEndpoint": "",                  // Users endpoint
-  "heartbeatEndpoint": "",              // Heartbeat endpoint for token renewal
-  "firstPrivatePath": "/dashboard/",    // Path of the first private route
-  "firstPrivateTitle": "",              // Title of the first private page
+  "baseUri": "",
+  "authenticatedEndpoint": "",
+  "usersEndpoint": "",
+  "heartbeatEndpoint": "",
+  "firstPrivatePath": "/dashboard/",
+  "firstPrivateTitle": "Dashboard",
   "configRoutes": [
-    {"path": "", "title": "", "element": ""} // Adding new routes
+    {"path": "", "title": "", "element": ""}
   ],
-  "infiniteSession": 60000,              // Milliseconds subtracted from the token expiration time
-  "alertTimeout": 5000,                  // Duration in milliseconds of the alert timeout
-  "axiosTimeout": 3000,                 // Maximum duration in milliseconds of an axios call
+  "infiniteSession": 60000,
+  "alertTimeout": 5000,
+  "axiosTimeout": 3000,
   "axiosErrors": {
-    "unauthorized": "Access denied",   // Error message for authentication failure (401 error)
-    "notFound": "Resource not found",  // Error message for resource not found (404 error)
-    "defaultMessage": "Unknown error" // Generic error message
+    "unauthorized": "Accesso negato",
+    "notFound": "Risorsa non trovata",
+    "defaultMessage": "Errore sconosciuto"
   },
-  "clearLoginFormOnError": true,         // Flag to clear login form data on error
-  "autoLogin": false,                   // Flag for auto-login
-  "autoLoginEmail": "example@mail.com", // Email for auto-login
-  "autoLoginPassword": "password123"    // Password for auto-login
+  "clearLoginFormOnError": true,
+  "autoLogin": false,
+  "backendToken": "token-machine-to-machine",
+  "isDebug": true
 }
 ```
+
+#### Details of each key:
+
+- `baseUri`: The base URI of the back-end, used to compose the API URLs. This is the fixed part of the server's URL.
+- `authenticatedEndpoint`: The endpoint for user login and authentication. This URL is used to send the authentication request.
+- `usersEndpoint`: The endpoint to retrieve user information, such as the user list or details of the authenticated user.
+- `heartbeatEndpoint`: The endpoint for renewing the authentication token (heartbeat). This URL is used to keep the session active, preventing the token from expiring.
+- `firstPrivatePath`: The path to the first private route that the user sees after logging in. For example, it might be a page like the dashboard.
+- `firstPrivateTitle`: The title to display for the first private page, useful for defining the page name in the layout.
+- `configRoutes`: A list of new customizable routes to add to the application. Each route contains a `path` (URL), a `title` (title to display on the page), and an `element` (the element defining the route content, such as a React component).
+- `infiniteSession`: The number of milliseconds to subtract from the authentication token's expiration time to determine when the session should be considered expired and therefore renewed.
+- `alertTimeout`: The time, in milliseconds, for how long an alert (e.g., an on-screen notification) should remain visible.
+- `axiosTimeout`: The maximum duration (in milliseconds) that an Axios request can take before it times out.
+- `axiosErrors`: An object containing custom messages to display for specific Axios errors:
+    - `unauthorized`: The message displayed when error code 401 (access denied) is returned from the request.
+    - `notFound`: The message displayed when error code 404 (resource not found) is returned from the request.
+    - `defaultMessage`: A generic message displayed for unspecified errors.
+- `clearLoginFormOnError`: A flag that indicates whether the login form data should be cleared in case of an error.
+- `autoLogin`: A flag that enables or disables auto-login. When set to true, the app will automatically log in with predefined credentials.
+- `backendToken`: The token for auto-login, used for automatic login in "machine-to-machine" mode or without user interaction.
+- `isDebug`: A flag that, when set to true, enables the display of debug logs (console.log) to assist with application debugging.
 
 Additional variables can be included and retrieved using the `useConfig` hook:
 
@@ -157,7 +178,7 @@ useLayoutEffect(() => {
 To apply package styles, import the CSS into your main styles file:
 
 ```css
-@import url(../node_modules/thecore-auth/dist/thecore-auth.css);
+@import url(../node_modules/@dev/thecore-auth/dist/thecore-auth.css);
 ```
 
 For modifying the app’s appearance, we have implemented CSS variables that allow customization without creating new classes. For more details, see the [CSS Variables Documentation](CSS%20variables%20documentation.md)
