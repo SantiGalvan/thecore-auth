@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main # Si attiva su push alla branch principale (puoi modificare il nome della branch se usi un'altra)
+    paths:
+      - 'package.json'  # La build si attiverà solo se viene modificato il file package.json
 
 jobs:
   build-and-publish:
