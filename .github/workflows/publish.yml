@@ -30,7 +30,7 @@ jobs:
 
       # Login a npm (usa i secrets di GitHub per la sicurezza)
       - name: Authenticate to npm
-        run: npm login --username ${{ secrets.NPM_USERNAME }} --password ${{ secrets.NPM_PASSWORD }} --email ${{ secrets.NPM_EMAIL }}
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       # Pubblica il pacchetto su npm
       - name: Publish to npm
