@@ -22,20 +22,19 @@ Esempio di config.json:
     "configRoutes": [
         {"path": "", "title": "", "element": ""}
     ],
-    "infiniteSession": ,
-    "timeDeducted": ,
-    "alertTimeout": ,
-    "axiosTimeout": ,
+    "infiniteSession": " ,
+    "timeDeducted": " ,
+    "alertTimeout": " ,
+    "axiosTimeout": " ,
     "axiosErrors": {
         "unauthorized":"",
         "notFound": "",
         "defaultMessage": ""
     },
-    "clearLoginFormOnError": ,
-    "autoLogin": ,
-    "autoLoginEmail": ,
-    "autoLoginPassword": 
-    "isDebug":
+    "clearLoginFormOnError": " ,
+    "autoLogin": " ,
+    "backendToken": "",
+    "isDebug": ""
 }`
 
     const setCurrentDate = () => {
