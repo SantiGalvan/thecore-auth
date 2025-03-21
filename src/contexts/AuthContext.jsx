@@ -10,7 +10,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, autoLoginEmail, autoLoginPassword, setCurrentDate, isDebug } = useConfig();
+    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, autoLoginEmail, autoLoginPassword, setCurrentDate, isDebug, backendToken } = useConfig();
     const { setIsLoading } = useLoading();
     const { setShowAlert, setMessageAlert, setTypeAlert, activeAlert } = useAlert();
 
@@ -48,18 +48,16 @@ const AuthProvider = ({ children }) => {
             });
 
 
-            const id = res.data.id;
             const token = res.headers.token;
             const user = res.data;
 
             if (token) {
 
                 localStorage.setItem('accessToken', token);
-                localStorage.setItem('id', id);
                 localStorage.setItem('user', JSON.stringify(user));
                 setIsAuthenticated(true);
                 setCurrentToken(token);
-                navigate(`${firstPrivatePath}${id}`);
+                navigate(`${firstPrivatePath}${user.id}`);
 
             }
 
@@ -135,6 +133,33 @@ const AuthProvider = ({ children }) => {
         setTimeoutToken(totalTime - timeDeducted);
     }
 
+    const fetchUser = async (token) => {
+        try {
+
+            const axiosInstance = await createAxiosInstances();
+
+            const res = await axiosInstance.get(heartbeatEndpoint,
+                {
+                    headers: {
+                        "Authorization": token
+                    }
+                }
+            );
+
+            const user = res.data;
+
+            if (user) {
+                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('accessToken', token);
+                setIsAuthenticated(true);
+                navigate(`${firstPrivatePath}${user.id}`);
+            }
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     // useEffect per il controllo del Token
     useEffect(() => {
         const token = localStorage.getItem('accessToken');
@@ -152,24 +177,29 @@ const AuthProvider = ({ children }) => {
 
     // useEffect per l'auto login
     useEffect(() => {
+        if (!autoLogin) return;
 
-        const token = localStorage.getItem('accessToken')
+        fetchUser(backendToken);
 
-        // Se la falg autoLogin è su true e se il token non c'è allora fai l'autologin
-        if (autoLogin && !token && !isLoggingIn) {
+    }, [autoLogin]);
 
-            const formData = {
-                email: autoLoginEmail,
-                password: autoLoginPassword
-            }
+    // useEffect per il controllo dell'autologin quando 
+    useEffect(() => {
+        if (isAuthenticated) return;
 
-            login(null, formData);
+        if (autoLogin && !isLoggingIn) {
+
+            fetchUser(backendToken);
+
         }
 
-    }, [autoLogin, isLoggingIn]);
+    }, [isAuthenticated]);
 
     // UseEffect per la sessione infinita e la sessione con scadenza del Token
     useEffect(() => {
+
+        if (autoLogin) return;
+
         getTokenExpiry();
 
         // Sessione infinita
@@ -208,21 +238,7 @@ const AuthProvider = ({ children }) => {
 
     }, [currentToken, timeoutToken]);
 
-    // useEffect per il controllo dell'autologin quando 
-    useEffect(() => {
-        if (isAuthenticated) return;
 
-        if (autoLogin && !isLoggingIn) {
-
-            const formData = {
-                email: autoLoginEmail,
-                password: autoLoginPassword
-            }
-
-            login(null, formData);
-        }
-
-    }, [isAuthenticated]);
 
     const value = {
         isAuthenticated,
