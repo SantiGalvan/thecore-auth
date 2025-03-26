@@ -89,7 +89,7 @@
   --header-height: 60px;
 
   /*? Header Logo */
-  --header-logo-size: 48px;
+  --width-logo-size: 48px;
 
   /*? Card Input Range */
   --color-primary-accent: #f56907;
@@ -181,7 +181,7 @@
 
 /* Header Logo */
 .header-logo-size {
-  height: var(--header-logo-size);
+  width: var(--width-logo-size);
 }
 
 /*? Media query */
