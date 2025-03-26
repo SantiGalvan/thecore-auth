@@ -17,7 +17,7 @@ const CardInputRange = ({ minReadingPower, maxReadingPower, stepRangePower, rang
                     step={stepRangePower}
                     value={rangeValue}
                     onChange={(e) => setRangeValue(Number(e.target.value))}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#16693880]"
+                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary-accent"
                 />
 
                 {/* Tooltip */}
@@ -33,7 +33,7 @@ const CardInputRange = ({ minReadingPower, maxReadingPower, stepRangePower, rang
             <div className="flex items-center justify-center my-4">
                 <button
                     onClick={() => handleClick(rangeValue)}
-                    className="py-2 px-4 flex items-center justify-center gap-1 bg-green-600 text-white rounded-lg shadow-md transition duration-200 ease-in-out transform active:translate-y-[2px] cursor-pointer"
+                    className="py-2 px-4 flex items-center justify-center gap-1 bg-save-button text-white rounded-lg shadow-md transition duration-200 ease-in-out transform active:translate-y-[2px] cursor-pointer"
                 >
                     Salva<VscSaveAs />
                 </button>

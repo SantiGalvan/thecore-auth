@@ -28,7 +28,7 @@ const CardInputTag = ({ title, showTag, value, tag, showButton, handleClick }) =
                 <button
                     onClick={handleClick}
                     disabled={!value?.valueTID && !value?.valueEPC}
-                    className="my-1 bg-sky-600 disabled:bg-sky-600/40 text-white px-4 py-2 rounded-lg shadow-md disabled:transition-none disabled:active:translate-y-0 transition-all duration-200 ease-in-out transform active:translate-y-[2px] cursor-pointer uppercase"
+                    className="my-1 bg-write-button disabled:bg-write-button/40 text-white px-4 py-2 rounded-lg shadow-md disabled:transition-none disabled:active:translate-y-0 transition-all duration-200 ease-in-out transform active:translate-y-[2px] cursor-pointer uppercase"
                 >
                     Scrivi tag
                 </button>

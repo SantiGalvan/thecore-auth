@@ -1,6 +1,6 @@
-import { useLoginForm } from "../contexts/LoginFormContext";
-import Input from "./inputs/Input";
-import InputLabel from "./inputs/InputLabel";
+import { useLoginForm } from "../../contexts/LoginFormContext";
+import Input from "../inputs/Input";
+import InputLabel from "../inputs/InputLabel";
 
 const LoginForm = () => {
 
@@ -13,12 +13,12 @@ const LoginForm = () => {
             {/* Eamil */}
             <div className={overrideStyle.containerEmail || `flex justify-center flex-col gap-1 m-input-form input-size mx-auto`}>
                 <InputLabel labelId={'user-email'} label={label} />
-                <Input 
-                    inputType={type} 
-                    inputId={'user-email'} 
-                    inputPlaceholder={placeholder} 
-                    inputValue={formData.email}  
-                    inputChange={e => {changeData('email' , e.target.value)}}
+                <Input
+                    inputType={type}
+                    inputId={'user-email'}
+                    inputPlaceholder={placeholder}
+                    inputValue={formData.email}
+                    inputChange={e => { changeData('email', e.target.value) }}
                     autoFocus={true}
                 />
             </div>
@@ -26,12 +26,12 @@ const LoginForm = () => {
             {/* Password */}
             <div className={overrideStyle.containerPassword || `flex justify-center flex-col gap-1 my-4 input-size mx-auto`}>
                 <InputLabel labelId={'password'} label={'Password'} />
-                <Input 
-                    inputType={'password'} 
-                    inputId={'password'} 
+                <Input
+                    inputType={'password'}
+                    inputId={'password'}
                     inputPlaceholder={"Password"}
                     inputValue={formData.password}
-                    inputChange={e => {changeData('password', e.target.value)}}
+                    inputChange={e => { changeData('password', e.target.value) }}
                 />
             </div>
 

@@ -6,9 +6,9 @@
   --color-primary: #f56907;
   --color-primary-hover: #f88b29;
   --color-primary-text: #fff;
-  --shadow-primary: 0 4px 10px rgba(245,105,7,0.3),0 2px 4px rgba(245,105,7,0.2);
-  --shadow-primary-hover: 0 6px 14px rgba(245,105,7,0.4),0 3px 6px rgba(245,105,7,0.3);
-  --shadow-primary-active: 0 2px 5px rgba(245,105,7,0.3);
+  --shadow-primary: 0 4px 10px rgba(245, 105, 7, 0.3), 0 2px 4px rgba(245, 105, 7, 0.2);
+  --shadow-primary-hover: 0 6px 14px rgba(245, 105, 7, 0.4), 0 3px 6px rgba(245, 105, 7, 0.3);
+  --shadow-primary-active: 0 2px 5px rgba(245, 105, 7, 0.3);
   --shadow-primary-input: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(245, 105, 7, 0.6);
   --padding-primary-button: 8px 16px;
   --margin-primary-button: 32px 0px;
@@ -83,6 +83,20 @@
   --color-loading-bg: #4B556366;
   --color-spinner: #fff;
 
+  /*! SPOT RFID */
+
+  /*? Header */
+  --header-height: 60px;
+
+  /*? Header Logo */
+  --header-logo-size: 48px;
+
+  /*? Card Input Range */
+  --color-primary-accent: #f56907;
+  --color-save-button: #16A34A;
+
+  /*? Card Input */
+  --color-write-button: #0284C7;
 }
 
 /* Posizione del bottone */
@@ -156,6 +170,18 @@
 
 #login-page {
   user-select: none;
+}
+
+/*! SPOT RFID */
+
+/* Header */
+.header-size {
+  height: var(--header-height);
+}
+
+/* Header Logo */
+.header-logo-size {
+  height: var(--header-logo-size);
 }
 
 /*? Media query */

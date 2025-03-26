@@ -1,8 +1,8 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom";
-import LoginForm from "../components/LoginForm";
 import { useLoginForm } from "../contexts/LoginFormContext";
 import { useConfig } from "../contexts/ConfigContext";
+import LoginForm from "../components/form/LoginForm";
 
 
 const Login = ({ Logo }) => {
