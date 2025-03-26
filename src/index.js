@@ -38,7 +38,6 @@ import InputGroup from "./components/SPOT RFID/inputs/InputGroup";
 import CardInputTag from "./components/SPOT RFID/card/CardInputTag";
 import CardInputRange from "./components/SPOT RFID/card/CardInputRange";
 import ConfigFileReader from "./components/SPOT RFID/config/ConfigFileReader";
-import Prompt from "./components/SPOT RFID/prompt/Prompt";
 import Header from "./components/SPOT RFID/header/SpotRfidHeader";
 
 export {
@@ -82,6 +81,5 @@ export {
     CardInputTag,
     CardInputRange,
     ConfigFileReader,
-    Prompt,
     Header,
 }
