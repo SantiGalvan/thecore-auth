@@ -26,10 +26,10 @@ import DefaultLayout from "./layouts/DefaultLayout";
 import Login from "./pages/Login";
 import Dashboard from "./pages/user/Dashboard";
 import { fetchAxiosConfig } from "./utils/axiosInstance"
-import LoginForm from "./components/LoginForm";
+import LoginForm from "./components/form/LoginForm";
 import Loading from "./components/loading/Loading";
 import LoadingComponent from "./components/loading/LoadingComponent";
-import Alert from "./components/Alert";
+import Alert from "./components/alert/Alert";
 import Input from "./components/inputs/Input";
 import InputLabel from "./components/inputs/InputLabel";
 import ErrorPage from "./pages/ErrorPage";
