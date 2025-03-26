@@ -34,7 +34,12 @@ import Input from "./components/inputs/Input";
 import InputLabel from "./components/inputs/InputLabel";
 import ErrorPage from "./pages/ErrorPage";
 import axios from "axios";
-import './index.css'
+import InputGroup from "./components/SPOT RFID/inputs/InputGroup";
+import CardInputTag from "./components/SPOT RFID/card/CardInputTag";
+import CardInputRange from "./components/SPOT RFID/card/CardInputRange";
+import ConfigFileReader from "./components/SPOT RFID/config/ConfigFileReader";
+import Prompt from "./components/SPOT RFID/prompt/Prompt";
+import Header from "./components/SPOT RFID/header/SpotRfidHeader";
 
 export {
     BrowserRouter,
@@ -72,5 +77,11 @@ export {
     InputLabel,
     ErrorPage,
     axios,
-    useNavigate
+    useNavigate,
+    InputGroup,
+    CardInputTag,
+    CardInputRange,
+    ConfigFileReader,
+    Prompt,
+    Header,
 }
