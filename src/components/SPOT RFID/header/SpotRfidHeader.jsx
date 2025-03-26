@@ -11,7 +11,7 @@ const Header = ({ Logo }) => {
 
     const { logout } = useAuth();
     const { activeAlert } = useAlert();
-    const { autoLogin, configRoutes, firstPrivateTitle } = useConfig();
+    const { autoLogin, configRoutes, firstPrivateTitle, showHeaderButton } = useConfig();
     const { isLoading } = useLoading();
 
     const location = useLocation();
@@ -53,7 +53,7 @@ const Header = ({ Logo }) => {
                     </button>}
 
                     {/* Bottone per tornare indietro */}
-                    {!matchHome && <button
+                    {(!matchHome && showHeaderButton) && <button
                         className="h-[48px] w-[48px] flex items-center justify-center bg-sky-600 text-white rounded-lg shadow-md transition duration-200 ease-in-out transform active:translate-y-[2px] cursor-pointer"
                         type="button"
                         onClick={() => navigate(-1)}
