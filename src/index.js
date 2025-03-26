@@ -39,6 +39,7 @@ import CardInputTag from "./components/SPOT RFID/card/CardInputTag";
 import CardInputRange from "./components/SPOT RFID/card/CardInputRange";
 import ConfigFileReader from "./components/SPOT RFID/config/ConfigFileReader";
 import Header from "./components/SPOT RFID/header/SpotRfidHeader";
+import './index.css';
 
 export {
     BrowserRouter,
