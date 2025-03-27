@@ -97,6 +97,11 @@
 
   /*? Card Input */
   --color-write-button: #0284C7;
+
+  /*? Input Group */
+  --color-focus-ring: #f5690780;
+  --color-spot-rfid-input-border: #f56907;
+  --shadow-spot-rfid-input: 0 0 0 4px var(--color-focus-ring);
 }
 
 /* Posizione del bottone */
