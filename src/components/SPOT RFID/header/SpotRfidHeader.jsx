@@ -7,7 +7,7 @@ import { useLoading } from "../../../contexts/LoadingContext";
 import { useLocation, useMatch, useNavigate } from "react-router-dom";
 import DefaultLogo from '../../../assets/MyTrack.svg?react';
 
-const Header = ({ Logo }) => {
+const Header = ({ Logo, logo }) => {
 
     const { logout } = useAuth();
     const { activeAlert } = useAlert();
@@ -32,12 +32,14 @@ const Header = ({ Logo }) => {
 
                 {/* Logo */}
                 <figure>
-                    {typeof Logo === "function" ? (
+                    {Logo && typeof Logo === 'function' ? (
                         <Logo className="header-logo-size" />
-                    ) : Logo ? (
-                        <img src={Logo} alt="Logo" className="header-logo-size" />
                     ) : (
-                        <DefaultLogo className="header-logo-size" />
+                        logo ? (
+                            <img src={logo} alt="Logo" className="header-logo-size" />
+                        ) : (
+                            <DefaultLogo className="header-logo-size" />
+                        )
                     )}
                 </figure>
 
