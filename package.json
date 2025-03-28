@@ -16,7 +16,8 @@
     "dev": "vite --host",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "increment-version": "npm version patch && git push"
   },
   "peerDependencies": {
     "react": "^19.0.0",
