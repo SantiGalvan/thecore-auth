@@ -32,7 +32,13 @@ const Header = ({ Logo }) => {
 
                 {/* Logo */}
                 <figure>
-                    {Logo ? <Logo className="header-logo-size" /> : <DefaultLogo className="header-logo-size" />}
+                    {typeof Logo === "function" ? (
+                        <Logo className="header-logo-size" />
+                    ) : Logo ? (
+                        <img src={Logo} alt="Logo" className="header-logo-size" />
+                    ) : (
+                        <DefaultLogo className="header-logo-size" />
+                    )}
                 </figure>
 
                 {/* Informazioni pagina */}
