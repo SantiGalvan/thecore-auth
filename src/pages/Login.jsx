@@ -12,6 +12,8 @@ const Login = ({ Logo }) => {
 
   const navigate = useNavigate();
 
+  const version = process.env.VERSION;
+
   // UseEffect per controllare che l'utente loggato non entri nella pagina di login
   useEffect(() => {
 
@@ -23,7 +25,9 @@ const Login = ({ Logo }) => {
   }, []);
 
   return (
-    <section id="login-page">
+    <section id="login-page" className="relative">
+
+      <div className="text-md text-primary absolute top-4 left-4">{version}</div>
 
       <div className={overrideStyle.container || `container mx-auto flex items-center justify-center h-screen`}>
 
