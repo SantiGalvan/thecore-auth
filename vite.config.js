@@ -2,13 +2,10 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite';
 import svgr from 'vite-plugin-svgr';
-import replace from '@rollup/plugin-replace';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [svgr(), react(), tailwindcss(), replace({
-    'process.env.VERSION': JSON.stringify(require('./package.json').version)
-  })],
+  plugins: [svgr(), react(), tailwindcss()],
   optimizeDeps: {
     include: ['jwt-decode']
   },
