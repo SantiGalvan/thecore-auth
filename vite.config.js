@@ -5,7 +5,7 @@ import svgr from 'vite-plugin-svgr';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [svgr() ,react(), tailwindcss()],
+  plugins: [svgr(), react(), tailwindcss()],
   optimizeDeps: {
     include: ['jwt-decode']
   },
@@ -16,8 +16,8 @@ export default defineConfig({
       fileName: (format) => `thecore-auth.${format}.js`,
       formats: ['esm', 'cjs']
     },
-    rollupOptions : {
-      external: ['react', 'react-dom', 'axios', 'react-router-dom','react-icons','jwt-decode'],
+    rollupOptions: {
+      external: ['react', 'react-dom', 'axios', 'react-router-dom', 'react-icons', 'jwt-decode'],
       output: {
         globals: {
           react: 'React',
