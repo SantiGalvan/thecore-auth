@@ -4,7 +4,7 @@ import { useConfig } from "./ConfigContext";
 
 const LoginFormContext = createContext();
 
-const LoginFormProvider = ({children}) => {
+const LoginFormProvider = ({ children }) => {
 
     const { login } = useAuth();
     const { clearLoginFormOnError } = useConfig();
@@ -25,7 +25,7 @@ const LoginFormProvider = ({children}) => {
     const [formData, setFormData] = useState(initialData);
 
     // Immagine della card
-    const [LogoImg, setLogoImg ] = useState();
+    const [LogoImg, setLogoImg] = useState();
 
     // Style della card del logo e del form
     const [styleCardForm, setStyleCardForm] = useState();
@@ -35,13 +35,16 @@ const LoginFormProvider = ({children}) => {
     // Override dello style
     const [overrideStyle, setOverrideStyle] = useState({});
 
+    // Override della versione
+    const [customVersion, setCustomVersion] = useState(null);
+
     const changeData = (key, value) => {
-        setFormData(curr => ({...curr, [key]:value}));
+        setFormData(curr => ({ ...curr, [key]: value }));
     }
 
     const handleLogin = e => {
-        login(e,formData);
-        if(clearLoginFormOnError) setFormData(initialData);
+        login(e, formData);
+        if (clearLoginFormOnError) setFormData(initialData);
     }
 
     const value = {
@@ -68,7 +71,9 @@ const LoginFormProvider = ({children}) => {
         styleLogo,
         setStyleLogo,
         changeData,
-        handleLogin
+        handleLogin,
+        customVersion,
+        setCustomVersion
     }
 
     return (

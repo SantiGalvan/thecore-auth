@@ -6,7 +6,7 @@ import LoginForm from "../components/form/LoginForm";
 
 const Login = ({ Logo }) => {
 
-  const { styleCardForm, styleContainerLogo, styleLogo, overrideStyle } = useLoginForm();
+  const { styleCardForm, styleContainerLogo, styleLogo, overrideStyle, customVersion } = useLoginForm();
   const { firstPrivatePath, version } = useConfig();
 
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Login = ({ Logo }) => {
   return (
     <section id="login-page">
 
-      {version && <div className="text-md text-primary absolute top-4 left-4">{version}</div>}
+      {(version || customVersion) && <div className="text-md text-primary absolute top-4 left-4">{version || customVersion}</div>}
 
       <div className={overrideStyle.container || `container mx-auto flex items-center justify-center h-screen`}>
 
