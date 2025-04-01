@@ -169,7 +169,7 @@ Esempio di config.json:
 
         try {
 
-            const res = await fetch('/pacakge.json');
+            const res = await fetch('/package.json');
             const data = await res.json();
             const version = data.version;
 
