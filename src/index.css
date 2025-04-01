@@ -11,7 +11,7 @@
   --shadow-primary-active: 0 2px 5px rgba(245, 105, 7, 0.3);
   --shadow-primary-input: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(245, 105, 7, 0.6);
   --padding-primary-button: 8px 16px;
-  --margin-primary-button: 32px 0px;
+  --margin-primary-button: 20px 0px;
   --radius-primary-button: calc(infinity * 1px);
   --justify-primary: center;
 

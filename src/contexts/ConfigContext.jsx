@@ -172,6 +172,7 @@ Esempio di config.json:
             const res = await fetch('/package.json');
             const data = await res.json();
             const version = data.version;
+            console.log('Versione: ', version);
 
             setVersion(version);
 
