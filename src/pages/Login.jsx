@@ -24,7 +24,7 @@ const Login = ({ Logo }) => {
   return (
     <section id="login-page">
 
-      {(version || customVersion) && <div className="text-md text-primary absolute top-4 left-4">{version || customVersion}</div>}
+      {(version || customVersion) && <div className="text-md text-primary absolute top-4 left-4">{customVersion ? customVersion : version}</div>}
 
       <div className={overrideStyle.container || `container mx-auto flex items-center justify-center h-screen`}>
 
