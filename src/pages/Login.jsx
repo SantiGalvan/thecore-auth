@@ -3,17 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useLoginForm } from "../contexts/LoginFormContext";
 import { useConfig } from "../contexts/ConfigContext";
 import LoginForm from "../components/form/LoginForm";
-import { version } from "../../package.json";
-
 
 const Login = ({ Logo }) => {
 
   const { styleCardForm, styleContainerLogo, styleLogo, overrideStyle } = useLoginForm();
-  const { firstPrivatePath } = useConfig();
+  const { firstPrivatePath, version } = useConfig();
 
   const navigate = useNavigate();
-
-  // const version = process.env.VERSION;
 
   // UseEffect per controllare che l'utente loggato non entri nella pagina di login
   useEffect(() => {
@@ -28,7 +24,7 @@ const Login = ({ Logo }) => {
   return (
     <section id="login-page">
 
-      <div className="text-md text-primary absolute top-4 left-4">{version}</div>
+      {version && <div className="text-md text-primary absolute top-4 left-4">{version}</div>}
 
       <div className={overrideStyle.container || `container mx-auto flex items-center justify-center h-screen`}>
 

@@ -7,6 +7,7 @@ const ConfigProvider = ({ children }) => {
 
     const [config, setConfig] = useState({}); // State delle variabili del config e delle funzioni del db
     const [errorShow, setErrorShow] = useState(false);
+    const [version, setVersion] = useState(null);
 
     // Messaggio di errore se il file config.json non è stato creato
     const errorMessage = `Creare un file config.json in public per il corretto funzionamento
@@ -164,9 +165,29 @@ Esempio di config.json:
         }
     }
 
+    const fetchVersion = async () => {
+
+        try {
+
+            const res = await fetch('/pacakge.json');
+            const data = await res.json();
+            const version = data.version;
+
+            setVersion(version);
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     useEffect(() => {
         fetchConfig();
     }, []);
+
+    useEffect(() => {
+        if (config.isDevelopment === undefined || config.isDevelopment) return;
+        fetchVersion();
+    }, [config]);
 
     // Check per il controllo dell'effettivo arrivo dei dati dal config.json
     if (Object.keys(config).length === 0) {
