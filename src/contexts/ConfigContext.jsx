@@ -150,7 +150,7 @@ Esempio di config.json:
             let version;
             if (!data.isDevelopment) {
                 const res = await fetch('/package.json')
-                const data = res.json();
+                const data = await res.json();
 
                 version = data.version;
             } else {
