@@ -100,8 +100,10 @@
 
   /*? Input Group */
   --color-focus-ring: #f5690780;
+  --color-focus-error: rgba(255, 0, 0, 0.5);
   --color-spot-rfid-input-border: #f56907;
   --shadow-spot-rfid-input: 0 0 0 4px var(--color-focus-ring);
+  --shadow-spot-rfid-error: 0 0 0 4px var(--color-focus-error);
 }
 
 /* Posizione del bottone */
