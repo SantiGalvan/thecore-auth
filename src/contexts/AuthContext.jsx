@@ -10,7 +10,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, autoLoginEmail, autoLoginPassword, setCurrentDate, isDebug, backendToken } = useConfig();
+    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, setCurrentDate, isDebug, backendToken } = useConfig();
     const { setIsLoading } = useLoading();
     const { setShowAlert, setMessageAlert, setTypeAlert, activeAlert } = useAlert();
 
