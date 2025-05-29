@@ -40,6 +40,7 @@ import CardInputTag from "./components/SPOT RFID/card/CardInputTag";
 import CardInputRange from "./components/SPOT RFID/card/CardInputRange";
 import ConfigFileReader from "./components/SPOT RFID/config/ConfigFileReader";
 import Header from "./components/SPOT RFID/header/SpotRfidHeader";
+import ReactDOM from "react-dom";
 import './index.css';
 
 export {
@@ -85,4 +86,5 @@ export {
     CardInputRange,
     ConfigFileReader,
     Header,
+    ReactDOM
 }
