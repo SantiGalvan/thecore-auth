@@ -39,6 +39,18 @@ const PackageRoutes = (props) => {
         footerExcludedRoutes={footerExcludedRoutes}
     />
 
+    const provider = privateProvider
+        ? React.cloneElement(
+            privateProvider,
+            {},
+            <>{customProvider}<Outlet /></>
+        )
+        : (
+            <AuthPage>
+                {React.cloneElement(customProvider, {}, <Outlet />)}
+            </AuthPage>
+        );
+
     const iconUpdater = () => {
         const favicon = document.querySelector("link[rel='icon']");
 
@@ -67,13 +79,7 @@ const PackageRoutes = (props) => {
                 </Route>
 
                 {/* Rotte private */}
-                <Route
-                    element={
-                        privateProvider
-                            ? React.cloneElement(privateProvider, {}, <>{customProvider}<Outlet /></>)
-                            : <AuthPage>{customProvider}<Outlet /></AuthPage>
-                    }
-                >
+                <Route element={provider} >
 
                     <Route path={`${firstPrivatePath ?? '/dashboard/'}:id`} element={firstPrivateElement} />
 
