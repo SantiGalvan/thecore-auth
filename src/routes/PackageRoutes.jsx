@@ -43,13 +43,14 @@ const PackageRoutes = (props) => {
         ? React.cloneElement(
             privateProvider,
             {},
-            <>{customProvider}<Outlet /></>
+            React.createElement(customProvider.type, customProvider.props, <Outlet />)
         )
         : (
             <AuthPage>
-                {React.cloneElement(customProvider, {}, <Outlet />)}
+                {React.createElement(customProvider.type, customProvider.props, <Outlet />)}
             </AuthPage>
         );
+
 
     const iconUpdater = () => {
         const favicon = document.querySelector("link[rel='icon']");
