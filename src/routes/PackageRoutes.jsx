@@ -43,11 +43,15 @@ const PackageRoutes = (props) => {
         ? React.cloneElement(
             privateProvider,
             {},
-            React.createElement(customProvider.type, customProvider.props, <Outlet />)
+            React.createElement(customProvider.type, customProvider.props,
+                <AuthPage>
+                    <Outlet />
+                </AuthPage>
+            )
         )
-        : (
+        : React.createElement(customProvider.type, customProvider.props,
             <AuthPage>
-                {React.createElement(customProvider.type, customProvider.props, <Outlet />)}
+                <Outlet />
             </AuthPage>
         );
 
