@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import DefaultLayout from "../layouts/DefaultLayout";
 import Login from "../pages/Login";
 import AuthPage from "../middlewares/AuthPage";
@@ -14,9 +14,9 @@ const PackageRoutes = (props) => {
     const { firstPrivatePath } = useConfig();
 
     const {
-        logoImg = Logo, 
-        pathImg = './src/assets/MyWarehouse.svg', 
-        firstPrivateElement = <Dashboard/>,
+        logoImg = Logo,
+        pathImg = './src/assets/MyWarehouse.svg',
+        firstPrivateElement = <Dashboard />,
         globalLayout,
         isMain,
         headerComponent,
@@ -29,22 +29,20 @@ const PackageRoutes = (props) => {
         customProvider
     } = props;
 
-    const layout = globalLayout ? globalLayout :  <DefaultLayout 
-        isMain={isMain} 
-        headerComponent={headerComponent} 
-        showHeaderOnLogin={showHeaderOnLogin} 
-        headerExcludedRoutes={headerExcludedRoutes} 
-        footerComponent={footerComponent} 
-        showFooterOnLogin={showFooterOnLogin} 
-        footerExcludedRoutes={footerExcludedRoutes} 
+    const layout = globalLayout ? globalLayout : <DefaultLayout
+        isMain={isMain}
+        headerComponent={headerComponent}
+        showHeaderOnLogin={showHeaderOnLogin}
+        headerExcludedRoutes={headerExcludedRoutes}
+        footerComponent={footerComponent}
+        showFooterOnLogin={showFooterOnLogin}
+        footerExcludedRoutes={footerExcludedRoutes}
     />
-    
-    const provider = privateProvider ? (React.cloneElement(privateProvider, {}, customProvider)) : (<AuthPage>{customProvider}</AuthPage>);
 
     const iconUpdater = () => {
         const favicon = document.querySelector("link[rel='icon']");
 
-        if(pathImg) favicon.href = pathImg;
+        if (pathImg) favicon.href = pathImg;
     }
 
     useEffect(() => {
@@ -69,7 +67,13 @@ const PackageRoutes = (props) => {
                 </Route>
 
                 {/* Rotte private */}
-                <Route element={provider}>
+                <Route
+                    element={
+                        privateProvider
+                            ? React.cloneElement(privateProvider, {}, <>{customProvider}<Outlet /></>)
+                            : <AuthPage>{customProvider}<Outlet /></AuthPage>
+                    }
+                >
 
                     <Route path={`${firstPrivatePath ?? '/dashboard/'}:id`} element={firstPrivateElement} />
 
