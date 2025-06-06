@@ -40,21 +40,30 @@ const PackageRoutes = (props) => {
     />
 
     const provider = privateProvider
-        ? React.cloneElement(
-            privateProvider,
-            {},
-            React.createElement(customProvider.type, customProvider.props,
+        ? React.cloneElement(privateProvider, {},
+            customProvider
+                ? React.createElement(customProvider.type, customProvider.props,
+                    <AuthPage>
+                        <Outlet />
+                    </AuthPage>
+                )
+                : (
+                    <AuthPage>
+                        <Outlet />
+                    </AuthPage>
+                )
+        )
+        : customProvider
+            ? React.createElement(customProvider.type, customProvider.props,
                 <AuthPage>
                     <Outlet />
                 </AuthPage>
             )
-        )
-        : React.createElement(customProvider.type, customProvider.props,
-            <AuthPage>
-                <Outlet />
-            </AuthPage>
-        );
-
+            : (
+                <AuthPage>
+                    <Outlet />
+                </AuthPage>
+            );
 
     const iconUpdater = () => {
         const favicon = document.querySelector("link[rel='icon']");
