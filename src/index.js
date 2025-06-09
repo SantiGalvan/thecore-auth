@@ -10,6 +10,8 @@ import { RouteProvider } from "./contexts/RouteContext";
 import { useRoutesInjection } from "./contexts/RouteContext";
 import { LoginFormProvider } from "./contexts/LoginFormContext";
 import { useLoginForm } from "./contexts/LoginFormContext";
+import { ModalProvider } from "./contexts/modal/ModalContext";
+import { useModal } from "./contexts/modal/ModalContext";
 import { BrowserRouter } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { Routes } from "react-router-dom";
@@ -86,5 +88,7 @@ export {
     CardInputRange,
     ConfigFileReader,
     Header,
-    ReactDOM
+    ReactDOM,
+    ModalProvider,
+    useModal
 }
