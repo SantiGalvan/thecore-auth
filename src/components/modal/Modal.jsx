@@ -53,7 +53,7 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
 
                     {/* Titolo */}
                     {
-                        type === 'delete' ?
+                        type === 'delete' && item ?
                             <h2 className="text-2xl">Sei sicuro di volere eliminare: <strong>{item.name}</strong>?</h2>
                             :
                             <h2 className="text-2xl">{title || 'Conferma operazione'}</h2>
@@ -75,7 +75,13 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
                     type !== 'delete' &&
                     <main className="my-8">
 
-                        {children}
+                        {(type === 'edit' || type === 'delete') && !item ?
+                            (
+                                <div className="text-red-600 font-semibold">Errore: nessun item selezionato per l'operazione.</div>
+                            )
+                            :
+                            (children)
+                        }
 
                     </main>
                 }
