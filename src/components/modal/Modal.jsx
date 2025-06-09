@@ -66,11 +66,14 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
 
                 </header>
 
-                {type !== 'delete' && <main className="my-8">
+                {
+                    type !== 'delete' &&
+                    <main className="my-8">
 
-                    {children}
+                        {children}
 
-                </main>}
+                    </main>
+                }
 
                 <footer className="flex items-center justify-between mt-4">
                     <button
