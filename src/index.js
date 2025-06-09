@@ -26,7 +26,7 @@ import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/auth/AuthPage";
 import AuthAdmin from "./middlewares/admin/AuthAdmin";
 import DefaultLayout from "./layouts/DefaultLayout";
-import Login from "./pages/Login";
+import Login from "./pages/login/Login";
 import Dashboard from "./pages/user/Dashboard";
 import { fetchAxiosConfig } from "./utils/axiosInstance"
 import LoginForm from "./components/form/LoginForm";
@@ -35,7 +35,7 @@ import LoadingComponent from "./components/loading/LoadingComponent";
 import Alert from "./components/alert/Alert";
 import Input from "./components/inputs/Input";
 import InputLabel from "./components/inputs/InputLabel";
-import ErrorPage from "./pages/ErrorPage";
+import ErrorPage from "./pages/error/ErrorPage";
 import axios from "axios";
 import InputGroup from "./components/SPOT RFID/inputs/InputGroup";
 import CardInputTag from "./components/SPOT RFID/card/CardInputTag";

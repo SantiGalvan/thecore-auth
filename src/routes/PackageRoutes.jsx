@@ -1,6 +1,6 @@
 import { Outlet, Route, Routes } from "react-router-dom";
 import DefaultLayout from "../layouts/DefaultLayout";
-import Login from "../pages/Login";
+import Login from "../pages/login/Login";
 import AuthPage from "../middlewares/auth/AuthPage";
 import Dashboard from "../pages/user/Dashboard";
 import Logo from '../assets/MyWarehouse.svg?react';
