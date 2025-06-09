@@ -3,11 +3,14 @@ import Loading from "../components/loading/Loading";
 import { useLoading } from "../contexts/LoadingContext";
 import { useAlert } from "../contexts/AlertContext";
 import Alert from "../components/alert/Alert";
+import Modal from "../components/modal/Modal";
+import { useModal } from "../contexts/modal/ModalContext";
 
 const DefaultLayout = (props) => {
 
     const { isLoading } = useLoading();
     const { showAlert } = useAlert();
+    const { isOpen, closeModal, content, title, onConfirm, item, type } = useModal();
 
     const location = useLocation();
 
@@ -48,7 +51,20 @@ const DefaultLayout = (props) => {
             {isLoading && <Loading />}
 
             {showAlert && <Alert />}
+
+            <Modal
+                isOpen={isOpen}
+                onClose={closeModal}
+                title={title}
+                onConfirm={onConfirm}
+                type={type}
+                item={item}
+            >
+                {content}
+            </Modal>
+
             {showHeader && headerComponent}
+
             {isMain ?
                 <main className={isLoading ? 'hidden' : ''}>
                     {showAlert && <Alert />}
@@ -57,6 +73,7 @@ const DefaultLayout = (props) => {
                 :
                 <Outlet />
             }
+
             {showFooter && footerComponent}
         </>
     )

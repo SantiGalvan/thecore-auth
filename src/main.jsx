@@ -8,6 +8,7 @@ import { ConfigProvider } from './contexts/ConfigContext.jsx'
 import { LoadingProvider } from './contexts/LoadingContext.jsx'
 import { AlertProvider } from './contexts/AlertContext.jsx'
 import { LoginFormProvider } from './contexts/LoginFormContext.jsx'
+import { ModalProvider } from './contexts/modal/ModalContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,9 +18,11 @@ createRoot(document.getElementById('root')).render(
           <AlertProvider>
             <AuthProvider>
               <LoginFormProvider>
+                <ModalProvider>
 
-                <App />
+                  <App />
 
+                </ModalProvider>
               </LoginFormProvider>
             </AuthProvider>
           </AlertProvider>
