@@ -1,11 +1,11 @@
 import { IoIosLogOut } from "react-icons/io";
 import { TiArrowBack } from "react-icons/ti";
-import { useAuth } from "../../../contexts/AuthContext";
-import { useAlert } from "../../../contexts/AlertContext";
-import { useConfig } from "../../../contexts/ConfigContext";
-import { useLoading } from "../../../contexts/LoadingContext";
 import { useLocation, useMatch, useNavigate } from "react-router-dom";
 import DefaultLogo from '../../../assets/MyTrack.svg?react';
+import { useAuth } from "../../../contexts/auth/AuthContext";
+import { useAlert } from "../../../contexts/alert/AlertContext";
+import { useConfig } from "../../../contexts/config/ConfigContext";
+import { useLoading } from "../../../contexts/loading/LoadingContext";
 
 const Header = ({ Logo, logo }) => {
 

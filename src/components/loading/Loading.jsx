@@ -1,5 +1,5 @@
 import { ImSpinner9 } from "react-icons/im";
-import { useLoading } from "../../contexts/LoadingContext";
+import { useLoading } from "../../contexts/loading/LoadingContext";
 
 const Loading = () => {
 

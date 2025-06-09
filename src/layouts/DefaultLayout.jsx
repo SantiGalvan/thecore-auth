@@ -1,7 +1,7 @@
 import { matchPath, Outlet, useLocation } from "react-router-dom";
 import Loading from "../components/loading/Loading";
-import { useLoading } from "../contexts/LoadingContext";
-import { useAlert } from "../contexts/AlertContext";
+import { useLoading } from "../contexts/loading/LoadingContext";
+import { useAlert } from "../contexts/alert/AlertContext";
 import Alert from "../components/alert/Alert";
 import Modal from "../components/modal/Modal";
 import { useModal } from "../contexts/modal/ModalContext";

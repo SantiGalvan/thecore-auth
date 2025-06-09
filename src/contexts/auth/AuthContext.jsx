@@ -1,10 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useConfig } from "./ConfigContext";
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
-import { fetchAxiosConfig } from "../utils/axiosInstance.js";
-import { useLoading } from "./LoadingContext.jsx";
-import { useAlert } from "./AlertContext.jsx";
+import { useConfig } from "../config/ConfigContext.jsx";
+import { useLoading } from "../loading/LoadingContext.jsx";
+import { useAlert } from "../alert/AlertContext.jsx";
+import { fetchAxiosConfig } from "../../utils/axiosInstance.js";
 
 const AuthContext = createContext();
 

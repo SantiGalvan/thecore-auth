@@ -1,12 +1,12 @@
 import { Outlet, Route, Routes } from "react-router-dom";
 import DefaultLayout from "../layouts/DefaultLayout";
 import Login from "../pages/Login";
-import AuthPage from "../middlewares/AuthPage";
+import AuthPage from "../middlewares/auth/AuthPage";
 import Dashboard from "../pages/user/Dashboard";
-import { useRoutesInjection } from "../contexts/RouteContext";
 import Logo from '../assets/MyWarehouse.svg?react';
 import React, { useEffect } from "react";
-import { useConfig } from "../contexts/ConfigContext";
+import { useRoutesInjection } from "../contexts/route/RouteContext";
+import { useConfig } from "../contexts/config/ConfigContext";
 
 const PackageRoutes = (props) => {
 

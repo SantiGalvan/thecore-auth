@@ -1,12 +1,12 @@
 import { createContext, useContext, useState } from "react";
-import DangerLogo from '../assets/danger.svg?react';
-import InfoLogo from '../assets/info.svg?react';
-import WarningLogo from '../assets/warning.svg?react';
+import DangerLogo from '../../assets/danger.svg?react';
+import InfoLogo from '../../assets/info.svg?react';
+import WarningLogo from '../../assets/warning.svg?react';
 import { GiCheckMark } from "react-icons/gi";
 
 const AlertContext = createContext();
 
-const AlertProvider = ({children}) => {
+const AlertProvider = ({ children }) => {
 
     const [showAlert, setShowAlert] = useState(false);
     const [typeAlert, setTypeAlert] = useState();
@@ -22,7 +22,7 @@ const AlertProvider = ({children}) => {
             focusRing: "focus:ring-danger-progress",
             progressColor: "bg-danger-progress"
         },
-        info : {
+        info: {
             bgColor: "bg-info",
             textColor: "text-info-text",
             buttonBg: "bg-info",
@@ -30,7 +30,7 @@ const AlertProvider = ({children}) => {
             focusRing: "focus:ring-info-progress",
             progressColor: "bg-info-progress"
         },
-        success : {
+        success: {
             bgColor: "bg-success",
             textColor: "text-success-text",
             buttonBg: "bg-success",
@@ -54,11 +54,11 @@ const AlertProvider = ({children}) => {
             case 'danger':
                 return <DangerLogo className="w-[20px] h-[20px]" />
             case 'info':
-                return <InfoLogo className="w-[20px] h-[20px]"/>
+                return <InfoLogo className="w-[20px] h-[20px]" />
             case 'success':
-                return <GiCheckMark className="text-xl"/>
+                return <GiCheckMark className="text-xl" />
             case 'warning':
-                return <WarningLogo className="w-[20px] h-[20px]"/>
+                return <WarningLogo className="w-[20px] h-[20px]" />
         }
     }
 
@@ -77,7 +77,7 @@ const AlertProvider = ({children}) => {
             setShowAlert(true);
         }, 50);
 
-    } 
+    }
 
     const value = {
         showAlert,

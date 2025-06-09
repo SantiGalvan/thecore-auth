@@ -1,4 +1,4 @@
-import { RouteProvider } from "./contexts/RouteContext";
+import { RouteProvider } from "./contexts/route/RouteContext";
 import PackageRoutes from "./routes/PackageRoutes";
 
 
@@ -7,7 +7,7 @@ const App = () => {
     <RouteProvider>
 
       <PackageRoutes />
-      
+
     </RouteProvider>
   )
 }

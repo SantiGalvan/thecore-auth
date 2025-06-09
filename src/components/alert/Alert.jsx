@@ -1,7 +1,7 @@
 import { RxCross2 } from "react-icons/rx";
-import { useAlert } from "../../contexts/AlertContext";
+import { useAlert } from "../../contexts/alert/AlertContext";
 import { useEffect, useState } from "react";
-import { useConfig } from "../../contexts/ConfigContext";
+import { useConfig } from "../../contexts/config/ConfigContext";
 
 
 const Alert = () => {

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../contexts/AuthContext";
-import { useConfig } from "../../contexts/ConfigContext";
-import { useLoading } from "../../contexts/LoadingContext.jsx";
-import { useAlert } from "../../contexts/AlertContext.jsx";
+import { useAuth } from "../../contexts/auth/AuthContext";
+import { useConfig } from "../../contexts/config/ConfigContext";
+import { useLoading } from "../../contexts/loading/LoadingContext";
+import { useAlert } from "../../contexts/alert/AlertContext";
 
 const Dashboard = () => {
 

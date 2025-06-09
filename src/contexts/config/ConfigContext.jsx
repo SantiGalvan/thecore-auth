@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import ErrorPage from "../pages/ErrorPage";
-import { version as packageVersion } from '../../package.json';
+import { version as packageVersion } from '../../../package.json';
+import ErrorPage from "../../pages/ErrorPage";
 
 const ConfigContext = createContext();
 
