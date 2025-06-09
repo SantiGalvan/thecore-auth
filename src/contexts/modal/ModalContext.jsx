@@ -11,6 +11,7 @@ const ModalProvider = ({ children }) => {
     const [title, setTitle] = useState("");
     const [onConfirm, setOnConfirm] = useState(null);
     const [item, setItem] = useState(null);
+    const [formId, setFormId] = useState("modal-form");
     const [type, setType] = useState("default");
 
     //? -------------------------------------- State ------------------------------------------------
@@ -19,11 +20,12 @@ const ModalProvider = ({ children }) => {
     //? ------------------------------------- Funzioni ----------------------------------------------
 
     //* Funzione per aprire la modale
-    const openModal = ({ content, title = "", onConfirm = null, type = "default", item = null }) => {
+    const openModal = ({ content, title = "", onConfirm = null, type = "default", formId = "modal-form", item = null }) => {
         setContent(content);
         setTitle(title);
         setOnConfirm(() => onConfirm);
         setType(type);
+        setFormId(formId);
         setItem(item);
         setIsOpen(true);
     };
@@ -34,6 +36,7 @@ const ModalProvider = ({ children }) => {
         setContent(null);
         setTitle("");
         setOnConfirm(null);
+        setFormId("modal-form");
         setItem(null);
         setType("default");
     };
@@ -41,7 +44,7 @@ const ModalProvider = ({ children }) => {
     //? ------------------------------------- Funzioni ----------------------------------------------
 
 
-    const value = { isOpen, openModal, closeModal, content, title, onConfirm, type, item }
+    const value = { isOpen, openModal, closeModal, content, title, onConfirm, type, item, formId }
 
     return (
         <ModalContext.Provider value={value}>

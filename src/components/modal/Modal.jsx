@@ -47,8 +47,11 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
                 aria-modal="true"
                 tabIndex={-1}
             >
+
+                {/* Header */}
                 <header className={`flex items-center justify-between mb-4 ${type === 'delete' ? 'gap-8' : ''}`}>
 
+                    {/* Titolo */}
                     {
                         type === 'delete' ?
                             <h2 className="text-2xl">Sei sicuro di volere eliminare: <strong>{item.name}</strong>?</h2>
@@ -56,6 +59,7 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
                             <h2 className="text-2xl">{title || 'Conferma operazione'}</h2>
                     }
 
+                    {/* X di chiusura modale */}
                     <button
                         onClick={onClose}
                         className="text-gray-500 hover:text-gray-700 cursor-pointer transition-transform duration-150 ease-in-out hover:scale-110 hover:opacity-80 active:scale-95 active:opacity-60"
@@ -66,6 +70,7 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
 
                 </header>
 
+                {/* Main */}
                 {
                     type !== 'delete' &&
                     <main className="my-8">
@@ -75,7 +80,10 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
                     </main>
                 }
 
+                {/* Footer */}
                 <footer className="flex items-center justify-between mt-4">
+
+                    {/* Annulla */}
                     <button
                         onClick={onClose}
                         className="px-4 py-2 cursor-pointer text-sm font-medium text-gray-800 bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 hover:shadow-lg active:bg-gray-500 active:shadow-sm transition-all duration-150 ease-in-out hover:opacity-90 active:scale-95 active:opacity-70"
@@ -83,7 +91,10 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
                         Annulla
                     </button>
 
+                    {/* Reset/Salva/Elimina */}
                     <div className="flex items-center gap-4">
+
+                        {/* Reset */}
                         {type !== 'delete' &&
                             <button
                                 type="reset"
@@ -94,6 +105,7 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
                             </button>
                         }
 
+                        {/* Salva/Elimina */}
                         <button
                             form={formId}
                             onClick={() => {
@@ -104,10 +116,13 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
                         >
                             {type === 'delete' ? 'Elimina' : 'Salva'}
                         </button>
+
                     </div>
+
                 </footer>
 
             </div>
+
         </div >,
         document.body
     ) : null;
