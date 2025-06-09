@@ -29,15 +29,25 @@ const PackageRoutes = (props) => {
         customProvider
     } = props;
 
-    const layout = globalLayout ? globalLayout : <DefaultLayout
-        isMain={isMain}
-        headerComponent={headerComponent}
-        showHeaderOnLogin={showHeaderOnLogin}
-        headerExcludedRoutes={headerExcludedRoutes}
-        footerComponent={footerComponent}
-        showFooterOnLogin={showFooterOnLogin}
-        footerExcludedRoutes={footerExcludedRoutes}
-    />
+    let layout;
+
+    if (globalLayout === "none") {
+        layout = null;
+    } else if (React.isValidElement(globalLayout)) {
+        layout = globalLayout;
+    } else {
+        layout = (
+            <DefaultLayout
+                isMain={isMain}
+                headerComponent={headerComponent}
+                showHeaderOnLogin={showHeaderOnLogin}
+                headerExcludedRoutes={headerExcludedRoutes}
+                footerComponent={footerComponent}
+                showFooterOnLogin={showFooterOnLogin}
+                footerExcludedRoutes={footerExcludedRoutes}
+            />
+        );
+    }
 
     const provider = privateProvider
         ? React.cloneElement(privateProvider, {},
@@ -78,7 +88,7 @@ const PackageRoutes = (props) => {
     return (
         <Routes>
 
-            <Route element={globalLayout === 'none' ? null : layout}>
+            <Route element={layout}>
 
                 {/* Rotte pubbliche */}
                 <Route path="/">
