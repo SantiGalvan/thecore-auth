@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
-import { FiX } from "react-icons/fi";
+import ModalFooter from "./footer/ModalFooter";
+import ModalHeader from "./header/ModalHeader";
+import ModalMain from "./main/ModalMain";
 
-const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type = 'default' }) => {
+const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type = 'default', style = {} }) => {
 
     const modalRef = useRef(null);
 
@@ -11,6 +13,12 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
     const handleTransitionEnd = () => {
         if (!isOpen) setShow(false);
     };
+
+    //* Calcolo dello style della modale
+    const modalWidth = style.width ?? (type === 'delete' ? 'max-w-md w-auto' : 'w-full max-w-4xl');
+    const bgModal = style.bgModal ?? 'bg-white';
+    const bgOverlay = style.bgOverlay ?? 'bg-black/50';
+
 
     useEffect(() => {
         if (isOpen) setShow(true);
@@ -35,13 +43,13 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
 
     return show ? ReactDOM.createPortal(
         <div
-            className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-200 ${isOpen ? 'bg-black/50 opacity-100' : 'opacity-0'}`}
+            className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-200 ${isOpen ? `${bgOverlay} opacity-100` : 'opacity-0'}`}
             onClick={onClose}
             onTransitionEnd={handleTransitionEnd}
         >
             <div
                 ref={modalRef}
-                className={`relative bg-white rounded-lg p-6 shadow-xl min-w-[300px] max-w-[90%] ${type === 'delete' ? 'w-[400px]' : 'w-1/2'} transform transition-transform duration-200 ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
+                className={`relative ${bgModal} rounded-lg p-6 shadow-xl ${modalWidth} transform transition-transform duration-200 ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
                 onClick={e => e.stopPropagation()}
                 role="dialog"
                 aria-modal="true"
@@ -49,83 +57,29 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
             >
 
                 {/* Header */}
-                <header className={`flex items-center justify-between mb-4 ${type === 'delete' ? 'gap-8' : ''}`}>
-
-                    {/* Titolo */}
-                    {
-                        type === 'delete' && item ?
-                            <h2 className="text-2xl">Sei sicuro di volere eliminare: <strong>{item.name}</strong>?</h2>
-                            :
-                            <h2 className="text-2xl">{title || 'Conferma operazione'}</h2>
-                    }
-
-                    {/* X di chiusura modale */}
-                    <button
-                        onClick={onClose}
-                        className="text-gray-500 hover:text-gray-700 cursor-pointer transition-transform duration-150 ease-in-out hover:scale-110 hover:opacity-80 active:scale-95 active:opacity-60"
-                        aria-label="Chiudi modale"
-                    >
-                        <FiX className="text-2xl" />
-                    </button>
-
-                </header>
+                <ModalHeader
+                    onClose={onClose}
+                    type={type}
+                    title={title}
+                    name={item?.name}
+                />
 
                 {/* Main */}
-                {
-                    type !== 'delete' &&
-                    <main className="my-8">
-
-                        {(type === 'edit' || type === 'delete') && !item ?
-                            (
-                                <div className="text-red-600 font-semibold">Errore: nessun item selezionato per l'operazione.</div>
-                            )
-                            :
-                            (children)
-                        }
-
-                    </main>
-                }
+                <ModalMain
+                    type={type}
+                    item={item}
+                >
+                    {children}
+                </ModalMain>
 
                 {/* Footer */}
-                <footer className="flex items-center justify-between mt-4">
-
-                    {/* Annulla */}
-                    <button
-                        onClick={onClose}
-                        className="px-4 py-2 cursor-pointer text-sm font-medium text-gray-800 bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 hover:shadow-lg active:bg-gray-500 active:shadow-sm transition-all duration-150 ease-in-out hover:opacity-90 active:scale-95 active:opacity-70"
-                    >
-                        Annulla
-                    </button>
-
-                    {/* Reset/Salva/Elimina */}
-                    <div className="flex items-center gap-4">
-
-                        {/* Reset */}
-                        {type !== 'delete' &&
-                            <button
-                                type="reset"
-                                form={formId}
-                                className="px-4 py-2 cursor-pointer text-sm font-medium text-white bg-rose-500 rounded-lg shadow-md hover:bg-rose-600 hover:shadow-lg active:bg-rose-700 active:shadow-sm transition-all duration-150 ease-in-out hover:opacity-90 active:scale-95 active:opacity-70"
-                            >
-                                Reset
-                            </button>
-                        }
-
-                        {/* Salva/Elimina */}
-                        <button
-                            form={formId}
-                            onClick={() => {
-                                onConfirm();
-                                onClose();
-                            }}
-                            className={`${type === 'delete' ? 'bg-rose-500 rounded-lg shadow-md hover:bg-rose-600 hover:shadow-lg active:bg-rose-700' : 'bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg active:bg-indigo-800'} px-4 py-2 cursor-pointer text-sm font-medium text-white  active:shadow-sm transition-all duration-150 ease-in-out hover:opacity-90 active:scale-95 active:opacity-70`}
-                        >
-                            {type === 'delete' ? 'Elimina' : 'Salva'}
-                        </button>
-
-                    </div>
-
-                </footer>
+                <ModalFooter
+                    onClose={onClose}
+                    onConfirm={onConfirm}
+                    type={type}
+                    formId={formId}
+                    style={style}
+                />
 
             </div>
 
