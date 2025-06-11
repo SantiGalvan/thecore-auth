@@ -35,13 +35,15 @@ const ModalProvider = ({ children }) => {
 
     //* Funzione per chiudere la modale
     const closeModal = () => {
-        setIsOpen(false);
         setContent(null);
         setTitle("");
         setOnConfirm(null);
+        setType("default");
         setFormId("modal-form");
         setItem(null);
-        setType("default");
+        setStyle({});
+        setIsOpen(false);
+        setModalData(null);
     };
 
     //* Funzione per controllare il cambio degli input
