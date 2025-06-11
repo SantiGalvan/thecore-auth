@@ -105,6 +105,12 @@ createRoot(document.getElementById('root')).render(
 )
 ```
 
+## Modals and Modal Management
+
+`THECORE-AUTH` uses a centralized modal system to manage dialog windows, forms, and multi-step flows in a simple and dynamic way. The modal management is fully controlled via Context, allowing modals to be opened from anywhere in the application with customizable content and behavior.
+
+For more details on usage, customization, and advanced use cases of the modal system, please refer to the [dedicated modal documentation](./Modal%20documentation.md).
+
 ## Routing
 
 ### `RouteProvider`
