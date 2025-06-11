@@ -58,6 +58,7 @@ const ModalProvider = ({ children }) => {
         e.preventDefault();
         if (onConfirm) {
             onConfirm(modalData);
+            closeModal();
         }
     }
 
