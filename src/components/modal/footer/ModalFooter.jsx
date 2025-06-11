@@ -35,10 +35,13 @@ const ModalFooter = ({ onClose, onConfirm, type, formId, style }) => {
 
                 {/* Salva/Elimina */}
                 <button
-                    form={formId}
+                    type={type !== 'delete' ? 'submit' : 'button'}
+                    form={type !== 'delete' ? formId : undefined}
                     onClick={() => {
-                        onConfirm();
-                        onClose();
+                        if (type === 'delete') {
+                            onConfirm();
+                            onClose();
+                        }
                     }}
                     className={`${type === 'delete' ? bgDeleteButton : bgSaveButton} px-4 py-2 cursor-pointer text-sm font-medium active:shadow-sm transition-all duration-150 ease-in-out hover:opacity-90 active:scale-95 active:opacity-70`}
                 >
