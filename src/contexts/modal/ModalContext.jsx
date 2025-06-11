@@ -13,7 +13,8 @@ const ModalProvider = ({ children }) => {
     const [item, setItem] = useState(null);
     const [formId, setFormId] = useState("modal-form");
     const [type, setType] = useState("default");
-    const [style, setStyle] = useState({})
+    const [style, setStyle] = useState({});
+    const [modalData, setModalData] = useState(null);
 
     //? -------------------------------------- State ------------------------------------------------
 
@@ -21,15 +22,15 @@ const ModalProvider = ({ children }) => {
     //? ------------------------------------- Funzioni ----------------------------------------------
 
     //* Funzione per aprire la modale
-    const openModal = ({ getContent, title = "", onConfirm = null, type = "default", formId = "modal-form", item = null, style }) => {
-        setContent(() => getContent);
+    const openModal = ({ component, title = "", onConfirm = null, type = "default", formId = "modal-form", item = null, style }) => {
+        setContent(() => component);
         setTitle(title);
         setOnConfirm(() => onConfirm);
         setType(type);
         setFormId(formId);
         setItem(item);
-        setIsOpen(true);
         setStyle(style);
+        setIsOpen(true);
     };
 
     //* Funzione per chiudere la modale
@@ -43,10 +44,27 @@ const ModalProvider = ({ children }) => {
         setType("default");
     };
 
+    //* Funzione per controllare il cambio degli input
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setModalData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    }
+
+    //* Funzione di invio del form che restituisce i valori del form
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (onConfirm) {
+            onConfirm(modalData);
+        }
+    }
+
     //? ------------------------------------- Funzioni ----------------------------------------------
 
 
-    const value = { isOpen, openModal, closeModal, content, title, onConfirm, type, item, formId, style }
+    const value = { isOpen, openModal, closeModal, content, title, onConfirm, type, item, formId, style, modalData, setModalData, handleChange, handleSubmit }
 
     return (
         <ModalContext.Provider value={value}>
