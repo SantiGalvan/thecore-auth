@@ -62,7 +62,7 @@ const DefaultLayout = (props) => {
                 item={item}
                 style={style}
             >
-                {content}
+                {typeof content === 'function' ? content() : content}
             </Modal>
 
             {showHeader && headerComponent}

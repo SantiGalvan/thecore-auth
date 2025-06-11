@@ -21,8 +21,8 @@ const ModalProvider = ({ children }) => {
     //? ------------------------------------- Funzioni ----------------------------------------------
 
     //* Funzione per aprire la modale
-    const openModal = ({ content, title = "", onConfirm = null, type = "default", formId = "modal-form", item = null, style }) => {
-        setContent(content);
+    const openModal = ({ getContent, title = "", onConfirm = null, type = "default", formId = "modal-form", item = null, style }) => {
+        setContent(() => getContent);
         setTitle(title);
         setOnConfirm(() => onConfirm);
         setType(type);
