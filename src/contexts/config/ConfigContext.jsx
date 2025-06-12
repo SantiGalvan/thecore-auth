@@ -55,10 +55,10 @@ Esempio di config.json:
     }
 
     // Connessione al DB
-    const openIndexedDB = (storeName) => {
+    const openIndexedDB = (dbName, storeName) => {
         return new Promise((resolve, reject) => {
 
-            const request = indexedDB.open("configDatabase", 1);
+            const request = indexedDB.open(dbName, 1);
 
             request.onupgradeneeded = e => {
                 const db = e.target.result;
@@ -74,10 +74,10 @@ Esempio di config.json:
     }
 
     // Richiedi dati
-    const getDataIndexedDB = async (storeName, key) => {
+    const getDataIndexedDB = async (dbName, storeName, key) => {
 
 
-        let db = await openIndexedDB(storeName);
+        const db = await openIndexedDB(dbName, storeName);
 
         return new Promise((resolve, reject) => {
             if (!db) {
@@ -97,9 +97,9 @@ Esempio di config.json:
     }
 
     // Modifica dati
-    const setDataIndexedDB = async (storeName, data) => {
+    const setDataIndexedDB = async (dbName, storeName, data) => {
 
-        let db = await openIndexedDB(storeName);
+        const db = await openIndexedDB(dbName, storeName);
 
         return new Promise((resolve, reject) => {
             if (!db) {
@@ -118,12 +118,12 @@ Esempio di config.json:
     }
 
     // Generatore di unique id
-    const generateUniqueId = async (storeName) => {
+    const generateUniqueId = async (dbName, storeName) => {
         let uniqueId = Date.now();
 
         let existingData;
         do {
-            existingData = await getDataIndexedDB(storeName, uniqueId);
+            existingData = await getDataIndexedDB(dbName, storeName, uniqueId);
 
             if (existingData) uniqueId++;
 
@@ -133,11 +133,11 @@ Esempio di config.json:
     }
 
     // Modifica dati con id automatico
-    const setDataWithAutoId = async (storeName, data) => {
+    const setDataWithAutoId = async (dbName, storeName, data) => {
 
-        if (!data.id) data.id = await generateUniqueId(storeName);
+        if (!data.id) data.id = await generateUniqueId(dbName, storeName);
 
-        await setDataIndexedDB(storeName, data);
+        await setDataIndexedDB(dbName, storeName, data);
     }
 
     // Raccolta delle variabili del config.json e aggiunta delle funzioni
