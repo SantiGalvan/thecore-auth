@@ -19,11 +19,14 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
     const bgModal = style.bgModal ?? 'bg-white';
     const bgOverlay = style.bgOverlay ?? 'bg-black/50';
 
+    //? -------------------------------------- useEffect --------------------------------------------
 
+    //* useEffect per l'apertura della modale
     useEffect(() => {
         if (isOpen) setShow(true);
     }, [isOpen]);
 
+    //* Chiude il componente quando l'utente preme il tasto Escape
     useEffect(() => {
         const handleEsc = (e) => {
             if (e.key === 'Escape') onClose();
@@ -33,6 +36,7 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
         return () => document.removeEventListener("keydown", handleEsc);
     }, [onClose]);
 
+    //* Quando il modal è aperto, imposta il focus su di esso e ripristina il focus precedente alla chiusura
     useEffect(() => {
         if (isOpen) {
             const previouslyFocused = document.activeElement;
@@ -40,6 +44,8 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
             return () => previouslyFocused?.focus();
         }
     }, [isOpen]);
+
+    //? -------------------------------------- useEffect --------------------------------------------
 
     return show ? ReactDOM.createPortal(
         <div
