@@ -4,7 +4,7 @@ import ModalFooter from "./footer/ModalFooter";
 import ModalHeader from "./header/ModalHeader";
 import ModalMain from "./main/ModalMain";
 
-const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type = 'default', style = {} }) => {
+const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type = 'default', style = {}, headerContent, footerContent }) => {
 
     const modalRef = useRef(null);
 
@@ -63,12 +63,15 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
             >
 
                 {/* Header */}
-                <ModalHeader
-                    onClose={onClose}
-                    type={type}
-                    title={title}
-                    name={item?.name}
-                />
+                {headerContent ?
+                    headerContent :
+                    <ModalHeader
+                        onClose={onClose}
+                        type={type}
+                        title={title}
+                        name={item?.name}
+                    />
+                }
 
                 {/* Main */}
                 <ModalMain
@@ -79,13 +82,16 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
                 </ModalMain>
 
                 {/* Footer */}
-                <ModalFooter
-                    onClose={onClose}
-                    onConfirm={onConfirm}
-                    type={type}
-                    formId={formId}
-                    style={style}
-                />
+                {footerContent ?
+                    footerContent :
+                    <ModalFooter
+                        onClose={onClose}
+                        onConfirm={onConfirm}
+                        type={type}
+                        formId={formId}
+                        style={style}
+                    />
+                }
 
             </div>
 

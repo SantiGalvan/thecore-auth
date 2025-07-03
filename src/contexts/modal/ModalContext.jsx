@@ -15,6 +15,8 @@ const ModalProvider = ({ children }) => {
     const [type, setType] = useState("default");
     const [style, setStyle] = useState({});
     const [modalData, setModalData] = useState(null);
+    const [headerContent, setHeaderContent] = useState(null);
+    const [footerContent, setFooterContent] = useState(null);
 
     //? -------------------------------------- State ------------------------------------------------
 
@@ -68,7 +70,26 @@ const ModalProvider = ({ children }) => {
     //? ------------------------------------- Funzioni ----------------------------------------------
 
 
-    const value = { isOpen, openModal, closeModal, content, title, onConfirm, type, item, formId, style, modalData, setModalData, handleChange, handleSubmit }
+    const value = {
+        isOpen,
+        openModal,
+        closeModal,
+        content,
+        title,
+        onConfirm,
+        type,
+        item,
+        formId,
+        style,
+        modalData,
+        setModalData,
+        handleChange,
+        handleSubmit,
+        headerContent,
+        setHeaderContent,
+        footerContent,
+        setFooterContent
+    }
 
     return (
         <ModalContext.Provider value={value}>
