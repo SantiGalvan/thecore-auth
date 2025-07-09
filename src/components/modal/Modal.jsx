@@ -53,7 +53,7 @@ const Modal = ({ isOpen, onClose, onCancel, title, formId, children, item, onCon
     return show ? ReactDOM.createPortal(
         <div
             className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-200 ${isOpen ? `${bgOverlay} opacity-100` : 'opacity-0'}`}
-            onClick={onClose}
+            onClick={onCancel || onClose}
             onTransitionEnd={handleTransitionEnd}
         >
             <div
