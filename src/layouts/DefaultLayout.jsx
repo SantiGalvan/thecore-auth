@@ -10,7 +10,7 @@ const DefaultLayout = (props) => {
 
     const { isLoading } = useLoading();
     const { showAlert } = useAlert();
-    const { isOpen, closeModal, content, title, onConfirm, item, type, formId, style, headerContent, footerContent } = useModal();
+    const { isOpen, closeModal, onCancel, content, title, onConfirm, item, type, formId, style, headerContent, footerContent } = useModal();
 
     const location = useLocation();
 
@@ -55,6 +55,7 @@ const DefaultLayout = (props) => {
             <Modal
                 isOpen={isOpen}
                 onClose={closeModal}
+                onCancel={onCancel}
                 title={title}
                 formId={formId}
                 onConfirm={onConfirm}

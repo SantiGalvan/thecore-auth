@@ -1,4 +1,4 @@
-const ModalFooter = ({ onClose, onConfirm, type, formId, style }) => {
+const ModalFooter = ({ onClose, onConfirm, onCancel, type, formId, style }) => {
 
     const resetButton = style.resetButton ? false : true;
     const confirmButtonText = style.confirmButtonText ?? (type === 'delete' ? 'Elimina' : 'Salva');
@@ -13,7 +13,7 @@ const ModalFooter = ({ onClose, onConfirm, type, formId, style }) => {
 
             {/* Annulla */}
             <button
-                onClick={onClose}
+                onClick={onCancel || onClose}
                 className={`${bgCancelButton} px-4 py-2 cursor-pointer text-sm font-medium active:shadow-sm transition-all duration-150 ease-in-out hover:opacity-90 active:scale-95 active:opacity-70`}
             >
                 {cancelButtonText}

@@ -4,7 +4,7 @@ import ModalFooter from "./footer/ModalFooter";
 import ModalHeader from "./header/ModalHeader";
 import ModalMain from "./main/ModalMain";
 
-const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type = 'default', style = {}, headerContent, footerContent }) => {
+const Modal = ({ isOpen, onClose, onCancel, title, formId, children, item, onConfirm, type = 'default', style = {}, headerContent, footerContent }) => {
 
     const modalRef = useRef(null);
 
@@ -29,12 +29,15 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
     //* Chiude il componente quando l'utente preme il tasto Escape
     useEffect(() => {
         const handleEsc = (e) => {
-            if (e.key === 'Escape') onClose();
+            if (e.key === 'Escape') {
+                if (onCancel) onCancel()
+                else onClose();
+            }
         };
 
         document.addEventListener("keydown", handleEsc);
         return () => document.removeEventListener("keydown", handleEsc);
-    }, [onClose]);
+    }, [onClose, onCancel]);
 
     //* Quando il modal è aperto, imposta il focus su di esso e ripristina il focus precedente alla chiusura
     useEffect(() => {
@@ -67,6 +70,7 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
                     headerContent :
                     <ModalHeader
                         onClose={onClose}
+                        onCancel={onCancel}
                         type={type}
                         title={title}
                         name={item?.name}
@@ -86,6 +90,7 @@ const Modal = ({ isOpen, onClose, title, formId, children, item, onConfirm, type
                     footerContent :
                     <ModalFooter
                         onClose={onClose}
+                        onCancel={onCancel}
                         onConfirm={onConfirm}
                         type={type}
                         formId={formId}

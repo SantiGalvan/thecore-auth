@@ -1,6 +1,6 @@
 import { FiX } from "react-icons/fi";
 
-const ModalHeader = ({ onClose, type, title, name }) => {
+const ModalHeader = ({ onClose, type, title, name, onCancel }) => {
     return (
         <header className={`flex items-center justify-between mb-4 ${type === 'delete' ? 'gap-8' : ''}`}>
 
@@ -14,7 +14,7 @@ const ModalHeader = ({ onClose, type, title, name }) => {
 
             {/* X di chiusura modale */}
             <button
-                onClick={onClose}
+                onClick={onCancel || onClose}
                 className="text-gray-500 hover:text-gray-700 cursor-pointer transition-transform duration-150 ease-in-out hover:scale-110 hover:opacity-80 active:scale-95 active:opacity-60"
                 aria-label="Chiudi modale"
             >

@@ -10,6 +10,7 @@ const ModalProvider = ({ children }) => {
     const [content, setContent] = useState(null);
     const [title, setTitle] = useState("");
     const [onConfirm, setOnConfirm] = useState(null);
+    const [onCancel, setOnCancel] = useState(null);
     const [item, setItem] = useState(null);
     const [formId, setFormId] = useState("modal-form");
     const [type, setType] = useState("default");
@@ -88,7 +89,9 @@ const ModalProvider = ({ children }) => {
         headerContent,
         setHeaderContent,
         footerContent,
-        setFooterContent
+        setFooterContent,
+        onCancel,
+        setOnCancel
     }
 
     return (
