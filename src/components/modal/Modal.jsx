@@ -81,6 +81,7 @@ const Modal = ({ isOpen, onClose, onCancel, title, formId, children, item, onCon
                 <ModalMain
                     type={type}
                     item={item}
+                    overrideStyle={style.overrideStyle}
                 >
                     {children}
                 </ModalMain>

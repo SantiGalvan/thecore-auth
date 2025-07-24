@@ -1,9 +1,9 @@
-const ModalMain = ({ type, children, item }) => {
+const ModalMain = ({ type, children, item, overrideStyle }) => {
     return (
         <>
             {
                 type !== 'delete' &&
-                <main className="my-8">
+                <main className={overrideStyle || 'my-8 max-h-[600px] overflow-auto'}>
 
                     {(type === 'edit' || type === 'delete') && !item ?
                         (
