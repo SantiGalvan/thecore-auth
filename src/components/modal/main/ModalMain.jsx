@@ -3,7 +3,7 @@ const ModalMain = ({ type, children, item, overrideStyle }) => {
         <>
             {
                 type !== 'delete' &&
-                <main className={overrideStyle || 'my-8 max-h-[600px] overflow-y-auto'}>
+                <main className={overrideStyle || 'my-8 max-h-[600px] overflow-y-auto overflow-x-hidden'}>
 
                     {(type === 'edit' || type === 'delete') && !item ?
                         (
