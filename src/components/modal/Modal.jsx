@@ -18,9 +18,9 @@ const Modal = ({ isOpen, onClose, onCancel, title, formId, children, item, onCon
     const modalWidth = style.width ?? (type === 'delete' ? 'max-w-md w-auto' : 'w-full max-w-4xl');
     const bgModal = style.bgModal ?? 'bg-white';
     const bgOverlay = style.bgOverlay ?? 'bg-black/50';
+    const zIndex = style.zIndex ?? "z-50";
 
     //? -------------------------------------- useEffect --------------------------------------------
-
     //* useEffect per l'apertura della modale
     useEffect(() => {
         if (isOpen) setShow(true);
@@ -47,12 +47,11 @@ const Modal = ({ isOpen, onClose, onCancel, title, formId, children, item, onCon
             return () => previouslyFocused?.focus();
         }
     }, [isOpen]);
-
     //? -------------------------------------- useEffect --------------------------------------------
 
     return show ? ReactDOM.createPortal(
         <div
-            className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-200 ${isOpen ? `${bgOverlay} opacity-100` : 'opacity-0'}`}
+            className={`fixed inset-0 ${zIndex} flex items-center justify-center transition-opacity duration-200 ${isOpen ? `${bgOverlay} opacity-100` : 'opacity-0'}`}
             onClick={onCancel || onClose}
             onTransitionEnd={handleTransitionEnd}
         >
