@@ -13,7 +13,7 @@ const ModalProvider = ({ children }) => {
     const [onCancel, setOnCancel] = useState(null);
     const [item, setItem] = useState(null);
     const [formId, setFormId] = useState("modal-form");
-    const [type, setType] = useState("default");
+    const [type, setType] = useState("submit");
     const [style, setStyle] = useState({});
     const [modalData, setModalData] = useState(null);
     const [headerContent, setHeaderContent] = useState(null);
@@ -25,7 +25,7 @@ const ModalProvider = ({ children }) => {
     //? ------------------------------------- Funzioni ----------------------------------------------
 
     //* Funzione per aprire la modale
-    const openModal = ({ modalData, component, title = "", onConfirm = null, type = "default", formId = "modal-form", item = null, style }) => {
+    const openModal = ({ modalData, component, title = "", onConfirm = null, type = "submit", formId = "modal-form", item = null, style }) => {
         setModalData(modalData);
         setContent(() => component);
         setTitle(title);
@@ -42,7 +42,7 @@ const ModalProvider = ({ children }) => {
         setContent(null);
         setTitle("");
         setOnConfirm(null);
-        setType("default");
+        setType("submit");
         setFormId("modal-form");
         setItem(null);
         setStyle({});
