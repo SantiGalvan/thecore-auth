@@ -109,7 +109,7 @@ createRoot(document.getElementById('root')).render(
 
 `THECORE-AUTH` uses a centralized modal system to manage dialog windows, forms, and multi-step flows in a simple and dynamic way. The modal management is fully controlled via Context, allowing modals to be opened from anywhere in the application with customizable content and behavior.
 
-For more details on usage, customization, and advanced use cases of the modal system, please refer to the [dedicated modal documentation](./Modal%20documentation.md).
+For more details on usage, customization, and advanced use cases of the modal system, please refer to the [dedicated modal documentation](./documentation/Modal%20documentation.md).
 
 ## Routing
 
@@ -187,7 +187,7 @@ To apply package styles, import the CSS into your main styles file:
 @import url(../node_modules/@dev/thecore-auth/dist/thecore-auth.css);
 ```
 
-For modifying the app’s appearance, we have implemented CSS variables that allow customization without creating new classes. For more details, see the [CSS Variables Documentation](CSS%20variables%20documentation.md)
+For modifying the app’s appearance, we have implemented CSS variables that allow customization without creating new classes. For more details, see the [CSS Variables Documentation](./documentation/CSS%20variables%20documentation.md)
 
 ---
 
