@@ -4,7 +4,7 @@ import ModalFooter from "./footer/ModalFooter";
 import ModalHeader from "./header/ModalHeader";
 import ModalMain from "./main/ModalMain";
 
-const Modal = ({ isOpen, onClose, onCancel, title, formId, children, item, onConfirm, type = 'default', style = {}, headerContent, footerContent }) => {
+const Modal = ({ isOpen, onClose, onCancel, title, formId, children, item, onConfirm, type = 'submit', style = {}, headerContent, footerContent }) => {
 
     const modalRef = useRef(null);
 
