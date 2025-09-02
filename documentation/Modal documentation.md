@@ -230,3 +230,86 @@ openModal({
 - The `modalData` state is preserved between reopenings of the same modal
 - Components passed in `content` are mounted and unmounted on each open/close
 - Closing the modal resets all temporary state and data
+
+## Confirmation Modal
+
+The confirmation modal is useful in all cases where the user needs to
+confirm an important action, for example:
+
+-   Deleting an item
+
+-   Saving or modifying data
+
+The modal system is centralized and managed through the `useModal()`
+hook. To open a modal, simply call the function `openModal({ ... })`,
+passing the required configuration.
+
+### How it works
+
+The confirmation modal can be opened from any type of modal (custom,
+form, etc.). The mechanism is based on two steps:
+
+1.  First modal
+
+-   We open a modal of any type.
+
+-   In the `onConfirm` of this modal, we call a new modal opening, which
+    will be the confirmation one.
+
+2.  Confirmation modal
+
+-   Here we specify in the `onConfirm` the final operation to perform
+    (e.g., deletion, saving, etc.).
+
+-   The confirmation modal uses the Save/Delete button already provided
+    by the default layout: we will decide which function to associate
+    with this button depending on the context.
+
+**Note**: even though technically it is possible to open a confirmation
+modal starting from a delete-type modal, it doesn't make much sense in
+practice. The most common case is opening it from custom or form-type
+modals.
+
+### Example
+
+``` jsx
+// Modal opening function
+const modal = () => {
+  setFooterContent();
+
+  openModal({
+    modalData: null,
+    component: null,
+    title: null,
+    onConfirm: () => openDeleteModal(), // Function to open the confirmation modal
+    type: "custom",
+    formId: "modal-form",
+  });
+};
+
+// Delete function
+const openDeleteModal = () => {
+  openModal({
+    modalData: null,
+    component: deleteItem(),
+    title: null,
+    onConfirm: null,
+    type: "delete",
+    formId: "modal-form",
+  });
+};
+```
+
+### Best practices
+
+- Use the confirmation modal only for critical actions (deletions,
+    irreversible modifications).
+
+- If possible, display additional information about the item to be
+    deleted (e.g., name or code).
+
+- Keep the modal texts clear and direct:
+
+  - Title: "Are you sure you want to delete the item (item)?". Of
+        course, the title can be modified through the `title` key of the
+        `openModal({})` function.
