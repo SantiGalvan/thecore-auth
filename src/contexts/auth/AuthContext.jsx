@@ -116,22 +116,69 @@ const AuthProvider = ({ children }) => {
         }
     }
 
+    // const getTokenExpiry = () => {
+
+    //     if (!currentToken) {
+    //         return
+    //     }
+
+    //     console.log(currentToken);
+
+    //     const decoded = jwt_decode(currentToken);
+    //     const exp = decoded.exp;
+
+    //     const currentTime = Math.floor(Date.now() / 1000);
+
+    //     const totalTime = (exp - currentTime) * 1000;
+    //     setSessionTimeout(totalTime);
+
+    //     setTimeoutToken(totalTime - timeDeducted);
+    // }
+
     const getTokenExpiry = () => {
+        if (!currentToken) return;
+        const message = 'Token non valido';
 
-        if (!currentToken) {
-            return
+        try {
+            const decoded = jwt_decode(currentToken);
+
+            // Se il token non ha exp, consideralo non valido
+            if (!decoded.exp) {
+                if (isDebug) console.warn('[Auth]: Token senza data di scadenza, eseguo logout.');
+                logout();
+                activeAlert('danger', message);
+                return;
+            }
+
+            const currentTime = Math.floor(Date.now() / 1000);
+            const totalTime = (decoded.exp - currentTime) * 1000;
+
+            // Se il token è già scaduto
+            if (totalTime <= 0) {
+                console.warn('[Auth]: Token scaduto, eseguo logout.');
+                logout();
+                activeAlert('danger', message);
+                return;
+            }
+
+            // Imposta i timer per la sessione
+            setSessionTimeout(totalTime);
+            setTimeoutToken(totalTime - timeDeducted);
+
+            // Log leggibile con minuti e secondi
+            if (isDebug) {
+                const totalSeconds = Math.floor(totalTime / 1000);
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+                console.log(`[Auth]: Token valido per ancora: ${minutes} minuti e ${seconds} secondi`);
+            }
+
+        } catch (error) {
+            if (isDebug) console.error('[Auth]: Errore nella decodifica del token:', error);
+            logout();
+            activeAlert('danger', message);
         }
-
-        const decoded = jwt_decode(currentToken);
-        const exp = decoded.exp;
-
-        const currentTime = Math.floor(Date.now() / 1000);
-
-        const totalTime = (exp - currentTime) * 1000;
-        setSessionTimeout(totalTime);
-
-        setTimeoutToken(totalTime - timeDeducted);
-    }
+    };
 
     const fetchUser = async (token) => {
         try {
@@ -168,32 +215,22 @@ const AuthProvider = ({ children }) => {
             setIsAuthenticated(true);
         } else {
 
-            setIsAuthenticated(false);
+            logout();
 
             return;
         }
 
     }, []);
 
-    // useEffect per l'auto login
+    // Effettua automaticamente il login con il backendToken se l'utente non è autenticato.
+    // Evita richieste duplicate controllando che non sia già in corso un login manuale.
     useEffect(() => {
-        if (!autoLogin) return;
-
-        fetchUser(backendToken);
-
-    }, [autoLogin]);
-
-    // useEffect per il controllo dell'autologin quando 
-    useEffect(() => {
-        if (isAuthenticated) return;
-
-        if (autoLogin && !isLoggingIn) {
-
+        if (autoLogin && !isAuthenticated && !isLoggingIn) {
+            if (isDebug) console.log('[Auth]: Tentativo di autologin con backendToken');
             fetchUser(backendToken);
-
         }
+    }, [autoLogin, isAuthenticated, isLoggingIn]);
 
-    }, [isAuthenticated]);
 
     // UseEffect per la sessione infinita e la sessione con scadenza del Token
     useEffect(() => {
