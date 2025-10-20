@@ -116,25 +116,6 @@ const AuthProvider = ({ children }) => {
         }
     }
 
-    // const getTokenExpiry = () => {
-
-    //     if (!currentToken) {
-    //         return
-    //     }
-
-    //     console.log(currentToken);
-
-    //     const decoded = jwt_decode(currentToken);
-    //     const exp = decoded.exp;
-
-    //     const currentTime = Math.floor(Date.now() / 1000);
-
-    //     const totalTime = (exp - currentTime) * 1000;
-    //     setSessionTimeout(totalTime);
-
-    //     setTimeoutToken(totalTime - timeDeducted);
-    // }
-
     const getTokenExpiry = () => {
         if (!currentToken) return;
         const message = 'Token non valido';
@@ -171,12 +152,32 @@ const AuthProvider = ({ children }) => {
                 const minutes = Math.floor(totalSeconds / 60);
                 const seconds = totalSeconds % 60;
                 console.log(`[Auth]: Token valido per ancora: ${minutes} minuti e ${seconds} secondi`);
+                console.log('Token:', currentToken);
             }
 
         } catch (error) {
             if (isDebug) console.error('[Auth]: Errore nella decodifica del token:', error);
             logout();
             activeAlert('danger', message);
+        }
+    };
+
+    const checkTokenValidity = (token) => {
+        if (!token) return false;
+
+        try {
+            const decoded = jwt_decode(token);
+            const currentTime = Math.floor(Date.now() / 1000);
+
+            if (!decoded.exp || decoded.exp < currentTime) {
+                console.warn('[Auth]: Token scaduto o non valido');
+                return false;
+            }
+
+            return true; // Token valido
+        } catch (error) {
+            console.error('[Auth]: Token non valido o corrotto', error);
+            return false;
         }
     };
 
@@ -211,15 +212,12 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem('accessToken');
 
-        if (token) {
-            setIsAuthenticated(true);
-        } else {
-
+        if (!checkTokenValidity(token)) {
             logout();
-
             return;
         }
 
+        setIsAuthenticated(true);
     }, []);
 
     // Effettua automaticamente il login con il backendToken se l'utente non è autenticato.
