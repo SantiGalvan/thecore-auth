@@ -2,14 +2,16 @@ import { createContext, useContext, useState } from "react";
 
 const LoadingContext = createContext();
 
-const LoadingProvider = ({children}) => {
+const LoadingProvider = ({ children, defaultComponent }) => {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [isLoadingComponent, setIsLoadingComponent] = useState(false);
     const [loadingProps, setLoadingProps] = useState({});
+    const [loadingComponent, setLoadingComponent] = useState(defaultComponent);
+
+    const value = { isLoading, setIsLoading, loadingProps, setLoadingProps, loadingComponent, setLoadingComponent }
 
     return (
-        <LoadingContext.Provider value={{isLoading, setIsLoading, isLoadingComponent, setIsLoadingComponent, loadingProps, setLoadingProps}}>
+        <LoadingContext.Provider value={value}>
             {children}
         </LoadingContext.Provider>
     )
@@ -18,7 +20,7 @@ const LoadingProvider = ({children}) => {
 const useLoading = () => {
     const value = useContext(LoadingContext);
 
-    if(value === undefined) throw new Error('Non puoi settare il loading');
+    if (value === undefined) throw new Error('Non puoi settare il loading');
 
     return value;
 }
