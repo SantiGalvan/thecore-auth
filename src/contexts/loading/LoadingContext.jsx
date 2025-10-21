@@ -8,7 +8,16 @@ const LoadingProvider = ({ children, defaultComponent }) => {
     const [loadingProps, setLoadingProps] = useState({});
     const [loadingComponent, setLoadingComponent] = useState(defaultComponent);
 
-    const value = { isLoading, setIsLoading, loadingProps, setLoadingProps, loadingComponent, setLoadingComponent }
+    const showLoadingFor = (duration = 2000, props = {}) => {
+        setLoadingProps(props);
+        setIsLoading(true);
+
+        setTimeout(() => {
+            setIsLoading(false);
+        }, duration);
+    };
+
+    const value = { isLoading, setIsLoading, loadingProps, setLoadingProps, loadingComponent, setLoadingComponent, showLoadingFor }
 
     return (
         <LoadingContext.Provider value={value}>

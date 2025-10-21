@@ -10,8 +10,8 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, setCurrentDate, isDebug, backendToken } = useConfig();
-    const { setIsLoading } = useLoading();
+    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, setCurrentDate, isDebug, backendToken, useCustomLoginTimeout, customLoginTimeout } = useConfig();
+    const { setIsLoading, showLoadingFor } = useLoading();
     const { setShowAlert, setMessageAlert, setTypeAlert, activeAlert } = useAlert();
 
     const navigate = useNavigate();
@@ -38,7 +38,9 @@ const AuthProvider = ({ children }) => {
 
         try {
 
-            setIsLoading(true);
+            if (!useCustomLoginTimeout) setIsLoading(true);
+
+            showLoadingFor(customLoginTimeout);
             setShowAlert(false);
 
             const axiosInstance = await createAxiosInstances();
@@ -69,7 +71,8 @@ const AuthProvider = ({ children }) => {
 
             setIsLoggingIn(false);
             // Chiudo il Loading
-            setIsLoading(false);
+            if (!useCustomLoginTimeout) setIsLoading(false);
+
 
         }
 
