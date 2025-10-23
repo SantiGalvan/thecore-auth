@@ -22,8 +22,9 @@ const AuthProvider = ({ children }) => {
     const [sessionTimeout, setSessionTimeout] = useState();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-    const createAxiosInstances = async () => {
-        const axios = await fetchAxiosConfig(setShowAlert, setTypeAlert, setMessageAlert);
+    const createAxiosInstances = async (onUnauthorized = logout, onNotFound, onGenericError) => {
+
+        const axios = await fetchAxiosConfig(setShowAlert, setTypeAlert, setMessageAlert, onUnauthorized, onNotFound, onGenericError);
 
         return axios;
     }
