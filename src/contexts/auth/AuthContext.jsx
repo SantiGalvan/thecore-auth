@@ -109,7 +109,7 @@ const AuthProvider = ({ children }) => {
             localStorage.setItem('accessToken', newToken);
             setCurrentToken(newToken);
 
-            if (tokenLog) console.log('nuovo token: ', newToken, 'Data:', setCurrentDate());
+            if (tokenLog) console.log('[Auth]: Nuovo token: ', newToken, 'Data:', setCurrentDate());
 
         } catch (err) {
             console.error(err);
@@ -160,7 +160,7 @@ const AuthProvider = ({ children }) => {
 
                 if (tokenLog) {
                     console.log(`[Auth]: Token valido per ancora: ${minutes} minuti e ${seconds} secondi`);
-                    console.log('Token:', token);
+                    console.log('[Auth]: Token:', token);
                 }
             }
 
