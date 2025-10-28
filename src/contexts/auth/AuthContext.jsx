@@ -120,12 +120,14 @@ const AuthProvider = ({ children }) => {
         }
     }
 
-    const getTokenExpiry = () => {
-        if (!currentToken) return;
+    const getTokenExpiry = (tokenToCheck) => {
+        const token = tokenToCheck || currentToken;
+
+        if (!token) return;
         const message = 'Token non valido';
 
         try {
-            const decoded = jwt_decode(currentToken);
+            const decoded = jwt_decode(token);
 
             // Se il token non ha exp, consideralo non valido
             if (!decoded.exp) {
@@ -156,7 +158,7 @@ const AuthProvider = ({ children }) => {
                 const minutes = Math.floor(totalSeconds / 60);
                 const seconds = totalSeconds % 60;
                 console.log(`[Auth]: Token valido per ancora: ${minutes} minuti e ${seconds} secondi`);
-                console.log('Token:', currentToken);
+                console.log('Token:', token);
             }
 
         } catch (error) {
@@ -221,7 +223,7 @@ const AuthProvider = ({ children }) => {
             if (isDebug) console.log('[Auth]: Ricarico pagina → controllo scadenza token');
 
             // Aggiorna gli state dei timer e heartbeat
-            getTokenExpiry();
+            getTokenExpiry(token);
         } else {
             // Token scaduto o non valido → logout
             if (isDebug) console.warn('[Auth]: Token non valido al reload, eseguo logout');
