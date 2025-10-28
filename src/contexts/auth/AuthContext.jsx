@@ -213,6 +213,7 @@ const AuthProvider = ({ children }) => {
     }
 
     const handleLoad = () => {
+
         const token = localStorage.getItem('accessToken');
 
         // Controllo che il token sia valido
@@ -251,8 +252,15 @@ const AuthProvider = ({ children }) => {
 
     // Esegue il controllo del token e aggiorna i timer al reload della pagina.
     useEffect(() => {
-        window.addEventListener('load', handleLoad);
-        return () => window.removeEventListener('load', handleLoad);
+
+        // Se la pagina è già caricata, esegui subito
+        if (document.readyState === 'complete') {
+            handleLoad();
+        } else {
+            window.addEventListener('load', handleLoad);
+            return () => window.removeEventListener('load', handleLoad);
+        }
+
     }, []);
 
     // UseEffect per la sessione infinita e la sessione con scadenza del Token
