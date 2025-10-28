@@ -212,6 +212,22 @@ const AuthProvider = ({ children }) => {
         }
     }
 
+    const handleLoad = () => {
+        const token = localStorage.getItem('accessToken');
+
+        // Controllo che il token sia valido
+        if (checkTokenValidity(token)) {
+            if (isDebug) console.log('[Auth]: Ricarico pagina → controllo scadenza token');
+
+            // Aggiorna gli state dei timer e heartbeat
+            getTokenExpiry();
+        } else {
+            // Token scaduto o non valido → logout
+            if (isDebug) console.warn('[Auth]: Token non valido al reload, eseguo logout');
+            logout();
+        }
+    };
+
     // useEffect per il controllo del Token
     useEffect(() => {
         const token = localStorage.getItem('accessToken');
@@ -233,6 +249,11 @@ const AuthProvider = ({ children }) => {
         }
     }, [autoLogin, isAuthenticated, isLoggingIn]);
 
+    // Esegue il controllo del token e aggiorna i timer al reload della pagina.
+    useEffect(() => {
+        window.addEventListener('load', handleLoad);
+        return () => window.removeEventListener('load', handleLoad);
+    }, []);
 
     // UseEffect per la sessione infinita e la sessione con scadenza del Token
     useEffect(() => {
@@ -277,15 +298,18 @@ const AuthProvider = ({ children }) => {
 
     }, [currentToken, timeoutToken]);
 
-
-
     const value = {
         isAuthenticated,
         setIsAuthenticated,
         login,
         logout,
         setCurrentToken,
-        createAxiosInstances
+        createAxiosInstances,
+        fetchHeartbeat,
+        getTokenExpiry,
+        checkTokenValidity,
+        fetchUser,
+        handleLoad
     }
 
     return (
