@@ -10,7 +10,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, setCurrentDate, isDebug, backendToken, useCustomLoginTimeout, customLoginTimeout } = useConfig();
+    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, setCurrentDate, isDebug, backendToken, useCustomLoginTimeout, customLoginTimeout, tokenLog } = useConfig();
     const { setIsLoading, showLoadingFor } = useLoading();
     const { setShowAlert, setMessageAlert, setTypeAlert, activeAlert } = useAlert();
 
@@ -109,7 +109,7 @@ const AuthProvider = ({ children }) => {
             localStorage.setItem('accessToken', newToken);
             setCurrentToken(newToken);
 
-            if (isDebug) console.log('nuovo token: ', newToken, 'Data:', setCurrentDate());
+            if (tokenLog) console.log('nuovo token: ', newToken, 'Data:', setCurrentDate());
 
         } catch (err) {
             console.error(err);
@@ -131,7 +131,7 @@ const AuthProvider = ({ children }) => {
 
             // Se il token non ha exp, consideralo non valido
             if (!decoded.exp) {
-                if (isDebug) console.warn('[Auth]: Token senza data di scadenza, eseguo logout.');
+                if (tokenLog) console.warn('[Auth]: Token senza data di scadenza, eseguo logout.');
                 logout();
                 activeAlert('danger', message);
                 return;
@@ -142,7 +142,7 @@ const AuthProvider = ({ children }) => {
 
             // Se il token è già scaduto
             if (totalTime <= 0) {
-                console.warn('[Auth]: Token scaduto, eseguo logout.');
+                if (tokenLog) console.warn('[Auth]: Token scaduto, eseguo logout.');
                 logout();
                 activeAlert('danger', message);
                 return;
@@ -153,16 +153,19 @@ const AuthProvider = ({ children }) => {
             setTimeoutToken(totalTime - timeDeducted);
 
             // Log leggibile con minuti e secondi
-            if (isDebug) {
+            if (tokenLog) {
                 const totalSeconds = Math.floor(totalTime / 1000);
                 const minutes = Math.floor(totalSeconds / 60);
                 const seconds = totalSeconds % 60;
-                console.log(`[Auth]: Token valido per ancora: ${minutes} minuti e ${seconds} secondi`);
-                console.log('Token:', token);
+
+                if (tokenLog) {
+                    console.log(`[Auth]: Token valido per ancora: ${minutes} minuti e ${seconds} secondi`);
+                    console.log('Token:', token);
+                }
             }
 
         } catch (error) {
-            if (isDebug) console.error('[Auth]: Errore nella decodifica del token:', error);
+            if (tokenLog) console.error('[Auth]: Errore nella decodifica del token:', error);
             logout();
             activeAlert('danger', message);
         }
@@ -220,13 +223,13 @@ const AuthProvider = ({ children }) => {
 
         // Controllo che il token sia valido
         if (checkTokenValidity(token)) {
-            if (isDebug) console.log('[Auth]: Ricarico pagina → controllo scadenza token');
+            if (tokenLog) console.log('[Auth]: Ricarico pagina → controllo scadenza token');
 
             // Aggiorna gli state dei timer e heartbeat
             getTokenExpiry(token);
         } else {
             // Token scaduto o non valido → logout
-            if (isDebug) console.warn('[Auth]: Token non valido al reload, eseguo logout');
+            if (tokenLog) console.warn('[Auth]: Token non valido al reload, eseguo logout');
             logout();
         }
     };
@@ -247,7 +250,7 @@ const AuthProvider = ({ children }) => {
     // Evita richieste duplicate controllando che non sia già in corso un login manuale.
     useEffect(() => {
         if (autoLogin && !isAuthenticated && !isLoggingIn) {
-            if (isDebug) console.log('[Auth]: Tentativo di autologin con backendToken');
+            if (tokenLog) console.log('[Auth]: Tentativo di autologin con backendToken');
             fetchUser(backendToken);
         }
     }, [autoLogin, isAuthenticated, isLoggingIn]);
