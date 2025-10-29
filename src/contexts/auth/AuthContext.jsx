@@ -95,6 +95,8 @@ const AuthProvider = ({ children }) => {
 
         const validToken = getTokenExpiry();
 
+        console.log('validToken:', validToken);
+
         if (validToken) {
             if (tokenLog) console.log('Token valido, inutile fare la chiamata heartbeat');
             return
@@ -291,7 +293,7 @@ const AuthProvider = ({ children }) => {
 
         // Sessione infinita
         let timerToken;
-        if (infiniteSession && token) {
+        if (infiniteSession && token && timer) {
 
             if (tokenLog) console.log('[Auth]: Entrato dentro il timer della sessione infinita');
 
