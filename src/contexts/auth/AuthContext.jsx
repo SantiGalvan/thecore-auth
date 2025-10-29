@@ -272,6 +272,8 @@ const AuthProvider = ({ children }) => {
 
         if (autoLogin) return;
 
+        const token = localStorage.getItem('accessToken');
+
         getTokenExpiry();
 
         const intervalTime = timerInfiniteSession || timeoutToken;
@@ -280,7 +282,7 @@ const AuthProvider = ({ children }) => {
 
         // Sessione infinita
         let timerToken;
-        if (infiniteSession && currentToken && timeoutToken) {
+        if (infiniteSession && token) {
 
             if (tokenLog) console.log('[Auth]: Entrato dentro il timer della sessione infinita');
 
@@ -293,7 +295,7 @@ const AuthProvider = ({ children }) => {
 
         // Sessione con scadenza del singolo Token
         let expirySession;
-        if (!infiniteSession && currentToken && sessionTimeout) {
+        if (!infiniteSession && token) {
 
             if (tokenLog) console.log('[Auth]: Entrato dentro il timer della sessione con scadenza del token');
 
