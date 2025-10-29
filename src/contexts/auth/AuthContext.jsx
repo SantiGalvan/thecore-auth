@@ -274,11 +274,9 @@ const AuthProvider = ({ children }) => {
 
         const token = localStorage.getItem('accessToken');
 
-        const timer = getTokenExpiry();
+        const timer = getTokenExpiry(token);
 
         const intervalTime = timerInfiniteSession || timer;
-        if (tokenLog) console.log('intervalTime:', intervalTime);
-
         if (tokenLog) console.log('[Auth]: intervallo per il prossimo token:', intervalTime);
 
         // Sessione infinita
