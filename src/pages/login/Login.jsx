@@ -17,7 +17,7 @@ const Login = ({ Logo }) => {
     const user = JSON.parse(localStorage.getItem('user'));
     const token = localStorage.getItem('accessToken');
 
-    if (token && user.id) navigate(`${firstPrivatePath}${user.id}`);
+    if (token && user?.id) navigate(`${firstPrivatePath}${user.id}`);
 
   }, []);
 
