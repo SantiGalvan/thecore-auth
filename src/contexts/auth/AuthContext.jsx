@@ -91,18 +91,8 @@ const AuthProvider = ({ children }) => {
 
     const fetchHeartbeat = async () => {
 
-        const token = localStorage.getItem('accessToken');
-
-        const validToken = getTokenExpiry();
-
-        console.log('validToken:', validToken);
-
-        if (validToken) {
-            if (tokenLog) console.log('Token valido, inutile fare la chiamata heartbeat');
-            return
-        }
-
         try {
+            const token = localStorage.getItem('accessToken');
 
             const axiosInstance = await createAxiosInstances();
 
