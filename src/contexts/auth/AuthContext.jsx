@@ -158,10 +158,8 @@ const AuthProvider = ({ children }) => {
                 const minutes = Math.floor(totalSeconds / 60);
                 const seconds = totalSeconds % 60;
 
-                if (tokenLog) {
-                    console.log(`[Auth]: Token valido per ancora: ${minutes} minuti e ${seconds} secondi`);
-                    console.log('[Auth]: Token:', token);
-                }
+                console.log(`[Auth]: Token valido per ancora: ${minutes} minuti e ${seconds} secondi`);
+                console.log('[Auth]: Token:', token);
             }
 
         } catch (error) {
