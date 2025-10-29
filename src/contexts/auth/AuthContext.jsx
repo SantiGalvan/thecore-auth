@@ -91,9 +91,16 @@ const AuthProvider = ({ children }) => {
 
     const fetchHeartbeat = async () => {
 
-        try {
+        const token = localStorage.getItem('accessToken');
 
-            const token = localStorage.getItem('accessToken');
+        const validToken = getTokenExpiry();
+
+        if (validToken) {
+            if (tokenLog) console.log('Token valido, inutile fare la chiamata heartbeat');
+            return
+        }
+
+        try {
 
             const axiosInstance = await createAxiosInstances();
 
@@ -109,7 +116,7 @@ const AuthProvider = ({ children }) => {
             localStorage.setItem('accessToken', newToken);
             setCurrentToken(newToken);
 
-            if (tokenLog) console.log('[Auth]: Nuovo token: ', newToken, 'Data:', setCurrentDate());
+            if (isDebug) console.log('[Auth]: Nuovo token: ', newToken, 'Data:', setCurrentDate());
 
         } catch (err) {
             console.error(err);
@@ -151,6 +158,7 @@ const AuthProvider = ({ children }) => {
             // Imposta i timer per la sessione
             setSessionTimeout(totalTime);
             setTimeoutToken(totalTime - timeDeducted);
+            const timer = totalTime - timeDeducted;
 
             // Log leggibile con minuti e secondi
             if (tokenLog) {
@@ -161,6 +169,8 @@ const AuthProvider = ({ children }) => {
                 console.log(`[Auth]: Token valido per ancora: ${minutes} minuti e ${seconds} secondi`);
                 console.log('[Auth]: Token:', token);
             }
+
+            return timer;
 
         } catch (error) {
             if (tokenLog) console.error('[Auth]: Errore nella decodifica del token:', error);
@@ -268,15 +278,14 @@ const AuthProvider = ({ children }) => {
     // UseEffect per la sessione infinita e la sessione con scadenza del Token
     useEffect(() => {
 
-        if (tokenLog) console.log('timeoutToken:', timeoutToken);
-
         if (autoLogin) return;
 
         const token = localStorage.getItem('accessToken');
 
-        getTokenExpiry();
+        const timer = getTokenExpiry();
 
-        const intervalTime = timerInfiniteSession || timeoutToken;
+        const intervalTime = timerInfiniteSession || timer;
+        if (tokenLog) console.log('intervalTime:', intervalTime);
 
         if (tokenLog) console.log('[Auth]: intervallo per il prossimo token:', intervalTime);
 
