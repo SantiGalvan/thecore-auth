@@ -10,7 +10,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, setCurrentDate, isDebug, backendToken, useCustomLoginTimeout, customLoginTimeout, tokenLog } = useConfig();
+    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, setCurrentDate, isDebug, backendToken, useCustomLoginTimeout, customLoginTimeout, tokenLog, timerInfiniteSession } = useConfig();
     const { setIsLoading, showLoadingFor } = useLoading();
     const { setShowAlert, setMessageAlert, setTypeAlert, activeAlert } = useAlert();
 
@@ -277,6 +277,8 @@ const AuthProvider = ({ children }) => {
 
         if (tokenLog) console.log('[Auth]: Entrato dentro lo useEffect di controllo');
 
+        const intervalTime = timerInfiniteSession || timeoutToken;
+
         // Sessione infinita
         let timerToken;
         if (infiniteSession && currentToken && timeoutToken) {
@@ -287,7 +289,7 @@ const AuthProvider = ({ children }) => {
 
                 fetchHeartbeat();
 
-            }, timeoutToken);
+            }, intervalTime);
         }
 
         // Sessione con scadenza del singolo Token
