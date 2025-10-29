@@ -279,6 +279,8 @@ const AuthProvider = ({ children }) => {
 
         const intervalTime = timerInfiniteSession || timeoutToken;
 
+        if (tokenLog) console.log('[Auth]: intervallo per il prossimo token:', intervalTime);
+
         // Sessione infinita
         let timerToken;
         if (infiniteSession && currentToken && timeoutToken) {
