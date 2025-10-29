@@ -244,8 +244,7 @@ const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
     }, []);
 
-    // Effettua automaticamente il login con il backendToken se l'utente non è autenticato.
-    // Evita richieste duplicate controllando che non sia già in corso un login manuale.
+    // Effettua automaticamente il login con il backendToken se l'utente non è autenticato. Evita richieste duplicate controllando che non sia già in corso un login manuale.
     useEffect(() => {
         if (autoLogin && !isAuthenticated && !isLoggingIn) {
             if (tokenLog) console.log('[Auth]: Tentativo di autologin con backendToken');
@@ -269,11 +268,11 @@ const AuthProvider = ({ children }) => {
     // UseEffect per la sessione infinita e la sessione con scadenza del Token
     useEffect(() => {
 
+        if (tokenLog) console.log('timeoutToken:', timeoutToken);
+
         if (autoLogin) return;
 
         getTokenExpiry();
-
-        if (tokenLog) console.log('[Auth]: Entrato dentro lo useEffect di controllo');
 
         const intervalTime = timerInfiniteSession || timeoutToken;
 
