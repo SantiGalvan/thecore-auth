@@ -275,9 +275,14 @@ const AuthProvider = ({ children }) => {
 
         getTokenExpiry();
 
+        if (tokenLog) console.log('[Auth]: Entrato dentro lo useEffect di controllo');
+
         // Sessione infinita
         let timerToken;
         if (infiniteSession && currentToken && timeoutToken) {
+
+            if (tokenLog) console.log('[Auth]: Entrato dentro il timer della sessione infinita');
+
             timerToken = setInterval(() => {
 
                 fetchHeartbeat();
@@ -288,6 +293,8 @@ const AuthProvider = ({ children }) => {
         // Sessione con scadenza del singolo Token
         let expirySession;
         if (!infiniteSession && currentToken && sessionTimeout) {
+
+            if (tokenLog) console.log('[Auth]: Entrato dentro il timer della sessione con scadenza del token');
 
             expirySession = setTimeout(() => {
 
