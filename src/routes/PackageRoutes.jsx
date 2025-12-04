@@ -7,11 +7,13 @@ import Logo from '../assets/MyWarehouse.svg?react';
 import React, { useEffect } from "react";
 import { useRoutesInjection } from "../contexts/route/RouteContext";
 import { useConfig } from "../contexts/config/ConfigContext";
+import UsePageTitle from "../hooks/title/UsePageTitle";
 
 const PackageRoutes = (props) => {
 
     const { publicRoutes, privateRoutes } = useRoutesInjection();
-    const { firstPrivatePath } = useConfig();
+    const { firstPrivatePath, routes, defaultTitle } = useConfig();
+    UsePageTitle(routes, defaultTitle);
 
     const {
         logoImg = Logo,
