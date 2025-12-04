@@ -1,7 +1,7 @@
 import { useLayoutEffect } from "react";
 import { matchPath, useLocation } from "react-router-dom";
 
-const UsePageTitle = (routes = [], defaultTitle = "MyApp") => {
+const UsePageTitle = (routes = [], defaultTitle = "SPOT") => {
     const location = useLocation();
 
     useLayoutEffect(() => {
