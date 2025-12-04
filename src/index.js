@@ -22,6 +22,7 @@ import { useLocation } from "react-router-dom";
 import { useMatch } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import UsePageTitle from "./hooks/title/UsePageTitle";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/auth/AuthPage";
 import AuthAdmin from "./middlewares/admin/AuthAdmin";
@@ -90,5 +91,6 @@ export {
     Header,
     ReactDOM,
     ModalProvider,
-    useModal
+    useModal,
+    UsePageTitle
 }
