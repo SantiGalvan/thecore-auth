@@ -51,32 +51,6 @@ const PackageRoutes = (props) => {
         );
     }
 
-    // const provider = privateProvider
-    //     ? React.cloneElement(privateProvider, {},
-    //         customProvider
-    //             ? React.createElement(customProvider.type, customProvider.props,
-    //                 <AuthPage>
-    //                     <Outlet />
-    //                 </AuthPage>
-    //             )
-    //             : (
-    //                 <AuthPage>
-    //                     <Outlet />
-    //                 </AuthPage>
-    //             )
-    //     )
-    //     : customProvider
-    //         ? React.createElement(customProvider.type, customProvider.props,
-    //             <AuthPage>
-    //                 <Outlet />
-    //             </AuthPage>
-    //         )
-    //         : (
-    //             <AuthPage>
-    //                 <Outlet />
-    //             </AuthPage>
-    //         );
-
     const providerElement = useMemo(() => {
         // Se c’è privateProvider, lo avvolgo con customProvider o AuthPage
         if (privateProvider) {
