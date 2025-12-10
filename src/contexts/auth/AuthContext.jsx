@@ -39,9 +39,16 @@ const AuthProvider = ({ children }) => {
 
         try {
 
-            if (!useCustomLoginTimeout) setIsLoading(true);
+            if (!useCustomLoginTimeout) {
 
-            showLoadingFor(customLoginTimeout);
+                setIsLoading(true);
+
+            } else {
+
+                showLoadingFor(customLoginTimeout);
+            }
+
+
             setShowAlert(false);
 
             const axiosInstance = await createAxiosInstances();
@@ -67,6 +74,7 @@ const AuthProvider = ({ children }) => {
         } catch (err) {
 
             console.error(err);
+            setIsLoading(false);
 
         } finally {
 
