@@ -10,7 +10,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, setCurrentDate, isDebug, backendToken, useCustomLoginTimeout, customLoginTimeout, tokenLog, timerInfiniteSession } = useConfig();
+    const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, setCurrentDate, isDebug, backendToken, useCustomLoginTimeout, stopLoaderOnFinish, customLoginTimeout, tokenLog, timerInfiniteSession } = useConfig();
     const { setIsLoading, showLoadingFor } = useLoading();
     const { setShowAlert, setMessageAlert, setTypeAlert, activeAlert } = useAlert();
 
@@ -72,7 +72,7 @@ const AuthProvider = ({ children }) => {
 
             setIsLoggingIn(false);
             // Chiudo il Loading
-            if (!useCustomLoginTimeout) setIsLoading(false);
+            if (!useCustomLoginTimeout && stopLoaderOnFinish) setIsLoading(false);
 
 
         }
