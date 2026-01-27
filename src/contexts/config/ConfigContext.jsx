@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { version as packageVersion } from '../../../package.json';
 import ErrorPage from "../../pages/error/ErrorPage";
 
@@ -8,6 +8,8 @@ const ConfigProvider = ({ children }) => {
 
     const [config, setConfig] = useState({}); // State delle variabili del config e delle funzioni del db
     const [errorShow, setErrorShow] = useState(false);
+
+    const fetchedRef = useRef(false);
 
     // Messaggio di errore se il file config.json non è stato creato
     const errorMessage = `Creare un file config.json in public per il corretto funzionamento
@@ -177,6 +179,9 @@ Esempio di config.json:
     }
 
     useEffect(() => {
+        if (fetchedRef.current) return;
+        fetchedRef.current = true;
+
         fetchConfig();
     }, []);
 
