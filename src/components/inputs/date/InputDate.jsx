@@ -10,7 +10,8 @@ const InputDate = (props) => {
         labelStyle,
         containerStyle,
         inputStyle,
-        title
+        title,
+        children
     } = props;
 
     return (
@@ -31,6 +32,7 @@ const InputDate = (props) => {
                 required={required}
                 className={inputStyle || `bg-input-bg border border-input-border rounded-lg text-input-text placeholder:text-input-placeholder rounded-input focus:ring focus:ring-primary focus:border-primary focus:outline-none focus:shadow-[var(--shadow-primary-input)] block w-full h-[43px] p-input disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed disabled:opacity-60`}
             />
+            {children}
         </div>
     )
 }
