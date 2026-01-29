@@ -3,9 +3,9 @@ name: Build and Publish to npm
 on:
   push:
     branches:
-      - main # Si attiva su push alla branch principale (puoi modificare il nome della branch se usi un'altra)
+      - main # Si attiva su push alla branch principale
     paths:
-      - 'package.json'  # La build si attiverà solo se viene modificato il file package.json
+      - 'package.json' # Il workflow parte solo se cambia il package.json
 
 jobs:
   build-and-publish:
@@ -16,24 +16,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Imposta Node.js (specifica la versione che vuoi usare, ad esempio v18)
+      # Imposta Node.js (specifica la versione da usare)
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "22" # Usa la versione di Node.js desiderata
+          node-version: "22" # Versione di Node.js utilizzata
+          registry-url: https://registry.npmjs.org/ # Registry npm ufficiale
 
-      # Installa le dipendenze (sia di produzione che di sviluppo)
+      # Installa le dipendenze (produzione + sviluppo)
       - name: Install dependencies
         run: npm install
 
-      # Esegui il build del pacchetto
+      # Esegue la build del pacchetto
       - name: Build the package
-        run: npm run build # Assicurati che il tuo package.json contenga il comando "build"
+        run: npm run build # Assicurati che esista lo script "build" nel package.json
 
-      # Login a npm (usa i secrets di GitHub per la sicurezza)
-      - name: Authenticate to npm
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-
-      # Pubblica il pacchetto su npm
+      # Pubblica il pacchetto su npm usando il token con bypass 2FA
       - name: Publish to npm
-        run: npm publish --access public # Utilizza `--access public` per pacchetti pubblici (per pacchetti privati ometti questo)
+        run: npm publish --access public # Usa --access public per pacchetti pubblici
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Token npm salvato nei GitHub Secrets
