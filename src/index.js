@@ -43,6 +43,10 @@ import CardInputTag from "./components/SPOT RFID/card/CardInputTag";
 import CardInputRange from "./components/SPOT RFID/card/CardInputRange";
 import ConfigFileReader from "./components/SPOT RFID/config/ConfigFileReader";
 import Header from "./components/SPOT RFID/header/SpotRfidHeader";
+import FileDropzone from "./components/inputs/FileDropzone";
+import SwitchRadio from "./components/inputs/SwitchRadio";
+import InputDate from "./components/inputs/date/InputDate";
+import InputStartEndDate from "./components/inputs/date/InputStartEndDate";
 import ReactDOM from "react-dom";
 import './index.css';
 
@@ -92,5 +96,9 @@ export {
     ReactDOM,
     ModalProvider,
     useModal,
-    UsePageTitle
+    UsePageTitle,
+    FileDropzone,
+    SwitchRadio,
+    InputDate,
+    InputStartEndDate
 }
