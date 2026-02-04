@@ -40,7 +40,6 @@ const useStorage = (initialValue, itemKey) => {
 
         if (clearAll) {
             localStorage.clear(); // ⚠️ cancella tutto
-            // console.warn("localStorage completamente svuotato");
         } else {
             localStorage.removeItem(itemKey); // ✅ cancella solo questa chiave
         }
