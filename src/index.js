@@ -22,7 +22,9 @@ import { useLocation } from "react-router-dom";
 import { useMatch } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import UsePageTitle from "./hooks/title/UsePageTitle";
+import { UsePageTitle } from "./hooks/title/UsePageTitle";
+import { useStorage } from "./hooks/storage/useStorage";
+import { useAuthStorage } from "./hooks/auth/useAuthStorage";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/auth/AuthPage";
 import AuthAdmin from "./middlewares/admin/AuthAdmin";
@@ -97,6 +99,8 @@ export {
     ModalProvider,
     useModal,
     UsePageTitle,
+    useStorage,
+    useAuthStorage,
     FileDropzone,
     SwitchRadio,
     InputDate,
