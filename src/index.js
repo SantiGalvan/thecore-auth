@@ -31,7 +31,7 @@ import AuthAdmin from "./middlewares/admin/AuthAdmin";
 import DefaultLayout from "./layouts/DefaultLayout";
 import Login from "./pages/login/Login";
 import Dashboard from "./pages/user/Dashboard";
-import { fetchAxiosConfig } from "./utils/axiosInstance"
+import { fetchAxiosConfig } from "./utils/axios/axiosInstance"
 import LoginForm from "./components/form/LoginForm";
 import Loading from "./components/loading/Loading";
 import LoadingComponent from "./components/loading/LoadingComponent";
