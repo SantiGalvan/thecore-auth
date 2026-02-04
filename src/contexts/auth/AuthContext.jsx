@@ -207,8 +207,8 @@ const AuthProvider = ({ children }) => {
             const user = res.data;
 
             if (user) {
-                localStorage.setItem('user', JSON.stringify(user));
-                localStorage.setItem('accessToken', token);
+                setUser(user);
+                setToken(token);
                 setIsAuthenticated(true);
                 navigate(`${firstPrivatePath}${user.id}`);
             }
