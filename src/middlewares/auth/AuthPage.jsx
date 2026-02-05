@@ -3,16 +3,16 @@ import { useEffect } from 'react';
 import { useAuth } from '../../contexts/auth/AuthContext';
 import { useAlert } from '../../contexts/alert/AlertContext';
 import { useConfig } from '../../contexts/config/ConfigContext';
+import { useAuthStorage } from '../../hooks/auth/useAuthStorage';
 
 const AuthPage = () => {
 
   const { isAuthenticated } = useAuth();
   const { activeAlert } = useAlert();
   const { autoLogin } = useConfig();
+  const { token } = useAuthStorage();
 
   useEffect(() => {
-
-    const token = localStorage.getItem('accessToken');
 
     if (!isAuthenticated && !token && !autoLogin) {
 

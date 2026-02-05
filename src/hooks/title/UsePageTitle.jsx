@@ -20,4 +20,4 @@ const UsePageTitle = (routes = [], defaultTitle = "SPOT") => {
 
 }
 
-export default UsePageTitle;
+export { UsePageTitle };

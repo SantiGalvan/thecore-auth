@@ -1,28 +1,26 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../../contexts/auth/AuthContext";
 import { useConfig } from "../../contexts/config/ConfigContext";
 import { useLoading } from "../../contexts/loading/LoadingContext";
 import { useAlert } from "../../contexts/alert/AlertContext";
+import { useAuthStorage } from "../../hooks/auth/useAuthStorage";
 
 const Dashboard = () => {
 
-    const { logout, setCurrentToken, createAxiosInstances } = useAuth();
+    const { logout, createAxiosInstances } = useAuth();
     const { usersEndpoint } = useConfig();
     const { setIsLoading } = useLoading();
     const { activeAlert } = useAlert();
+    const { token, user } = useAuthStorage();
 
     const [users, setUsers] = useState(null);
     const [disabled, setDisabled] = useState(false);
-
-    const user = JSON.parse(localStorage.getItem('user'));
 
     const fetchUsers = async () => {
 
         try {
 
             setDisabled(true);
-
-            const token = localStorage.getItem('accessToken');
 
             if (!token) {
                 logout();
@@ -64,13 +62,6 @@ const Dashboard = () => {
         // Alert con messaggio e tipo
         activeAlert('info', 'Hai effettuato il logout');
     }
-
-    useEffect(() => {
-        const token = localStorage.getItem('accessToken');
-
-        if (token) setCurrentToken(token);
-
-    }, []);
 
     return (
         <section>

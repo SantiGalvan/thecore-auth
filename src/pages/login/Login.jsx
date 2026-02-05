@@ -3,19 +3,18 @@ import LoginForm from "../../components/form/LoginForm";
 import { useLoginForm } from "../../contexts/login/LoginFormContext";
 import { useConfig } from "../../contexts/config/ConfigContext";
 import { useNavigate } from "react-router-dom";
+import { useAuthStorage } from "../../hooks/auth/useAuthStorage";
 
 const Login = ({ Logo }) => {
 
   const { styleCardForm, styleContainerLogo, styleLogo, overrideStyle, customVersion } = useLoginForm();
   const { firstPrivatePath, version } = useConfig();
+  const { token, user } = useAuthStorage();
 
   const navigate = useNavigate();
 
   // UseEffect per controllare che l'utente loggato non entri nella pagina di login
   useEffect(() => {
-
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = localStorage.getItem('accessToken');
 
     if (token && user?.id) navigate(`${firstPrivatePath}${user.id}`);
 

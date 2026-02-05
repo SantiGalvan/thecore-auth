@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useConfig } from "../config/ConfigContext.jsx";
 import { useLoading } from "../loading/LoadingContext.jsx";
 import { useAlert } from "../alert/AlertContext.jsx";
-import { fetchAxiosConfig } from "../../utils/axiosInstance.js";
+import { fetchAxiosConfig } from "../../utils/axios/axiosInstance.js";
+import { useAuthStorage } from "../../hooks/auth/useAuthStorage.jsx";
 
 const AuthContext = createContext();
 
@@ -13,11 +14,11 @@ const AuthProvider = ({ children }) => {
     const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, setCurrentDate, isDebug, backendToken, useCustomLoginTimeout, stopLoaderOnFinish, customLoginTimeout, tokenLog, timerInfiniteSession } = useConfig();
     const { setIsLoading, showLoadingFor } = useLoading();
     const { setShowAlert, setMessageAlert, setTypeAlert, activeAlert } = useAlert();
+    const { token, setToken, setUser, storageLogout } = useAuthStorage();
 
     const navigate = useNavigate();
 
     const [isAuthenticated, setIsAuthenticated] = useState(null);
-    const [currentToken, setCurrentToken] = useState();
     const [timeoutToken, setTimeoutToken] = useState();
     const [sessionTimeout, setSessionTimeout] = useState();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -58,15 +59,14 @@ const AuthProvider = ({ children }) => {
             });
 
 
-            const token = res.headers.token;
+            const dataToken = res.headers.token;
             const user = res.data;
 
-            if (token) {
+            if (dataToken) {
 
-                localStorage.setItem('accessToken', token);
-                localStorage.setItem('user', JSON.stringify(user));
+                setUser(user);
+                setToken(dataToken);
                 setIsAuthenticated(true);
-                setCurrentToken(token);
                 navigate(`${firstPrivatePath}${user.id}`);
 
             }
@@ -82,25 +82,20 @@ const AuthProvider = ({ children }) => {
             // Chiudo il Loading
             if (!useCustomLoginTimeout && stopLoaderOnFinish) setIsLoading(false);
 
-
         }
 
     }
 
     const logout = () => {
 
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('id');
-        localStorage.removeItem('user');
+        storageLogout();
         setIsAuthenticated(false);
-        setCurrentToken(null);
 
     }
 
     const fetchHeartbeat = async () => {
 
         try {
-            const token = localStorage.getItem('accessToken');
 
             const axiosInstance = await createAxiosInstances();
 
@@ -113,8 +108,7 @@ const AuthProvider = ({ children }) => {
             );
 
             const newToken = res.headers.token;
-            localStorage.setItem('accessToken', newToken);
-            setCurrentToken(newToken);
+            setToken(newToken);
 
             if (isDebug) console.log('[Auth]: Nuovo token: ', newToken, 'Data:', setCurrentDate());
 
@@ -128,14 +122,13 @@ const AuthProvider = ({ children }) => {
     }
 
     const getTokenExpiry = (tokenToCheck) => {
-        const token = tokenToCheck || currentToken;
+        const checkToken = tokenToCheck || token;
 
-        if (!token) return;
+        if (!checkToken) return;
         const message = 'Token non valido';
 
         try {
-            const decoded = jwt_decode(token);
-
+            const decoded = jwt_decode(checkToken);
             // Se il token non ha exp, consideralo non valido
             if (!decoded.exp) {
                 if (tokenLog) console.warn('[Auth]: Token senza data di scadenza, eseguo logout.');
@@ -214,8 +207,8 @@ const AuthProvider = ({ children }) => {
             const user = res.data;
 
             if (user) {
-                localStorage.setItem('user', JSON.stringify(user));
-                localStorage.setItem('accessToken', token);
+                setUser(user);
+                setToken(token);
                 setIsAuthenticated(true);
                 navigate(`${firstPrivatePath}${user.id}`);
             }
@@ -226,8 +219,6 @@ const AuthProvider = ({ children }) => {
     }
 
     const handleLoad = () => {
-
-        const token = localStorage.getItem('accessToken');
 
         // Controllo che il token sia valido
         if (checkTokenValidity(token)) {
@@ -244,7 +235,6 @@ const AuthProvider = ({ children }) => {
 
     // useEffect per il controllo del Token
     useEffect(() => {
-        const token = localStorage.getItem('accessToken');
 
         if (!checkTokenValidity(token)) {
             logout();
@@ -279,8 +269,6 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
 
         if (autoLogin) return;
-
-        const token = localStorage.getItem('accessToken');
 
         const timer = getTokenExpiry(token);
 
@@ -326,14 +314,13 @@ const AuthProvider = ({ children }) => {
             }
         }
 
-    }, [currentToken, timeoutToken]);
+    }, [token, timeoutToken]);
 
     const value = {
         isAuthenticated,
         setIsAuthenticated,
         login,
         logout,
-        setCurrentToken,
         createAxiosInstances,
         fetchHeartbeat,
         getTokenExpiry,
