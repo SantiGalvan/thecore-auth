@@ -25,6 +25,7 @@ import { useParams } from "react-router-dom";
 import { UsePageTitle } from "./hooks/title/UsePageTitle";
 import { useStorage } from "./hooks/storage/useStorage";
 import { useAuthStorage } from "./hooks/auth/useAuthStorage";
+import { useIndexedDB } from "./hooks/indexedDB/useIndexedDB";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/auth/AuthPage";
 import AuthAdmin from "./middlewares/admin/AuthAdmin";
@@ -101,6 +102,7 @@ export {
     UsePageTitle,
     useStorage,
     useAuthStorage,
+    useIndexedDB,
     FileDropzone,
     SwitchRadio,
     InputDate,
