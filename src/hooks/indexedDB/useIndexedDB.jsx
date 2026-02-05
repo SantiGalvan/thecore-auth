@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback, useState } from "react";
 
-export const useIndexedDB = (dbName, storeName, version = 1) => {
+const useIndexedDB = (dbName, storeName, version = 1) => {
 
     const dbRef = useRef(null);
     const [isReady, setIsReady] = useState(false);
@@ -139,3 +139,5 @@ export const useIndexedDB = (dbName, storeName, version = 1) => {
         isReady
     };
 };
+
+export { useIndexedDB };
