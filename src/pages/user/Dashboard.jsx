@@ -32,14 +32,7 @@ const Dashboard = () => {
             }
 
             const axiosInstance = await createAxiosInstances();
-
-            const res = await axiosInstance.get(`${usersEndpoint}`,
-                {
-                    headers: {
-                        "Authorization": `Bearer ${token}`
-                    }
-                }
-            );
+            const res = await axiosInstance.get(`${usersEndpoint}`);
 
             const users = res.data
             setUsers(users);

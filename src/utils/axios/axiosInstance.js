@@ -17,6 +17,14 @@ const fetchAxiosConfig = async (show, type, message, onUnauthorized, onNotFound,
 
         instance.interceptors.request.use(
             (config) => {
+                const token = JSON.parse(localStorage.getItem("accessToken"));
+
+                if (token) {
+                    config.headers.Authorization = `Bearer ${token}`;
+                } else {
+                    delete config.headers.Authorization;
+                }
+
                 return config;
             }
         );

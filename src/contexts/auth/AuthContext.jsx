@@ -99,13 +99,7 @@ const AuthProvider = ({ children }) => {
 
             const axiosInstance = await createAxiosInstances();
 
-            const res = await axiosInstance.get(`${heartbeatEndpoint}`,
-                {
-                    headers: {
-                        "Authorization": token
-                    }
-                }
-            );
+            const res = await axiosInstance.get(`${heartbeatEndpoint}`);
 
             const newToken = res.headers.token;
             setToken(newToken);
@@ -196,13 +190,7 @@ const AuthProvider = ({ children }) => {
 
             const axiosInstance = await createAxiosInstances();
 
-            const res = await axiosInstance.get(heartbeatEndpoint,
-                {
-                    headers: {
-                        "Authorization": token
-                    }
-                }
-            );
+            const res = await axiosInstance.get(heartbeatEndpoint);
 
             const user = res.data;
 

@@ -24,8 +24,7 @@ const useStorage = (initialValue, itemKey) => {
     const changeState = (value) => {
         setState((prev) => {
 
-            const newValue =
-                typeof value === "function" ? value(prev) : value;
+            const newValue = typeof value === "function" ? value(prev) : value;
 
             localStorage.setItem(itemKey, JSON.stringify(newValue));
 
