@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useConfig } from "../config/ConfigContext.jsx";
 import { useLoading } from "../loading/LoadingContext.jsx";
 import { useAlert } from "../alert/AlertContext.jsx";
-import { fetchAxiosConfig } from "../../utils/axios/axiosInstance.js";
+import { fetchAxiosConfig } from "../../api/axiosInstance.js";
 import { useAuthStorage } from "../../hooks/auth/useAuthStorage.jsx";
 
 const AuthContext = createContext();
