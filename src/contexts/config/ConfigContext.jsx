@@ -41,6 +41,21 @@ Esempio di config.json:
     "showHeaderButton": ""
 }`
 
+    // Restituisce una session key unica e opzionalmente prefissata dall'app, creandola solo se hasSessionKey è true
+    const getSessionKey = (hasSessionKey, appKey) => {
+        if (!hasSessionKey) return null;
+
+        let id = sessionStorage.getItem("sessionKey");
+
+        if (!id) {
+            id = `${appKey ? appKey + "-" : ""}${crypto.randomUUID()}`;
+            sessionStorage.setItem("sessionKey", id);
+        }
+
+        return id;
+    }
+
+    // Restituisce la data e ora corrente formattata come "dd/mm/yyyy hh:mm:ss"
     const setCurrentDate = () => {
         const currentDate = new Date();
 
@@ -159,6 +174,8 @@ Esempio di config.json:
                 version = packageVersion;
             }
 
+            const sessionKey = getSessionKey(data.hasSessionKey, data.appKey);
+
             const newData = {
                 ...data,
                 version,
@@ -168,6 +185,10 @@ Esempio di config.json:
                 generateUniqueId,
                 setDataWithAutoId,
                 setCurrentDate
+            }
+
+            if (data.hasSessionKey) {
+                newData.sessionKey = sessionKey;
             }
 
             setConfig(newData);
