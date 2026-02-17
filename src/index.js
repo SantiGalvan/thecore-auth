@@ -51,7 +51,7 @@ import SwitchRadio from "./components/inputs/SwitchRadio";
 import InputDate from "./components/inputs/date/InputDate";
 import InputStartEndDate from "./components/inputs/date/InputStartEndDate";
 import ReactDOM from "react-dom";
-import './index.css';
+import './css/index.css';
 
 export {
     BrowserRouter,

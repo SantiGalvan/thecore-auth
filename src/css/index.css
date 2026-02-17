@@ -17,6 +17,7 @@
 
   /*? Dimensioni card form */
   --height-card-form: 70vh;
+  --height-card-form-landscape: 80vh;
   --width-card-form: 85vw;
   --max-width-card-form: 1136px;
   --border-form-size: 2px;
@@ -49,7 +50,7 @@
   --title-position: center;
 
   /*? Immagine di sfondo */
-  --bg-image: url(./assets/login-background.svg);
+  --bg-image: url(../assets/login-background.svg);
 
   /*? Alert - Danger */
   --color-danger: #FEE2E2;
@@ -76,15 +77,16 @@
   --color-warning-progress: #FACC15;
 
   /*? Logo del Login */
-  --login-logo-width: 20vw;
+  --login-logo-width: 40vw;
   --login-logo-max-width: 300px;
+  --login-logo-landscape-width: 20vw;
+  --login-logo-landscape-max-width: 250px;
 
   /*? Loading */
   --color-loading-bg: #4B556366;
   --color-spinner: #fff;
 
   /*! SPOT RFID */
-
   /*? Header */
   --header-height: 60px;
 
@@ -149,7 +151,6 @@
   border-radius: var(--input-radius);
 }
 
-/* Dimensioni e colori logo della Login */
 .login-logo {
   width: var(--login-logo-width);
   max-width: var(--login-logo-max-width);
@@ -177,6 +178,7 @@
 
 #login-page {
   user-select: none;
+
 }
 
 /*! SPOT RFID */
@@ -196,4 +198,19 @@
   :root {
     --height-card-form: 55vh;
   }
+}
+
+@media (orientation: landscape) {
+  .login-logo {
+    width: var(--login-logo-landscape-width);
+    max-width: var(--login-logo-landscape-max-width);
+  }
+  
+  .card-size{
+    height: 80vh;
+  }
+
+  .card-size {
+  height: var(--height-card-form-landscape);
+}
 }
