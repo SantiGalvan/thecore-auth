@@ -199,18 +199,3 @@
     --height-card-form: 55vh;
   }
 }
-
-@media (orientation: landscape) {
-  .login-logo {
-    width: var(--login-logo-landscape-width);
-    max-width: var(--login-logo-landscape-max-width);
-  }
-  
-  .card-size{
-    height: 80vh;
-  }
-
-  .card-size {
-  height: var(--height-card-form-landscape);
-}
-}
