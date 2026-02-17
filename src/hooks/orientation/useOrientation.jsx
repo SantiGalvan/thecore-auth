@@ -16,4 +16,4 @@ const useOrientation = () => {
   return orientation;
 }
 
-export default useOrientation;
+export { useOrientation };

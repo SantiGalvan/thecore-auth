@@ -26,6 +26,7 @@ import { UsePageTitle } from "./hooks/title/UsePageTitle";
 import { useStorage } from "./hooks/storage/useStorage";
 import { useAuthStorage } from "./hooks/auth/useAuthStorage";
 import { useIndexedDB } from "./hooks/indexedDB/useIndexedDB";
+import { useOrientation } from "./hooks/orientation/useOrientation";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/auth/AuthPage";
 import AuthAdmin from "./middlewares/admin/AuthAdmin";
@@ -103,6 +104,7 @@ export {
     useStorage,
     useAuthStorage,
     useIndexedDB,
+    useOrientation,
     FileDropzone,
     SwitchRadio,
     InputDate,
