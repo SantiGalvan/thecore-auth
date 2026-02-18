@@ -1,6 +1,7 @@
-import { useConfig, useLoading } from "@dev/spot-auth";
-import LogoLoader from "./LogoLoader";
 import { useEffect, useState } from "react";
+import { useConfig } from "../../../contexts/config/ConfigContext";
+import { useLoading } from "../../../contexts/loading/LoadingContext";
+import LogoLoader from "./LogoLoader";
 
 const Loader = ({ gradients, moreGradients, containerSize, overlayStyle, NewLogoLoader, Logo }) => {
 
@@ -44,7 +45,7 @@ const Loader = ({ gradients, moreGradients, containerSize, overlayStyle, NewLogo
 
     return (
         <div className={`${overlayStyle || 'fixed top-0 bottom-0 left-0 right-0 flex items-center justify-center z-999 transition-opacity duration-300'} ${selectedGradient} ${fade ? "opacity-100" : "opacity-0"}`}>
-            {NewLogoLoader ? <NewLogoLoader /> :<LogoLoader sizeContainer={sizeContainer} Logo={Logo} />}
+            {NewLogoLoader ? <NewLogoLoader /> : <LogoLoader sizeContainer={sizeContainer} Logo={Logo} />}
         </div>
     );
 }
