@@ -11,7 +11,7 @@ const Loader = ({ gradients, moreGradients, containerSize, overlayStyle, NewLogo
     const [show, setShow] = useState(isLoading);
     const [fade, setFade] = useState(false);
 
-    const defaulGradients = gradients || [
+    const baseGradients = [
         "bg-gradient-to-br from-blue-500 via-blue-400 to-blue-200",
         "bg-gradient-to-br from-blue-200 via-blue-400 to-purple-300",
         "bg-gradient-to-br from-blue-400 via-cyan-300 to-blue-200",
@@ -20,8 +20,9 @@ const Loader = ({ gradients, moreGradients, containerSize, overlayStyle, NewLogo
         "bg-gradient-to-br from-blue-300 via-cyan-400 to-indigo-400",
         "bg-gradient-to-br from-cyan-200 via-blue-300 to-blue-500",
         "bg-gradient-to-br from-indigo-300 via-blue-400 to-purple-400",
-        ...moreGradients
+        ...(moreGradients || [])
     ]
+    const defaulGradients = gradients ?? [...baseGradients, ...(moreGradients ?? [])]
 
     // Seleziona un gradient casuale
     const selectedGradient = defaulGradients[Math.floor(Math.random() * defaulGradients.length)];
