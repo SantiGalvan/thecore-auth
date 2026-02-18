@@ -55,6 +55,7 @@ import Loader from "./components/MyTask/loader/Loader";
 import LogoLoader from "./components/MyTask/loader/LogoLoader";
 import ReactDOM from "react-dom";
 import './css/index.css';
+import './css/loader.css';
 
 export {
     BrowserRouter,
