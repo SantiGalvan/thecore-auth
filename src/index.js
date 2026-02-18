@@ -51,6 +51,8 @@ import FileDropzone from "./components/inputs/FileDropzone";
 import SwitchRadio from "./components/inputs/SwitchRadio";
 import InputDate from "./components/inputs/date/InputDate";
 import InputStartEndDate from "./components/inputs/date/InputStartEndDate";
+import Loader from "./components/MyTask/loader/Loader";
+import LogoLoader from "./components/MyTask/loader/LogoLoader";
 import ReactDOM from "react-dom";
 import './css/index.css';
 
@@ -108,5 +110,7 @@ export {
     FileDropzone,
     SwitchRadio,
     InputDate,
-    InputStartEndDate
+    InputStartEndDate,
+    Loader,
+    LogoLoader
 }
