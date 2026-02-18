@@ -26,7 +26,7 @@ const Loader = ({ gradients, moreGradients, containerSize, overlayStyle, NewLogo
 
     // Seleziona un gradient casuale
     const selectedGradient = defaulGradients[Math.floor(Math.random() * defaulGradients.length)];
-    const sizeContainer = containerSize || 'h-[280px] w-[280px]';
+    const sizeContainer = containerSize || 'h-[420px] w-[420px]';
 
     useEffect(() => {
         if (isLoading) {
