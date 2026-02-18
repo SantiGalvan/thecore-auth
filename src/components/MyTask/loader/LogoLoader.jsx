@@ -1,4 +1,4 @@
-const LogoLoader = ({ sizeContainer, Logo }) => {
+const LogoLoader = ({ sizeContainer, Logo, spinnerColor }) => {
 
     return (
         <div className={`relative ${sizeContainer ? sizeContainer : 'h-60 w-60'}`}>
@@ -9,7 +9,7 @@ const LogoLoader = ({ sizeContainer, Logo }) => {
                     cy="50"
                     r="45"
                     fill="none"
-                    stroke="#60A5FA"
+                    stroke={spinnerColor || "#60A5FA"}
                     strokeWidth="6"
                     strokeLinecap="round"
                     strokeDasharray="280"
