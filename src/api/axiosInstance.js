@@ -2,7 +2,7 @@ import axios from "axios";
 
 let instance;
 
-const fetchAxiosConfig = async (show, type, message, onUnauthorized, onNotFound, onGenericError) => {
+const fetchAxiosConfig = async (alert, onUnauthorized, onNotFound, onGenericError) => {
     if (instance) return instance;
 
     try {
@@ -35,21 +35,18 @@ const fetchAxiosConfig = async (show, type, message, onUnauthorized, onNotFound,
 
                 if (error.response) {
 
-                    show?.(true);
-                    type?.('danger');
-
                     switch (error.response.status) {
                         case 401:
                             localStorage.removeItem('accessToken');
-                            message?.(unauthorized);
+                            alert?.('danger', unauthorized);
                             onUnauthorized?.();
                             break;
                         case 404:
-                            message?.(notFound);
+                            alert?.('danger', notFound);
                             onNotFound?.(error);
                             break;
                         default:
-                            message?.(`${defaultMessage} ${error.response.status || ''} ${error.response.data.error || ''}`);
+                            alert?.('danger',`${defaultMessage} ${error.response.status || ''} ${error.response.data.error || ''}`);
                             onGenericError?.(error);
                     }
 

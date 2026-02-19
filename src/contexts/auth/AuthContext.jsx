@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
 
     const { heartbeatEndpoint, firstPrivatePath, infiniteSession, timeDeducted, authenticatedEndpoint, autoLogin, setCurrentDate, isDebug, backendToken, useCustomLoginTimeout, stopLoaderOnFinish, customLoginTimeout, tokenLog, timerInfiniteSession } = useConfig();
     const { setIsLoading, showLoadingFor } = useLoading();
-    const { setShowAlert, setMessageAlert, setTypeAlert, activeAlert } = useAlert();
+    const { setShowAlert, activeAlert } = useAlert();
     const { token, setToken, setUser, storageLogout } = useAuthStorage();
 
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ const AuthProvider = ({ children }) => {
 
     const createAxiosInstances = async (onUnauthorized = logout, onNotFound, onGenericError) => {
 
-        const axios = await fetchAxiosConfig(setShowAlert, setTypeAlert, setMessageAlert, onUnauthorized, onNotFound, onGenericError);
+        const axios = await fetchAxiosConfig(activeAlert, onUnauthorized, onNotFound, onGenericError);
 
         return axios;
     }
