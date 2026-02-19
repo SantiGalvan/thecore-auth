@@ -53,12 +53,27 @@ const Modal = ({ isOpen, onClose, onCancel, title, formId, children, item, onCon
         <div
             className={`fixed inset-0 ${zIndex} flex items-center justify-center transition-opacity duration-200 ${isOpen ? `${bgOverlay} opacity-100` : 'opacity-0'}`}
             onClick={onCancel || onClose}
+            onKeyDown={e => {
+                if (e.key === "Escape") {
+                    // chiudi modale con ESC
+                    (onCancel || onClose)?.();
+                }
+            }}
             onTransitionEnd={handleTransitionEnd}
+            role="button"
+            tabIndex={0}
+            aria-label="Chiudi modale"
         >
             <div
                 ref={modalRef}
                 className={`relative ${bgModal} rounded-lg p-6 shadow-xl ${modalWidth} transform transition-transform duration-200 ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
                 onClick={e => e.stopPropagation()}
+                onKeyDown={e => {
+                    if (e.key === "Escape") {
+                        // chiudi la modale quando preme ESC
+                        onClose();
+                    }
+                }}
                 role="dialog"
                 aria-modal="true"
                 tabIndex={-1}
