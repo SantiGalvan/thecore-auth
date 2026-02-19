@@ -3,14 +3,24 @@ import DangerLogo from '../../assets/danger.svg?react';
 import InfoLogo from '../../assets/info.svg?react';
 import WarningLogo from '../../assets/warning.svg?react';
 import { GiCheckMark } from "react-icons/gi";
+import { useDevice } from "../../hooks/device/useDevice";
+import { useConfig } from "../config/ConfigContext";
+import { useToast } from "../../hooks/toast/useToast";
 
 const AlertContext = createContext();
 
 const AlertProvider = ({ children }) => {
 
+    const { sileoToastEnabled, customDeviceType } = useConfig();
+    const { success, error, info, warning } = useToast();
+    const device = useDevice();
+
     const [showAlert, setShowAlert] = useState(false);
     const [typeAlert, setTypeAlert] = useState();
     const [messageAlert, setMessageAlert] = useState();
+
+    // Usa il device type dal config se presente, altrimenti quello rilevato automaticamente
+    const deviceType = customDeviceType || device.type;
 
     // Variabile con i colori dell'alert
     const alertConfig = {
@@ -68,8 +78,31 @@ const AlertProvider = ({ children }) => {
     }
 
     // Funzione per settare l'alert
-    const activeAlert = (type, message) => {
+    const activeAlert = (type, message, customType = null) => {
+
         setShowAlert(false);
+
+        if (sileoToastEnabled && !customType) {
+            if (["mobile", "tablet"].includes(deviceType)) {
+                switch (type) {
+                    case "danger":
+                        error("Errore", message);
+                        break;
+                    case "info":
+                        info("Info", message);
+                        break;
+                    case "success":
+                        success("Successo", message);
+                        break;
+                    case "warning":
+                        warning("Attenzione", message);
+                        break;
+                    default:
+                        info("Info", message);
+                }
+                return; // esce perché non serve più il modal desktop
+            }
+        }
 
         setTimeout(() => {
             setTypeAlert(type);
