@@ -77,7 +77,6 @@ const Dashboard = () => {
 
     const successAlert = (message = "Operazione riuscita!") => {
         if (isMobile) {
-            console.log(message);
             success("Successo", message);
         } else {
             activeAlert("success", message, true);

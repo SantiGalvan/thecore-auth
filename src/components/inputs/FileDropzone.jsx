@@ -18,7 +18,6 @@ const FileDropzone = (props) => {
         e.preventDefault();
         e.stopPropagation();
 
-        console.log('entrato qui')
         if (e.type === "dragenter" || e.type === "dragover") {
             setDragActive(true);
         } else if (e.type === "dragleave") {
