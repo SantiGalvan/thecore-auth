@@ -1,6 +1,6 @@
 import { sileo } from "sileo";
 
-export const useToast = () => {
+const useToast = () => {
 
   const success = (title, description) => sileo.success({ title, description });
 
@@ -19,4 +19,6 @@ export const useToast = () => {
     warning,
     promise,
   };
-};
+}
+
+export { useToast };
