@@ -27,6 +27,8 @@ import { useStorage } from "./hooks/storage/useStorage";
 import { useAuthStorage } from "./hooks/auth/useAuthStorage";
 import { useIndexedDB } from "./hooks/indexedDB/useIndexedDB";
 import { useOrientation } from "./hooks/orientation/useOrientation";
+import { useDevice } from "./hooks/device/useDevice";
+import { useToast } from "./hooks/toast/useToast";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/auth/AuthPage";
 import AuthAdmin from "./middlewares/admin/AuthAdmin";
@@ -108,6 +110,8 @@ export {
     useAuthStorage,
     useIndexedDB,
     useOrientation,
+    useDevice,
+    useToast,
     FileDropzone,
     SwitchRadio,
     InputDate,
