@@ -1,4 +1,3 @@
-// hooks/useToast.js
 import { sileo } from "sileo";
 
 export const useToast = () => {
