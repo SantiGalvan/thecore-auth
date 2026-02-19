@@ -5,13 +5,16 @@ import { useAlert } from "../contexts/alert/AlertContext";
 import Alert from "../components/alert/Alert";
 import Modal from "../components/modal/Modal";
 import { useModal } from "../contexts/modal/ModalContext";
+import { Toaster } from "sileo";
+import { useConfig } from "../contexts/config/ConfigContext";
 
 const DefaultLayout = (props) => {
 
     const { isLoading } = useLoading();
     const { showAlert } = useAlert();
+    const { sileoToastConfig } = useConfig();
     const { isOpen, closeModal, onCancel, content, title, onConfirm, item, type, formId, style, headerContent, footerContent } = useModal();
-
+    
     const location = useLocation();
 
     const {
@@ -23,6 +26,19 @@ const DefaultLayout = (props) => {
         showFooterOnLogin = false,
         footerExcludedRoutes = []
     } = props;
+    
+    // Recupero i dati per i toast si Sileo
+    const defaultOptions = {
+        fill: "#000000",          
+        duration: 2000,           
+        styles: {
+            title: "text-white font-semibold",       
+            description: "text-white/75",            
+            badge: "bg-white/20"
+        }
+    }
+    const toastPosition = sileoToastConfig?.position;
+    const toastOptions = sileoToastConfig?.options || defaultOptions;
 
     // Funzione per verificare se il percorso attuale è escluso
     const isExcluded = headerExcludedRoutes.some(path => matchPath(path, location.pathname));
@@ -51,6 +67,11 @@ const DefaultLayout = (props) => {
             {isLoading && <Loading />}
 
             {showAlert && <Alert />}
+
+            <Toaster 
+                position={toastPosition || "bottom-right"} // posizione di default
+                options={toastOptions || {}} // opzioni
+            />
 
             <Modal
                 isOpen={isOpen}
