@@ -1,0 +1,15 @@
+services: 
+  frontend:
+    image: ${IMAGE_TAG_FRONTEND}
+    restart: unless-stopped
+    environment:
+      VIRTUAL_HOST: ${FRONTEND_DOMAIN}
+      LETSENCRYPT_HOST: ${FRONTEND_DOMAIN}
+      FRONTEND_DOMAIN: ${FRONTEND_DOMAIN}
+      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+      CUSTOMER_FOLDER: ${COMPOSE_PROJECT_NAME}
+    healthcheck:
+      test: "${DOCKER_HEALTHCHECK_TEST:-curl --fail http://localhost:80/}"
+      interval: "60s"
+      timeout: "3s"
+      retries: 3
