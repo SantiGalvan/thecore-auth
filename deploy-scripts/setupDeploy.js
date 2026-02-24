@@ -4,15 +4,12 @@ console.log("Script di deploy eseguito! 🚀");
 
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import readline from 'readline';
 
-// Percorso corrente in ES Module
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Cartella installations nella root
-const installationsDir = path.join(__dirname, '..', 'installations');
+// -------------------- CONFIG ROOT -------------------- //
+// root del progetto dove viene lanciato lo script (non del pacchetto)
+const rootDir = process.cwd();
+const installationsDir = path.join(rootDir, 'installations');
 
 // -------------------- FUNZIONI -------------------- //
 
@@ -73,7 +70,7 @@ const checkAndCreateDevFiles = (devDir) => {
 
 // Controlla e crea .gitlab-ci.yml nella root
 const checkAndCreateGitlabCI = () => {
-    const gitlabFile = path.join(__dirname, '..', '.gitlab-ci.yml');
+    const gitlabFile = path.join(rootDir, '.gitlab-ci.yml');
     if (fs.existsSync(gitlabFile)) {
         console.log('File ".gitlab-ci.yml" esiste già ✅');
     } else {
@@ -83,15 +80,13 @@ const checkAndCreateGitlabCI = () => {
     }
 };
 
-// Legge e logga il contenuto dei file Docker dentro installations
+// Funzione per leggere e loggare i file docker (facoltativo)
 const readDockerFiles = () => {
     const dockerFiles = ['docker-compose.net.yml', 'docker-compose.yml', 'Dockerfile'];
-
     dockerFiles.forEach(fileName => {
         const filePath = path.join(installationsDir, fileName);
         if (fs.existsSync(filePath)) {
             const content = fs.readFileSync(filePath, 'utf-8');
-            // console.log(`\nContenuto di "${fileName}":\n${content}`);
         } else {
             console.log(`File "${fileName}" non trovato ❌`);
         }
@@ -115,7 +110,6 @@ const askAppName = () => {
 // Sincronizza un singolo file con il template
 const syncFileWithDefault = (sourcePath, targetPath) => {
     const defaultContent = fs.readFileSync(sourcePath, 'utf-8');
-
     let needsUpdate = false;
 
     if (fs.existsSync(targetPath)) {
@@ -136,9 +130,7 @@ const syncFileWithDefault = (sourcePath, targetPath) => {
 };
 
 // Sincronizza più file da templates
-const syncFilesFromTemplates = (files, targetDir) => {
-    const templatesDir = path.join(__dirname, 'templates');
-
+const syncFilesFromTemplates = (files, targetDir, templatesDir) => {
     files.forEach(fileName => {
         const source = path.join(templatesDir, fileName);
         const target = path.join(targetDir, fileName);
@@ -160,7 +152,6 @@ const syncDockerEnvWithAppName = async (templatePath, targetPath) => {
         return; // non serve fare nulla
     }
 
-    // Se non c'è o è vuoto, chiediamo il nome all'utente
     const appName = await askAppName();
     let content = fs.readFileSync(templatePath, 'utf-8');
     content = content.replace(/{{APP_NAME}}/g, appName);
@@ -170,7 +161,6 @@ const syncDockerEnvWithAppName = async (templatePath, targetPath) => {
 };
 
 // -------------------- ESECUZIONE PRINCIPALE -------------------- //
-
 const main = async () => {
     checkAndCreateDir();
     checkAndCreateFiles();
@@ -182,17 +172,28 @@ const main = async () => {
 
     readDockerFiles();
 
-    // Sincronizzazione con template
+    // Individua templates (sviluppo locale o pacchetto installato)
+    let templatesDir;
+    const localTemplates = path.join(process.cwd(), 'deploy-scripts', 'templates');
+    const packageTemplates = path.join(rootDir, 'node_modules', 'thecore-auth', 'deploy-scripts', 'templates');
+
+    if (fs.existsSync(localTemplates)) {
+        templatesDir = localTemplates; // sviluppo locale
+    } else {
+        templatesDir = packageTemplates; // pacchetto installato via npx
+    }
+
+    // Sincronizzazione file
     const installationsFiles = ['docker-compose.net.yml', 'docker-compose.yml', 'Dockerfile'];
-    const abslabsDevFiles = ['docker_host']; // docker.env lo gestiamo a parte
+    const abslabsDevFiles = ['docker_host']; // docker.env gestito a parte
     const rootFiles = ['.gitlab-ci.yml'];
 
-    syncFilesFromTemplates(installationsFiles, installationsDir);
-    syncFilesFromTemplates(abslabsDevFiles, devDir);
-    syncFilesFromTemplates(rootFiles, path.join(__dirname, '..'));
+    syncFilesFromTemplates(installationsFiles, installationsDir, templatesDir);
+    syncFilesFromTemplates(abslabsDevFiles, devDir, templatesDir);
+    syncFilesFromTemplates(rootFiles, rootDir, templatesDir);
 
     // docker.env dinamico
-    const dockerEnvTemplate = path.join(__dirname, 'templates', 'docker.env');
+    const dockerEnvTemplate = path.join(templatesDir, 'docker.env');
     const dockerEnvTarget = path.join(devDir, 'docker.env');
     await syncDockerEnvWithAppName(dockerEnvTemplate, dockerEnvTarget);
 };
