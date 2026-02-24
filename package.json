@@ -6,6 +6,9 @@
   "main": "dist/thecore-auth.cjs.js",
   "style": "dist/thecore-auth.css",
   "module": "dist/thecore-auth.esm.js",
+  "bin": {
+    "setup-deploy": "./deploy-scripts/setupDeploy.js"
+  },
   "exports": {
     ".": {
       "import": "./dist/thecore-auth.esm.js",
@@ -17,7 +20,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "increment-version": "npm version patch && git push"
+    "increment-version": "npm version patch && git push",
+    "setup-deploy": "node ./deploy-scripts/setupDeploy.js"
   },
   "peerDependencies": {
     "react": "^19.0.0",
@@ -57,7 +61,9 @@
     "dist",
     "README.md",
     "CSS variables documentation.md",
-    "!dist/config.json"
+    "!dist/config.json",
+    "deploy-scripts",
+    "deploy-scripts/templates"
   ],
   "repository": {
     "type": "git",

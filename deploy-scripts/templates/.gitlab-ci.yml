@@ -1,0 +1,130 @@
+default:
+  # Defines the Docker image used for the CI/CD pipeline.
+  # This is a Node.js development container from Microsoft's devcontainers registry.
+  # The tag "1-22-bookworm" specifies the Node.js version (22) and the Debian base image (Bookworm).
+  image: docker:28.0.4
+  services:
+    - docker:28.0.4-dind  # Abilita Docker-in-Docker
+# mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm
+
+# Defines the stages of the pipeline.
+# In this case, only a "build" stage is defined.
+stages:
+  - build
+  - deploy
+
+# Defines CI/CD environment variables available during the job execution.
+variables:
+  NODE_ENV: development  # Sets the Node.js environment to "development" by default.
+
+before_script:
+  # Installa Node.js 22 e npm
+  - apk add --no-cache nodejs npm
+
+  # Verifica che Node.js e npm siano installati
+  - node -v
+  - npm -v
+  # Get the version from the package.json file
+  - export VERSION=$(node -p -e "require('./package.json').version")
+  - export NAME=$(node -p -e "require('./package.json').name")
+  - export IMAGE_TAG_FRONTEND=${CI_REGISTRY_IMAGE}/frontend:$VERSION
+
+# Defines a job named "build" that runs during the "build" stage.
+build:
+  stage: build 
+  only:
+    refs:
+      - release/3  # Ensures this job runs only on the "release/3" branch.
+    changes:     
+      - package.json  # Runs this job only if "package.json" is modified in a commit.
+
+  script:
+    # Cleans up previous build artifacts and dependencies to ensure a fresh installation.
+    - rm -rf dist node_modules package-lock.json
+
+    # Configures npm authentication for the GitLab package registry.
+    # This writes an authentication token to the ".npmrc" file, allowing npm to publish the package.
+    - echo "//devops.bancolini.com/api/v4/packages/npm/:_authToken=${CI_JOB_TOKEN}" > .npmrc
+    - echo "@dev:registry=https://devops.bancolini.com/api/v4/packages/npm/" >> .npmrc
+    # DHTMLX npm registry configuration
+    - echo "@dhx:registry=https://npm.dhtmlx.com/" >> .npmrc
+    - echo "//npm.dhtmlx.com/:_authToken=\"${DHTMLX_AUTH_TOKEN}\"" >> .npmrc
+
+    # Installs project dependencies based on package.json.
+    - npm install  
+
+    # Runs the build script defined in package.json (e.g., transpiling TypeScript, bundling files, etc.).
+    - npm run build  
+
+    # After generating the dist folder, the Dockerfile is used to build the frontend image.
+    - cp installations/Dockerfile .
+    - docker version
+    - docker build --no-cache --pull -t "${IMAGE_TAG_FRONTEND}" .
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+    - docker image push "${IMAGE_TAG_FRONTEND}"
+
+deploy:
+  stage: deploy  # Specifies that this job belongs to the "deploy" stage.
+
+  # This job must run only if thw build one is successful
+  dependencies:
+    - build
+
+  only:
+    refs:
+      - release/3  # Ensures this job runs only on the "release/3" branch.
+    changes:     
+      - package.json  # Runs this job only if "package.json" is modified in a commit.
+
+  script:
+    # Install rsync and ssh to alpine
+    - apk add --no-cache rsync openssh-client
+    # Image correctly pushed to the registry, now we can send the image to the Labs
+    - export UUID=$(cat /proc/sys/kernel/random/uuid)
+    - export RELATIVE_DIR="/installers/$UUID"
+    - export TARGET_DIR="/tmp$RELATIVE_DIR"
+
+    # SSH setup
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\tControlMaster auto\n\tControlPath ~/.ssh/socket-%C\n\tControlPersist 1\n\n" > ~/.ssh/config
+    - chmod 600 ~/.ssh/config
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+
+    # cycle into the installations folder for all the folders containing the docker_host file
+    - |
+      for i in $(ls -d installations/*/); do
+        if [ -f "$i/docker_host" ]; then
+          export INSTALLATION_DIR=$i
+          DOCKER_HOST="$(cat "$i/docker_host")"
+          export DOCKER_HOST
+          echo "HOST $DOCKER_HOST"
+          DOCKER_HOST_DOMAIN="$(echo "$DOCKER_HOST" | cut -d'/' -f3 | cut -d':' -f1)"
+          export DOCKER_HOST_DOMAIN
+          echo "DOMAIN $DOCKER_HOST_DOMAIN"
+          DOCKER_HOST_PORT="$(echo "$DOCKER_HOST" | cut -d'/' -f3 | cut -d':' -f2)"
+          export DOCKER_HOST_PORT
+          echo "PORT $DOCKER_HOST_PORT"
+
+          echo "Preparing target installer dir and rsync needed files into it"
+          rsync -arvz -e "ssh -p $DOCKER_HOST_PORT" --rsync-path "mkdir -p $TARGET_DIR && /usr/bin/rsync" --progress --delete installations/docker-compose.yml installations/docker-compose.net.yml "$i/docker.env" "${DOCKER_HOST_DOMAIN}:$TARGET_DIR"
+          export IMAGE_TAG_FRONTEND
+          echo "IMAGE TAG FRONTEND $IMAGE_TAG_FRONTEND"
+          ssh -n "$DOCKER_HOST_DOMAIN" -p "$DOCKER_HOST_PORT" "
+            echo Login to $CI_REGISTRY
+            echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY || exit 1
+            export IMAGE_TAG_FRONTEND=$IMAGE_TAG_FRONTEND
+            echo CD into $TARGET_DIR
+            cd $TARGET_DIR
+            echo Testing Config
+            docker compose -f docker-compose.yml -f docker-compose.net.yml --env-file docker.env config || exit 2
+            echo Compose up
+            docker compose -f docker-compose.yml -f docker-compose.net.yml --env-file docker.env up -d --remove-orphans --no-build || exit 3
+            echo Cleaning Docker system
+            docker system prune -f
+            docker logout $CI_REGISTRY
+            cd ..
+            rm -rf $TARGET_DIR"
+        fi
+      done
