@@ -180,7 +180,7 @@
   top: env(safe-area-inset-top);
   left: env(safe-area-inset-left);
   right: env(safe-area-inset-right);
-  bottom: env(safe-area-inset-bottom);
+  bottom: 0;
   background-image: var(--bg-image);
   background-color: #f1f1f1;
   background-size: cover;
