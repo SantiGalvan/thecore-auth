@@ -4,12 +4,14 @@ import { useLoginForm } from "../../contexts/login/LoginFormContext";
 import { useConfig } from "../../contexts/config/ConfigContext";
 import { useNavigate } from "react-router-dom";
 import { useAuthStorage } from "../../hooks/auth/useAuthStorage";
+import { useViewportHeight } from "../../hooks/viewport/useViewportHeight";
 
 const Login = ({ Logo }) => {
 
   const { styleCardForm, styleContainerLogo, styleLogo, overrideStyle, customVersion } = useLoginForm();
   const { firstPrivatePath, version } = useConfig();
   const { token, user } = useAuthStorage();
+  useViewportHeight();
 
   const navigate = useNavigate();
 

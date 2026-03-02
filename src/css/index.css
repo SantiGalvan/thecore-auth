@@ -163,7 +163,7 @@
 
 #login-page {
   position: relative;
-  height: 100svh;
+  height: calc(var(--vh, 1vh) * 100);
   /* altezza reale della viewport PWA */
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);

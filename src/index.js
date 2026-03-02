@@ -29,6 +29,7 @@ import { useIndexedDB } from "./hooks/indexedDB/useIndexedDB";
 import { useOrientation } from "./hooks/orientation/useOrientation";
 import { useDevice } from "./hooks/device/useDevice";
 import { useToast } from "./hooks/toast/useToast";
+import { useViewportHeight } from "./hooks/viewport/useViewportHeight";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/auth/AuthPage";
 import AuthAdmin from "./middlewares/admin/AuthAdmin";
@@ -112,6 +113,7 @@ export {
     useOrientation,
     useDevice,
     useToast,
+    useViewportHeight,
     FileDropzone,
     SwitchRadio,
     InputDate,
