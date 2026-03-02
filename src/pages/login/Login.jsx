@@ -23,9 +23,19 @@ const Login = ({ Logo }) => {
   return (
     <section id="login-page">
 
-      {(version || customVersion) && <div className="text-md text-primary absolute top-4 left-4">{customVersion ? customVersion : version}</div>}
+      {(version || customVersion) &&
+        <div
+          style={{
+            top: `calc(1rem + env(safe-area-inset-top))`,
+            left: `calc(1rem + env(safe-area-inset-left))`
+          }}
+          className="text-md text-primary absolute"
+        >
+          {customVersion ? customVersion : version}
+        </div>
+      }
 
-      <div className={overrideStyle.container || `container mx-auto flex items-center justify-center min-h-dvh`}>
+      <div className={overrideStyle.container || `container mx-auto flex items-center justify-center min-h-[100svh]`}>
 
         {/* Login Card */}
         <div className={overrideStyle.cardForm || `bg-form card-style card-size flex flex-col sm:flex-row sm:items-center justify-center ${styleCardForm}`}>
