@@ -161,18 +161,29 @@
   display: var(--label-display);
 }
 
+#login-page {
+  position: relative;
+  /* serve al :before */
+  min-height: 100svh;
+  /* o 100vh con fallback */
+}
+
 /* Sfondo della sezione di Login */
 #login-page:before {
+  content: " ";
+  position: fixed;
+  /* Fisso alla viewport, non al container */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100svh;
+  /* usa viewport stabile */
   background-image: var(--bg-image);
   background-color: #f1f1f1;
-  opacity: .5;
-  content: " ";
-  position: absolute;
-  width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  height: 100%;
+  opacity: 0.5;
   z-index: -9999;
 }
 
