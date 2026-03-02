@@ -20,6 +20,17 @@ const Login = ({ Logo }) => {
 
   }, []);
 
+  useEffect(() => {
+    const setLoginHeight = () => {
+      const login = document.getElementById("login-page");
+      if (login) login.style.height = `${window.innerHeight}px`;
+    };
+
+    setLoginHeight(); // al mount
+    window.addEventListener("resize", setLoginHeight); // orientamento
+    return () => window.removeEventListener("resize", setLoginHeight);
+  }, []);
+
   return (
     <section id="login-page">
 

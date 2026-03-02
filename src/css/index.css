@@ -163,24 +163,20 @@
 
 #login-page {
   position: relative;
-  height: 100svh;
-  /* altezza reale della viewport PWA */
+  /* altezza settata via JS */
   padding-top: env(safe-area-inset-top);
-  /* padding-bottom: env(safe-area-inset-bottom); */
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
   user-select: none;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
-/* Sfondo della sezione di Login */
 #login-page:before {
   content: "";
   position: absolute;
-  top: env(safe-area-inset-top);
-  left: env(safe-area-inset-left);
-  right: env(safe-area-inset-right);
-  bottom: 0;
+  inset: 0;
+  /* top:0; right:0; bottom:0; left:0 */
   background-image: var(--bg-image);
   background-color: #f1f1f1;
   background-size: cover;
