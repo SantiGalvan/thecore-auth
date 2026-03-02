@@ -20,17 +20,6 @@ const Login = ({ Logo }) => {
 
   }, []);
 
-  useEffect(() => {
-    const setLoginHeight = () => {
-      const login = document.getElementById("login-page");
-      if (login) login.style.height = `${window.innerHeight}px`;
-    };
-
-    setLoginHeight(); // al mount
-    window.addEventListener("resize", setLoginHeight); // orientamento
-    return () => window.removeEventListener("resize", setLoginHeight);
-  }, []);
-
   return (
     <section id="login-page">
 
@@ -46,7 +35,7 @@ const Login = ({ Logo }) => {
         </div>
       }
 
-      <div className={overrideStyle.container || `container mx-auto flex items-center justify-center min-h-dvh`}>
+      <div className={overrideStyle.container || `container mx-auto flex items-center justify-center min-h-screen`}>
 
         {/* Login Card */}
         <div className={overrideStyle.cardForm || `bg-form card-style card-size flex flex-col sm:flex-row sm:items-center justify-center ${styleCardForm}`}>
