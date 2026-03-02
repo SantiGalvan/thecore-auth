@@ -36,7 +36,6 @@ const Login = ({ Logo }) => {
       }
 
       <div
-        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
         className={overrideStyle.container || `container mx-auto flex items-center justify-center min-h-[100vh]`}
       >
 
