@@ -7,9 +7,6 @@ const useViewportHeight = () => {
                 ? window.visualViewport.height * 0.01
                 : window.innerHeight * 0.01;
 
-            console.log('Viewport height (vh):', vh);
-            console.log('Viewport height (vh):', vh * 100, 'px');
-
             document.documentElement.style.setProperty('--vh', `${vh}px`);
         };
 
