@@ -35,7 +35,10 @@ const Login = ({ Logo }) => {
         </div>
       }
 
-      <div className={overrideStyle.container || `container mx-auto flex items-center justify-center min-h-[100svh]`}>
+      <div
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+        className={overrideStyle.container || `container mx-auto flex items-center justify-center min-h-[100svh]`}
+      >
 
         {/* Login Card */}
         <div className={overrideStyle.cardForm || `bg-form card-style card-size flex flex-col sm:flex-row sm:items-center justify-center ${styleCardForm}`}>
