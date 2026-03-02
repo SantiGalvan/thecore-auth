@@ -163,36 +163,21 @@
 
 #login-page {
   position: relative;
-  /* altezza reale */
   height: calc(var(--vh, 1vh) * 100);
-  /* contenuto sotto status bar */
   padding-top: env(safe-area-inset-top);
-  /* contenuto sopra home indicator */
   padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
-  user-select: none;
-  overflow: hidden;
-}
-
-/* Sfondo della sezione di Login */
-#login-page:before {
-  content: "";
-  position: absolute;
-  /* parte sotto la status bar */
-  top: env(safe-area-inset-top);
-  left: 0;
-  right: 0;
-  /* arriva fino al bordo reale */
-  bottom: 0;
 
   background-image: var(--bg-image);
-  background-color: #f1f1f1;
+  background-color: rgba(241, 241, 241, 0.5);
+  background-blend-mode: lighten;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  opacity: 0.5;
-  z-index: -1;
+
+  user-select: none;
+  overflow: hidden;
 }
 
 /*! SPOT RFID */
