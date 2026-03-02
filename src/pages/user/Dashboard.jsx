@@ -45,7 +45,7 @@ const Dashboard = () => {
 
             const axiosInstance = await createAxiosInstances();
             // Qui avvolgo la promise con Sileo
-            const res = await showPromiseToast( axiosInstance.get(`${usersEndpoint}`),
+            const res = await showPromiseToast(axiosInstance.get(`${usersEndpoint}`),
                 {
                     loading: "Caricamento utenti...",
                     success: "Utenti caricati!",

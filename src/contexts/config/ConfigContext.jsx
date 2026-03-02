@@ -1,10 +1,13 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { version as packageVersion } from '../../../package.json';
 import ErrorPage from "../../pages/error/ErrorPage";
+import { useUserActivity } from "../../hooks/visibility/useUserActivity";
 
 const ConfigContext = createContext();
 
 const ConfigProvider = ({ children }) => {
+
+    const activity = useUserActivity();
 
     const [config, setConfig] = useState({}); // State delle variabili del config e delle funzioni del db
     const [errorShow, setErrorShow] = useState(false);
@@ -184,7 +187,8 @@ Esempio di config.json:
                 setDataIndexedDB,
                 generateUniqueId,
                 setDataWithAutoId,
-                setCurrentDate
+                setCurrentDate,
+                activity
             }
 
             if (data.hasSessionKey) {
