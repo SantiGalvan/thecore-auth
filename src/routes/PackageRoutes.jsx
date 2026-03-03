@@ -28,7 +28,8 @@ const PackageRoutes = (props) => {
         showFooterOnLogin,
         footerExcludedRoutes,
         privateProvider,
-        customProvider
+        customProvider,
+        promptComponent
     } = props;
 
     let layout;
@@ -47,6 +48,7 @@ const PackageRoutes = (props) => {
                 footerComponent={footerComponent}
                 showFooterOnLogin={showFooterOnLogin}
                 footerExcludedRoutes={footerExcludedRoutes}
+                promptComponent={promptComponent}
             />
         );
     }

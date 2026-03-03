@@ -7,7 +7,6 @@ import Modal from "../components/modal/Modal";
 import { useModal } from "../contexts/modal/ModalContext";
 import { Toaster } from "sileo";
 import { useConfig } from "../contexts/config/ConfigContext";
-import Prompt from "../components/PWA/prompt/Prompt";
 
 const DefaultLayout = (props) => {
 
@@ -25,7 +24,8 @@ const DefaultLayout = (props) => {
         headerExcludedRoutes = [],
         footerComponent = null,
         showFooterOnLogin = false,
-        footerExcludedRoutes = []
+        footerExcludedRoutes = [],
+        promptComponent = null,
     } = props;
 
     // Recupero i dati per i toast si Sileo
@@ -65,7 +65,7 @@ const DefaultLayout = (props) => {
 
     return (
         <>
-            {(pwa && pwa.customPrompt) && <Prompt />}
+            {(pwa && pwa.customPrompt) && promptComponent}
 
             {isLoading && <Loading />}
 
