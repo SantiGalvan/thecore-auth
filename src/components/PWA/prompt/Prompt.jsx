@@ -1,24 +1,6 @@
 import { useEffect, useState } from "react";
 import { useConfig } from "../../../contexts/config/ConfigContext";
-
-let useRegisterSW;
-try {
-    // Proviamo a importare il hook di PWA
-    // eslint-disable-next-line
-    useRegisterSW = require("virtual:pwa-register/react").useRegisterSW;
-} catch (e) {
-    console.warn(
-        "[Prompt] vite-plugin-pwa non trovato: il Prompt PWA non funzionerà. " +
-        "Assicurati di avere vite-plugin-pwa installato nel progetto host se vuoi usare questo componente." +
-        "Per installarlo, esegui: npm install vite-plugin-pwa --save-dev"
-    );
-    // Se non esiste, definiamo un fallback che non fa nulla
-    useRegisterSW = () => ({
-        needRefresh: [false],
-        updateServiceWorker: () => { },
-    });
-}
-
+import { useRegisterSW } from "virtual:pwa-register/react";
 
 const Prompt = () => {
 
