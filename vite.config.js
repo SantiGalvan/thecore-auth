@@ -17,7 +17,7 @@ export default defineConfig({
       formats: ['esm', 'cjs']
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'axios', 'react-router-dom', 'react-icons', 'jwt-decode'],
+      external: ['react', 'react-dom', 'axios', 'react-router-dom', 'react-icons', 'jwt-decode', 'virtual:pwa-register/react'],
       output: {
         globals: {
           react: 'React',
