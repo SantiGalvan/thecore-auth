@@ -1,28 +1,40 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const useViewportHeight = () => {
+    const [viewportHeight, setViewportHeight] = useState(0);
+
+    const setHeight = () => {
+        const height = window.visualViewport
+            ? window.visualViewport.height
+            : window.innerHeight;
+
+        const vh = height * 0.01;
+
+        // Set CSS variable
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+        // Salvo il valore in pixel
+        setViewportHeight(height);
+    };
+
     useEffect(() => {
-        const setHeight = () => {
-            const vh = window.visualViewport
-                ? window.visualViewport.height * 0.01
-                : window.innerHeight * 0.01;
 
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        };
-
-        // Imposta subito
         setHeight();
 
-        // Aggiorna ad ogni resize o cambio orientamento
         window.addEventListener('resize', setHeight);
         window.addEventListener('orientationchange', setHeight);
 
-        // Cleanup quando il componente viene smontato
         return () => {
             window.removeEventListener('resize', setHeight);
             window.removeEventListener('orientationchange', setHeight);
         };
     }, []);
-}
+
+    return {
+        height: viewportHeight,
+        vh: viewportHeight * 0.01
+    };
+
+};
 
 export { useViewportHeight };
