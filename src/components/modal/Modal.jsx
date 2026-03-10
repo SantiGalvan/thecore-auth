@@ -51,7 +51,7 @@ const Modal = ({ isOpen, onClose, onCancel, title, formId, children, item, onCon
 
     return show ? ReactDOM.createPortal(
         <div
-            className={`fixed inset-0 ${zIndex} flex items-center justify-center transition-opacity duration-200 ${isOpen ? `${bgOverlay} opacity-100` : 'opacity-0'}`}
+            className={style.overlayStyle || `fixed inset-0 ${zIndex} flex items-center justify-center transition-opacity duration-200 ${isOpen ? `${bgOverlay} opacity-100` : 'opacity-0'}`}
             onClick={onCancel || onClose}
             onKeyDown={e => {
                 if (e.key === "Escape") {
@@ -66,7 +66,7 @@ const Modal = ({ isOpen, onClose, onCancel, title, formId, children, item, onCon
         >
             <div
                 ref={modalRef}
-                className={`relative ${bgModal} rounded-lg p-6 shadow-xl ${modalWidth} transform transition-transform duration-200 ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
+                className={style.modalStyle || `relative ${bgModal} rounded-lg p-6 shadow-xl ${modalWidth} transform transition-transform duration-200 ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
                 onClick={e => e.stopPropagation()}
                 onKeyDown={e => {
                     if (e.key === "Escape") {
