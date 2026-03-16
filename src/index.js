@@ -32,6 +32,7 @@ import { useToast } from "./hooks/toast/useToast";
 import { useViewportHeight } from "./hooks/viewport/useViewportHeight";
 import { useSafeArea } from "./hooks/safe-area/useSafeArea";
 import { useForm } from "./hooks/form/useForm";
+import { useCalendar } from "./hooks/calendar/useCalendar";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/auth/AuthPage";
 import AuthAdmin from "./middlewares/admin/AuthAdmin";
@@ -118,6 +119,7 @@ export {
     useViewportHeight,
     useSafeArea,
     useForm,
+    useCalendar,
     FileDropzone,
     SwitchRadio,
     InputDate,
