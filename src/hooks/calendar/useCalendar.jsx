@@ -1,29 +1,34 @@
 import { useEffect, useState, useCallback } from "react";
 import Holidays from "date-holidays";
 
-const useCalendar = (year = new Date().getFullYear()) => {
+const useCalendar = (year = new Date().getFullYear(), country = "IT") => {
     const [holidays, setHolidays] = useState([]);
     const [holidayMap, setHolidayMap] = useState(new Map());
 
+    const formatDateKey = (d) => {
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const day = String(d.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+    };
+
     // --- Caricamento festività italiane per l'anno ---
     useEffect(() => {
-        const hd = new Holidays("IT");
+        const hd = new Holidays(country);
         const allHolidays = hd.getHolidays(year);
 
-        // Trasforma la data in YYYY-MM-DD locale
         const map = new Map(
             allHolidays.map(h => {
                 const d = new Date(h.date);
-                const localDate = new Date(d.getTime() + d.getTimezoneOffset() * 60000)
-                    .toISOString()
-                    .split("T")[0];
-                return [localDate, h];
+                const key = formatDateKey(d); // usa giorno locale
+                return [key, h];
             })
         );
 
         setHolidays(allHolidays);
         setHolidayMap(map);
-    }, [year]);
+    }, [year, country]);
+
 
     // --- Controllo se oggi è festivo ---
     const isTodayHoliday = useCallback(() => {
@@ -34,8 +39,21 @@ const useCalendar = (year = new Date().getFullYear()) => {
     // --- Controllo se un giorno qualsiasi è festivo ---
     const isHoliday = useCallback(
         (date) => {
-            const dStr = new Date(date).toISOString().split("T")[0];
-            return holidayMap.has(dStr);
+            let d;
+            if (typeof date === "string") {
+                if (date.includes("/")) {
+                    const [day, month, year] = date.split("/");
+                    d = new Date(year, month - 1, day);
+                } else {
+                    const [y, m, dd] = date.split("-");
+                    d = new Date(y, m - 1, dd);
+                }
+            } else {
+                d = new Date(date);
+            }
+
+            const key = formatDateKey(d); // usa giorno locale
+            return holidayMap.has(key);
         },
         [holidayMap]
     );
