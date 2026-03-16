@@ -6,6 +6,7 @@ import { useAlert } from "../../contexts/alert/AlertContext";
 import { useAuthStorage } from "../../hooks/auth/useAuthStorage";
 import { useToast } from "../../hooks/toast/useToast";
 import SwitchRadio from "../../components/inputs/SwitchRadio";
+import CalendarExample from "../../components/calendar/CalendarExample";
 
 const Dashboard = () => {
 
@@ -190,6 +191,8 @@ const Dashboard = () => {
                     </ul>}
 
                 </div>
+
+                <CalendarExample />
 
             </div>
         </section>
