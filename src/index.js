@@ -59,6 +59,7 @@ import InputDate from "./components/inputs/date/InputDate";
 import InputStartEndDate from "./components/inputs/date/InputStartEndDate";
 import Loader from "./components/MyTask/loader/Loader";
 import LogoLoader from "./components/MyTask/loader/LogoLoader";
+import SingleSelect from "./components/inputs/select/SingleSelect";
 import ReactDOM from "react-dom";
 import './css/index.css';
 import './css/loader.css';
@@ -125,5 +126,6 @@ export {
     InputDate,
     InputStartEndDate,
     Loader,
-    LogoLoader
+    LogoLoader,
+    SingleSelect
 }
