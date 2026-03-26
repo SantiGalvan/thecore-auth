@@ -33,6 +33,7 @@ import { useViewportHeight } from "./hooks/viewport/useViewportHeight";
 import { useSafeArea } from "./hooks/safe-area/useSafeArea";
 import { useForm } from "./hooks/form/useForm";
 import { useCalendar } from "./hooks/calendar/useCalendar";
+import { useClickOutside } from "./hooks/ui/useClickOutside";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/auth/AuthPage";
 import AuthAdmin from "./middlewares/admin/AuthAdmin";
@@ -60,6 +61,8 @@ import InputStartEndDate from "./components/inputs/date/InputStartEndDate";
 import Loader from "./components/MyTask/loader/Loader";
 import LogoLoader from "./components/MyTask/loader/LogoLoader";
 import SingleSelect from "./components/inputs/select/SingleSelect";
+import MultiSelect from "./components/inputs/select/MultiSelect";
+import { toDatetimeLocalValue, setTime, subtractDays, parseUtcToLocal, toDateValue } from "./utils/date/dateUtils";
 import ReactDOM from "react-dom";
 import './css/index.css';
 import './css/loader.css';
@@ -121,11 +124,18 @@ export {
     useSafeArea,
     useForm,
     useCalendar,
+    useClickOutside,
     FileDropzone,
     SwitchRadio,
     InputDate,
     InputStartEndDate,
     Loader,
     LogoLoader,
-    SingleSelect
+    SingleSelect,
+    MultiSelect,
+    toDatetimeLocalValue,
+    setTime,
+    subtractDays,
+    parseUtcToLocal,
+    toDateValue
 }
