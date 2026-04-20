@@ -43,9 +43,9 @@ const Login = ({ Logo }) => {
         <div className={overrideStyle.cardForm || `bg-form card-style card-size flex flex-col sm:flex-row sm:items-center justify-center ${styleCardForm}`}>
 
           {/* Logo */}
-          <div className={overrideStyle.containerLogo || `basis-1/2 flex items-center justify-center ${styleContainerLogo}`}>
+          <div className={overrideStyle.containerLogo || `login-logo-container basis-1/2 flex items-center justify-center ${styleContainerLogo}`}>
 
-            {Logo && <Logo className={overrideStyle.logo || `login-logo h-full sm:h-auto ${styleLogo}`} />}
+            {Logo && <Logo className={overrideStyle.logo || `login-logo ${styleLogo}`} />}
 
           </div>
 

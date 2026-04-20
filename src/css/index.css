@@ -213,3 +213,78 @@
     --height-card-form: 55vh;
   }
 }
+
+/* iOS Safari: min-h-screen usa 100vh statico invece del viewport reale.
+   Allineiamo al --vh calcolato dal hook. */
+#login-page > div {
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Portrait mobile: iPhone e similari in verticale */
+@media (orientation: portrait) and (max-width: 639px) {
+  :root {
+    --padding-input: 7px;
+  }
+
+  /* Card: altezza fissa al viewport reale, non cresce oltre */
+  .card-size {
+    height: calc(var(--vh, 1vh) * 60);
+    overflow: hidden;
+  }
+
+  /* Sezione logo: 35% della card, non usa basis-1/2 (che in flex-col
+     può risolvere al 50% del viewport su iOS, causando overflow) */
+  .login-logo-container {
+    flex-basis: 35% !important;
+    max-height: 35%;
+  }
+
+  /* Logo: dimensione fissa, non si allunga */
+  .login-logo {
+    width: auto;
+    max-width: 100px;
+    max-height: 100px;
+  }
+
+  /* Form: prende il restante 65% */
+  .form-size {
+    flex-basis: 65% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+/* Landscape mobile: iPhone e similari in orizzontale (altezza <600px) */
+@media (orientation: landscape) and (max-height: 600px) {
+  :root {
+    --padding-input: 6px;
+  }
+
+  /* Card: altezza fissa al viewport reale */
+  .card-size {
+    height: calc(var(--vh, 1vh) * 85);
+    overflow: hidden;
+  }
+
+  /* Sezione logo: 30% della larghezza in flex-row */
+  .login-logo-container {
+    flex-basis: 30% !important;
+    max-width: 30%;
+  }
+
+  /* Logo: dimensione landscape */
+  .login-logo {
+    width: auto;
+    max-width: 140px;
+    max-height: 140px;
+  }
+
+  /* Form: restante 70% della larghezza */
+  .form-size {
+    flex-basis: 70% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
