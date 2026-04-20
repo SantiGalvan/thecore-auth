@@ -216,7 +216,7 @@
 
 /* iOS Safari: min-h-screen usa 100vh statico invece del viewport reale.
    Allineiamo al --vh calcolato dal hook. */
-#login-page > div {
+#login-page>div {
   min-height: calc(var(--vh, 1vh) * 100);
 }
 
@@ -242,8 +242,8 @@
   /* Logo: dimensione fissa, non si allunga */
   .login-logo {
     width: auto;
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 150px;
+    max-height: 150px;
   }
 
   /* Form: prende il restante 65% */
