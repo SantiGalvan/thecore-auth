@@ -1,7 +1,8 @@
 import { useRef } from "react";
 
-const ConfigFileReaderAllBrowser = ({ show, isConfigPage, handleFileChange }) => {
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
+const ConfigFileReaderAllBrowser = ({ show, isConfigPage, handleFileChange }) => {
 
     const fileInputRef = useRef(null);
 
@@ -13,6 +14,12 @@ const ConfigFileReaderAllBrowser = ({ show, isConfigPage, handleFileChange }) =>
         <div className={`${isConfigPage ? `${show ? "opacity-100 translate-y-0 delay-200" : "opacity-0 translate-y-10"}` : ''}  p-4 text-center transition-all duration-700 transform`}>
 
             <h2 className="text-xl my-4">Seleziona il file <strong>config.json</strong> per recuperare le chiavi univoche del dispositivo</h2>
+
+            {isIOS && (
+                <p className="text-sm text-gray-500 mb-2">
+                    Su iPhone/iPad: ricevi il file <strong>config.json</strong> e salvalo nell&apos;app <strong>File</strong> prima di selezionarlo.
+                </p>
+            )}
 
             <div>
                 {/* Input nascosto */}
