@@ -190,7 +190,9 @@ const AuthProvider = ({ children }) => {
 
             const axiosInstance = await createAxiosInstances();
 
-            const res = await axiosInstance.get(heartbeatEndpoint);
+            const res = await axiosInstance.get(heartbeatEndpoint, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
 
             const user = res.data;
 

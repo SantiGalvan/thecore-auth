@@ -21,7 +21,7 @@ const fetchAxiosConfig = async (alert, onUnauthorized, onNotFound, onGenericErro
 
                 if (token) {
                     config.headers.Authorization = `Bearer ${token}`;
-                } else {
+                } else if (!config.headers.Authorization) {
                     delete config.headers.Authorization;
                 }
 
