@@ -53,6 +53,7 @@ import InputGroup from "./components/SPOT RFID/inputs/InputGroup";
 import CardInputTag from "./components/SPOT RFID/card/CardInputTag";
 import CardInputRange from "./components/SPOT RFID/card/CardInputRange";
 import ConfigFileReader from "./components/SPOT RFID/config/ConfigFileReader";
+import ConfigFileReaderAllBrowser from "./components/SPOT RFID/config/ConfigFileReaderAllBrowser";
 import Header from "./components/SPOT RFID/header/SpotRfidHeader";
 import FileDropzone from "./components/inputs/FileDropzone";
 import SwitchRadio from "./components/inputs/SwitchRadio";
@@ -109,6 +110,7 @@ export {
     CardInputTag,
     CardInputRange,
     ConfigFileReader,
+    ConfigFileReaderAllBrowser,
     Header,
     ReactDOM,
     ModalProvider,
