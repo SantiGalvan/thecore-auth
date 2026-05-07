@@ -5,7 +5,7 @@ import LogoLoader from "./LogoLoader";
 
 const Loader = ({ gradients, moreGradients, containerSize, overlayStyle, NewLogoLoader, Logo, spinnerColor }) => {
 
-    const {  customLoginTimeout } = useConfig();
+    const { customLoginTimeout } = useConfig();
     const { isLoading } = useLoading();
 
     const [show, setShow] = useState(isLoading);

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
-import useClickOutside from "../../hooks/ui/useClickOutside";
+import { useClickOutside } from "../../../hooks/ui/useClickOutside";
 
 const EMPTY_ARRAY = [];
 
