@@ -1,0 +1,148 @@
+/* ─── Section base ─────────────────────────────────────────────────────────── */
+#smart-login-page {
+  position: relative;
+  height: calc(var(--vh, 1vh) * 100);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  user-select: none;
+  overflow: hidden;
+}
+
+/* Fix iOS Safari min-height */
+#smart-login-page > div {
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
+/* ─── Background layer (div React invece di ::before) ─────────────────────── */
+.lp-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* ─── Entrance animation ──────────────────────────────────────────────────── */
+@keyframes lp-fade-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lp-animate {
+  animation: lp-fade-slide-up 0.35s ease-out both;
+}
+
+/* ─── Version badge ───────────────────────────────────────────────────────── */
+.lp-version {
+  position: absolute;
+  top: calc(0.75rem + env(safe-area-inset-top));
+  left: calc(0.75rem + env(safe-area-inset-left));
+  z-index: 10;
+  font-size: 0.8rem;
+  pointer-events: none;
+}
+
+/* ─── Card variants ───────────────────────────────────────────────────────── */
+
+/* Glassmorphism */
+.lp-card-glass {
+  background: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Minimal */
+.lp-card-minimal {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* ─── Divisore verticale logo/form ────────────────────────────────────────── */
+.lp-divider {
+  width: 1px;
+  align-self: stretch;
+  background-color: var(--color-form-border);
+  opacity: 0.4;
+  margin: 1.5rem 0.5rem;
+}
+
+/* ─── Submit button loading state ─────────────────────────────────────────── */
+.lp-btn-loading {
+  opacity: 0.72;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ─── Inline spinner ──────────────────────────────────────────────────────── */
+.lp-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: lp-spin 0.6s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes lp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ─── Password toggle button ──────────────────────────────────────────────── */
+.lp-pw-toggle {
+  position: absolute;
+  right: 0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: 0;
+  cursor: pointer;
+  color: #6b7280;
+  transition: color 0.15s ease;
+}
+
+.lp-pw-toggle:hover {
+  color: var(--color-primary);
+}
+
+.lp-pw-toggle:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Logo top position (portrait o prop logoPosition='top') ──────────────── */
+#smart-login-page[data-logo-pos="top"] .login-logo-container {
+  flex-basis: auto !important;
+  max-height: none !important;
+  width: 100%;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-form-border);
+  margin-bottom: 0.5rem;
+  opacity: 0.6;
+}
+
+#smart-login-page[data-logo-pos="top"] .login-logo {
+  width: auto !important;
+  max-width: 160px !important;
+  max-height: 90px !important;
+}

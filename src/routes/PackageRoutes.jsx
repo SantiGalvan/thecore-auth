@@ -95,6 +95,7 @@ const PackageRoutes = (props) => {
                 <Route path="/">
 
                     <Route index element={<Login Logo={logoImg} />} />
+                    {/* <Route index element={<SmartLogin Logo={logoImg} />} /> */}
 
                     {/* Nuove rotte da inserire con il Context */}
                     {publicRoutes.map((route, i) => (
