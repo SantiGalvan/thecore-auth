@@ -5,12 +5,16 @@ import { useConfig } from "../../contexts/config/ConfigContext";
 import { useNavigate } from "react-router-dom";
 import { useAuthStorage } from "../../hooks/auth/useAuthStorage";
 import { useViewportHeight } from "../../hooks/viewport/useViewportHeight";
+import { useAuth } from "../../contexts/auth/AuthContext";
+import DefaultAutoLoginFallback from "./DefaultAutoLoginFallback";
+import Loading from "../../components/loading/Loading";
 
-const Login = ({ Logo }) => {
+const Login = ({ Logo, AutoLoginFallback }) => {
 
   const { styleCardForm, styleContainerLogo, styleLogo, overrideStyle, customVersion } = useLoginForm();
-  const { firstPrivatePath, version } = useConfig();
+  const { firstPrivatePath, version, autoLogin } = useConfig();
   const { token, user } = useAuthStorage();
+  const { autoLoginError } = useAuth();
   useViewportHeight();
 
   const navigate = useNavigate();
@@ -21,6 +25,13 @@ const Login = ({ Logo }) => {
     if (token && user?.id) navigate(`${firstPrivatePath}${user.id}`);
 
   }, []);
+
+  if (autoLogin && autoLoginError) {
+    const Fallback = AutoLoginFallback || DefaultAutoLoginFallback;
+    return <Fallback error={autoLoginError} />;
+  }
+
+  if (autoLogin) return <Loading />;
 
   return (
     <section id="login-page">

@@ -22,6 +22,7 @@ const AuthProvider = ({ children }) => {
     const [timeoutToken, setTimeoutToken] = useState();
     const [sessionTimeout, setSessionTimeout] = useState();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
+    const [autoLoginError, setAutoLoginError] = useState(null);
 
     const createAxiosInstances = async (onUnauthorized = logout, onNotFound, onGenericError) => {
 
@@ -201,10 +202,13 @@ const AuthProvider = ({ children }) => {
                 setToken(token);
                 setIsAuthenticated(true);
                 navigate(`${firstPrivatePath}${user.id}`);
+            } else {
+                setAutoLoginError(new Error('Risposta del server non valida.'));
             }
 
         } catch (err) {
             console.error(err);
+            setAutoLoginError(err);
         }
     }
 
@@ -236,11 +240,11 @@ const AuthProvider = ({ children }) => {
 
     // Effettua automaticamente il login con il backendToken se l'utente non è autenticato. Evita richieste duplicate controllando che non sia già in corso un login manuale.
     useEffect(() => {
-        if (autoLogin && !isAuthenticated && !isLoggingIn) {
+        if (autoLogin && !isAuthenticated && !isLoggingIn && !autoLoginError) {
             if (tokenLog) console.log('[Auth]: Tentativo di autologin con backendToken');
             fetchUser(backendToken);
         }
-    }, [autoLogin, isAuthenticated, isLoggingIn]);
+    }, [autoLogin, isAuthenticated, isLoggingIn, autoLoginError]);
 
     // Esegue il controllo del token e aggiorna i timer al reload della pagina.
     useEffect(() => {
@@ -309,6 +313,7 @@ const AuthProvider = ({ children }) => {
     const value = {
         isAuthenticated,
         setIsAuthenticated,
+        autoLoginError,
         login,
         logout,
         createAxiosInstances,
