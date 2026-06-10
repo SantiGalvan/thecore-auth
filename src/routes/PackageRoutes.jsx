@@ -84,6 +84,7 @@ const PackageRoutes = (props) => {
 
     useEffect(() => {
         iconUpdater();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

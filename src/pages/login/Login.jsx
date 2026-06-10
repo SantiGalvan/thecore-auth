@@ -24,6 +24,7 @@ const Login = ({ Logo, AutoLoginFallback }) => {
 
     if (token && user?.id) navigate(`${firstPrivatePath}${user.id}`);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (autoLogin && autoLoginError) {

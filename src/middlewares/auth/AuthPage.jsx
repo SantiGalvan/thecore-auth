@@ -20,6 +20,7 @@ const AuthPage = () => {
 
     }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Check per l'effettivo controllo del token

@@ -236,6 +236,7 @@ const AuthProvider = ({ children }) => {
         }
 
         setIsAuthenticated(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Effettua automaticamente il login con il backendToken se l'utente non è autenticato. Evita richieste duplicate controllando che non sia già in corso un login manuale.
@@ -257,6 +258,7 @@ const AuthProvider = ({ children }) => {
             return () => window.removeEventListener('load', handleLoad);
         }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // UseEffect per la sessione infinita e la sessione con scadenza del Token
