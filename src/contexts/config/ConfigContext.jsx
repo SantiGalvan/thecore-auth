@@ -41,7 +41,8 @@ Esempio di config.json:
     "autoLogin": "" ,
     "backendToken": "",
     "isDebug": "",
-    "showHeaderButton": ""
+    "showHeaderButton": "",
+    "stopLoaderOnFinish": ""
 }`
 
     // Restituisce una session key unica e opzionalmente prefissata dall'app, creandola solo se hasSessionKey è true
