@@ -1,6 +1,8 @@
 # thecore-auth — Documentazione (Italiano)
 
-> Versione: 0.0.210 | Licenza: MIT | Autore: Santiago Galvan
+> 🇬🇧 [Documentation in English](./README.md) | 🇪🇸 [Documentación en Español](./DOCUMENTATION_ES.md)
+
+> Versione: 0.0.214 | Licenza: MIT | Autore: Santiago Galvan
 
 ---
 
@@ -105,12 +107,21 @@ Crea il file `public/config.json` nel tuo progetto. Questo file viene caricato a
 | `backendToken` | `string` | Token usato per l'auto-login |
 | `isDebug` | `boolean` | Abilita il logging di debug in console |
 | `sileoToastEnabled` | `boolean` | Abilita le notifiche toast Sileo per mobile |
-| `hasSessionKey` | `boolean` | Genera una chiave di sessione univoca per tab |
+| `sileoToastConfig` | `object` | Opzioni Sileo: `position`, `options.fill`, `options.duration`, `options.styles` |
+| `hasSessionKey` | `boolean` | Genera una chiave di sessione univoca per ogni tab del browser |
 | `appKey` | `string` | Prefisso dell'app per la chiave di sessione |
 | `isDevelopment` | `boolean` | Flag per la modalità di sviluppo |
 | `defaultTitle` | `string` | Titolo predefinito del browser tab |
 | `routes` | `array` | Array di `{ path, title }` per l'aggiornamento automatico del titolo |
 | `configRoutes` | `array` | Rotte aggiuntive iniettate dal pacchetto |
+| `tokenLog` | `boolean` | Logga i dettagli del token JWT in console (debug) |
+| `showHeaderButton` | `boolean` | Mostra un pulsante di logout nell'header predefinito |
+| `useCustomLoginTimeout` | `boolean` | Abilita un timeout personalizzato per la richiesta di login |
+| `customLoginTimeout` | `number` | Timeout (ms) per il login quando `useCustomLoginTimeout` è `true` |
+| `stopLoaderOnFinish` | `boolean` | Ferma il loader globale al termine dell'animazione di SmartLogin |
+| `timerInfiniteSession` | `string` | Stringa cron per la pianificazione dell'heartbeat in sessione infinita |
+| `customDeviceType` | `string` | Sovrascrive il tipo di dispositivo rilevato (`'mobile'`, `'tablet'`, `'desktop'`) |
+| `pwa` | `object` | Config prompt installazione PWA: `enabled`, `promptOnLoad`, `customPrompt` |
 
 ---
 
@@ -453,6 +464,43 @@ Pagina di login pre-costruita. Usata automaticamente da `PackageRoutes` al perco
 
 ---
 
+### SmartLogin
+
+Pagina di login PWA-ready con funzionalità avanzate. Sostituta diretta di `Login` con
+personalizzazione completa, miglioramenti all'accessibilità e miglior supporto mobile.
+
+```jsx
+import { SmartLogin } from 'thecore-auth';
+
+<SmartLogin
+  Logo={MioLogo}
+  backgroundSrc="/images/sfondo.jpg"
+  overlayOpacity={0.5}
+  overlayColor="#f1f1f1"
+  cardVariant="glass"
+  cardPosition="center"
+  logoPosition="left"
+  showPasswordToggle={true}
+  animateEntrance={true}
+/>
+```
+
+| Prop | Tipo | Default | Descrizione |
+|------|------|---------|-------------|
+| `Logo` | `ComponentType` | — | Componente SVG logo |
+| `backgroundSrc` | `string` | `undefined` | URL immagine sfondo personalizzata |
+| `overlayOpacity` | `number` | `0.5` | Opacità overlay sfondo (0.0–1.0) |
+| `overlayColor` | `string` | `'#f1f1f1'` | Colore base overlay sfondo |
+| `cardVariant` | `'solid' \| 'glass' \| 'minimal'` | `'solid'` | Variante stile card |
+| `cardPosition` | `'center' \| 'left' \| 'right'` | `'center'` | Posizione orizzontale della card |
+| `logoPosition` | `'left' \| 'top'` | `'left'` | Posizione logo su desktop |
+| `showPasswordToggle` | `boolean` | `true` | Mostra toggle visibilità password |
+| `animateEntrance` | `boolean` | `true` | Anima la card al mount |
+
+Tutti i valori `overrideStyle` di `LoginFormProvider` continuano a funzionare con `SmartLogin`.
+
+---
+
 ### LoginForm
 
 Interfaccia del form di login basata su `LoginFormProvider`. Può essere usata autonomamente in un layout personalizzato.
@@ -477,27 +525,6 @@ import { DefaultLayout } from 'thecore-auth';
   footerComponent={<MioFooter />}
   isMain={true}
 />
-```
-
----
-
-### Modal
-
-Il componente modal. Normalmente controllato tramite `useModal`, ma può essere usato anche direttamente.
-
-```jsx
-import { Modal } from 'thecore-auth';
-
-<Modal
-  isOpen={isOpen}
-  onClose={handleClose}
-  title="Conferma azione"
-  type="delete"
-  item={elementoSelezionato}
-  onConfirm={handleConfirm}
->
-  <p>Sei sicuro di voler eliminare questo elemento?</p>
-</Modal>
 ```
 
 ---
@@ -875,18 +902,6 @@ const giorni = getDaysInMonth(0, 2025); // Gennaio 2025
 
 ---
 
-### useUserActivity
-
-Traccia la visibilità del tab, il focus della finestra e lo stato BFCache.
-
-```jsx
-import { useUserActivity } from 'thecore-auth';
-
-const { isVisible, isActive, hasFocus, visibilityState } = useUserActivity();
-```
-
----
-
 ## Funzioni di utilità
 
 ### Utilità per le date
@@ -1211,6 +1226,31 @@ export default function Profilo() {
   );
 }
 ```
+
+---
+
+## Variabili CSS
+
+Tutti gli aspetti visivi del pacchetto sono controllati tramite proprietà CSS personalizzate.
+Sovrascrivile nel tuo blocco `:root {}` dopo aver importato il CSS del pacchetto.
+
+| Lingua | Link |
+|--------|------|
+| 🇬🇧 English | [docs/css-variables.md](./docs/css-variables.md) |
+| 🇮🇹 Italiano | [docs/it/css-variables.md](./docs/it/css-variables.md) |
+| 🇪🇸 Español | [docs/es/css-variables.md](./docs/es/css-variables.md) |
+
+---
+
+## Sistema Modal
+
+Riferimento API completo, guida agli override di stile ed esempi d'uso per il sistema modal centralizzato (`useModal`, `openModal`, `closeModal`).
+
+| Lingua | Link |
+|--------|------|
+| 🇬🇧 English | [docs/modal.md](./docs/modal.md) |
+| 🇮🇹 Italiano | [docs/it/modal.md](./docs/it/modal.md) |
+| 🇪🇸 Español | [docs/es/modal.md](./docs/es/modal.md) |
 
 ---
 
