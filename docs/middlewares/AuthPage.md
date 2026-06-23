@@ -1,6 +1,6 @@
 # AuthPage
 
-> [Italiano](../it/pages/AuthPage.md) | [Español](../es/pages/AuthPage.md)
+> [Italiano](../it/middlewares/AuthPage.md) | [Español](../es/middlewares/AuthPage.md)
 
 ## Overview
 

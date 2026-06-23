@@ -1,6 +1,6 @@
 # PackageRoutes
 
-> [English](../../pages/PackageRoutes.md) | [Italiano](../../it/pages/PackageRoutes.md)
+> [English](../../routing/PackageRoutes.md) | [Italiano](../../it/routing/PackageRoutes.md)
 
 ## Descripción general
 

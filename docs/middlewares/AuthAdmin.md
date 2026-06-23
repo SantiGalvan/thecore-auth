@@ -1,6 +1,6 @@
 # AuthAdmin
 
-> [Italiano](../it/pages/AuthAdmin.md) | [Español](../es/pages/AuthAdmin.md)
+> [Italiano](../it/middlewares/AuthAdmin.md) | [Español](../es/middlewares/AuthAdmin.md)
 
 ## Overview
 

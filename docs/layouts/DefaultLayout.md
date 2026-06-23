@@ -1,6 +1,6 @@
 # DefaultLayout
 
-> [Italiano](../it/pages/DefaultLayout.md) | [Español](../es/pages/DefaultLayout.md)
+> [Italiano](../it/layouts/DefaultLayout.md) | [Español](../es/layouts/DefaultLayout.md)
 
 ## Overview
 

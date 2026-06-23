@@ -1,6 +1,6 @@
 # DefaultLayout
 
-> [English](../../pages/DefaultLayout.md) | [Español](../../es/pages/DefaultLayout.md)
+> [English](../../layouts/DefaultLayout.md) | [Español](../../es/layouts/DefaultLayout.md)
 
 ## Panoramica
 
