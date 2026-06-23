@@ -154,7 +154,15 @@ Create a file `public/config.json` in your project. This file is loaded at runti
 ```jsx
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'thecore-auth';
+import {
+  BrowserRouter,
+  ConfigProvider,
+  LoadingProvider,
+  AlertProvider,
+  AuthProvider,
+  LoginFormProvider,
+  ModalProvider
+} from 'thecore-auth';
 import App from './App.jsx';
 import 'thecore-auth/dist/thecore-auth.css';
 import './index.css';
@@ -162,7 +170,19 @@ import './index.css';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <ConfigProvider>
+        <LoadingProvider>
+          <AlertProvider>
+            <AuthProvider>
+              <LoginFormProvider>
+                <ModalProvider>
+                  <App />
+                </ModalProvider>
+              </LoginFormProvider>
+            </AuthProvider>
+          </AlertProvider>
+        </LoadingProvider>
+      </ConfigProvider>
     </BrowserRouter>
   </StrictMode>
 );
@@ -171,16 +191,7 @@ createRoot(document.getElementById('root')).render(
 ### `src/App.jsx`
 
 ```jsx
-import {
-  PackageRoutes,
-  ConfigProvider,
-  AuthProvider,
-  LoadingProvider,
-  AlertProvider,
-  LoginFormProvider,
-  ModalProvider,
-  RouteProvider
-} from 'thecore-auth';
+import { PackageRoutes, RouteProvider } from 'thecore-auth';
 
 // Your private pages
 import Dashboard from './pages/Dashboard';
@@ -192,23 +203,11 @@ const privateRoutes = [
 
 export default function App() {
   return (
-    <ConfigProvider>
-      <LoadingProvider>
-        <AlertProvider>
-          <AuthProvider>
-            <LoginFormProvider>
-              <ModalProvider>
-                <RouteProvider privateRoutes={privateRoutes} publicRoutes={[]}>
-                  <PackageRoutes
-                    firstPrivateElement={<Dashboard />}
-                  />
-                </RouteProvider>
-              </ModalProvider>
-            </LoginFormProvider>
-          </AuthProvider>
-        </AlertProvider>
-      </LoadingProvider>
-    </ConfigProvider>
+    <RouteProvider privateRoutes={privateRoutes} publicRoutes={[]}>
+      <PackageRoutes
+        firstPrivateElement={<Dashboard />}
+      />
+    </RouteProvider>
   );
 }
 ```
