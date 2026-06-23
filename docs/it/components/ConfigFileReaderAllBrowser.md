@@ -1,6 +1,6 @@
 # ConfigFileReaderAllBrowser
 
-> [English](../../../docs/components/ConfigFileReaderAllBrowser.md) | [Versión española](../../es/components/ConfigFileReaderAllBrowser.md)
+> [English](../../../docs/en/components/ConfigFileReaderAllBrowser.md) | [Versión española](../../es/components/ConfigFileReaderAllBrowser.md)
 
 ## Panoramica
 

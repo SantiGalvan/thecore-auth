@@ -1,6 +1,6 @@
 # Loader
 
-> [English](../../../docs/components/Loader.md) | [Versione italiana](../../../docs/it/components/Loader.md)
+> [English](../../../docs/en/components/Loader.md) | [Versione italiana](../../../docs/it/components/Loader.md)
 
 ## Descripción general
 

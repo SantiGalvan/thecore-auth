@@ -1,6 +1,6 @@
 # SpotRfidHeader
 
-> [English](../../../docs/components/SpotRfidHeader.md) | [Versione italiana](../../it/components/SpotRfidHeader.md)
+> [English](../../../docs/en/components/SpotRfidHeader.md) | [Versione italiana](../../it/components/SpotRfidHeader.md)
 
 > ⚠️ **Exportado como `Header`** desde `thecore-auth`. Importar con: `import { Header } from 'thecore-auth'`
 

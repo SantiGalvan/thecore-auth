@@ -1,6 +1,6 @@
 # Loading
 
-> [English](../../../docs/components/Loading.md) | [Versione italiana](../../../docs/it/components/Loading.md)
+> [English](../../../docs/en/components/Loading.md) | [Versione italiana](../../../docs/it/components/Loading.md)
 
 ## Descripción general
 

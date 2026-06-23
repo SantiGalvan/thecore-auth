@@ -1,6 +1,6 @@
 # useSafeArea
 
-> [English](../../../docs/hooks/useSafeArea.md) | [Versión española](../../es/hooks/useSafeArea.md)
+> [English](../../../docs/en/hooks/useSafeArea.md) | [Versión española](../../es/hooks/useSafeArea.md)
 
 ## Panoramica
 

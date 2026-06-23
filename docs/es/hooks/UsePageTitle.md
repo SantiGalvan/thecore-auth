@@ -1,6 +1,6 @@
 # UsePageTitle
 
-> [English](../../../docs/hooks/UsePageTitle.md) | [Versione italiana](../../it/hooks/UsePageTitle.md)
+> [English](../../../docs/en/hooks/UsePageTitle.md) | [Versione italiana](../../it/hooks/UsePageTitle.md)
 
 ## Descripción general
 

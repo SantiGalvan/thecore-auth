@@ -302,11 +302,21 @@ src/
     date/           # dateUtils (toDatetimeLocalValue, setTime, subtractDays, …)
   index.js          # Entry point del paquete — TODOS los exports públicos declarados aquí
 dist/               # Archivos del paquete compilado (no editar manualmente)
-docs/               # Documentación
-  it/               # Traducciones al italiano
-  es/               # Traducciones al español
-  adr/              # Architecture Decision Records
-documentation/      # Docs suplementarias (variables CSS, Modal)
+docs/
+  en/                 # Documentación de referencia en inglés
+    components/       # Archivos de referencia de componentes
+    contexts/         # Archivos de referencia de context pair
+    hooks/            # Archivos de referencia de hooks
+    layouts/          # DefaultLayout
+    middlewares/      # AuthPage, AuthAdmin
+    routing/          # PackageRoutes
+    pages/            # Login, SmartLogin, Dashboard, ErrorPage
+    utils/            # dateUtils, fetchAxiosConfig
+    css/              # css-variables.md
+    modal.md          # Guía completa del sistema modal (API useModal)
+  it/                 # Traducciones al italiano (espeja la estructura en/)
+  es/                 # Traducciones al español (espeja la estructura en/)
+  adr/                # Architecture Decision Records
 deploy-scripts/     # Utilidades de deploy y templates Docker
 public/
   config.json       # Configuración runtime para dev/test (no incluida en el paquete npm)

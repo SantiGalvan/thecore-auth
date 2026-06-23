@@ -1,6 +1,6 @@
 # CardInputTag
 
-> [English](../../../docs/components/CardInputTag.md) | [Versione italiana](../../it/components/CardInputTag.md)
+> [English](../../../docs/en/components/CardInputTag.md) | [Versione italiana](../../it/components/CardInputTag.md)
 
 ## Descripción general
 

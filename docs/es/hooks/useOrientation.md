@@ -1,6 +1,6 @@
 # useOrientation
 
-> [English](../../../docs/hooks/useOrientation.md) | [Versione italiana](../../it/hooks/useOrientation.md)
+> [English](../../../docs/en/hooks/useOrientation.md) | [Versione italiana](../../it/hooks/useOrientation.md)
 
 ## Descripción general
 

@@ -1,6 +1,6 @@
 # ModalFooter
 
-> [English](../../../docs/components/ModalFooter.md) | [Versión española](../../../docs/es/components/ModalFooter.md)
+> [English](../../../docs/en/components/ModalFooter.md) | [Versión española](../../../docs/es/components/ModalFooter.md)
 
 > ⚙️ **Componente interno** — non importabile direttamente. Utilizzato all'interno di `DefaultLayout`. Interagisci con il sistema modale tramite [`useModal`](../../contexts/ModalProvider.md).
 

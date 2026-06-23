@@ -1,6 +1,6 @@
 # ModalMain
 
-> [English](../../../docs/components/ModalMain.md) | [Versione italiana](../../../docs/it/components/ModalMain.md)
+> [English](../../../docs/en/components/ModalMain.md) | [Versione italiana](../../../docs/it/components/ModalMain.md)
 
 > ⚙️ **Componente interno** — no importable directamente. Usado dentro de `DefaultLayout`. Interactúa con el sistema modal a través de [`useModal`](../../contexts/ModalProvider.md).
 

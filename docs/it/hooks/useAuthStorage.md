@@ -1,6 +1,6 @@
 # useAuthStorage
 
-> [English](../../../docs/hooks/useAuthStorage.md) | [Versión española](../../es/hooks/useAuthStorage.md)
+> [English](../../../docs/en/hooks/useAuthStorage.md) | [Versión española](../../es/hooks/useAuthStorage.md)
 
 ## Panoramica
 
