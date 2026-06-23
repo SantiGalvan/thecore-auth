@@ -63,10 +63,10 @@ Crea el archivo `public/config.json` en tu proyecto. Este archivo se carga en ti
   "heartbeatEndpoint": "/auth/refresh",
   "firstPrivatePath": "/dashboard",
   "firstPrivateTitle": "Dashboard",
+  "defaultTitle": "Mi App",
   "infiniteSession": false,
   "timeDeducted": 60000,
   "alertTimeout": 4000,
-  "axiosTimeout": 10000,
   "axiosErrors": {
     "unauthorized": "Sesión expirada. Por favor, inicia sesión de nuevo.",
     "notFound": "Recurso no encontrado.",
@@ -76,11 +76,34 @@ Crea el archivo `public/config.json` en tu proyecto. Este archivo se carga en ti
   "autoLogin": false,
   "backendToken": "",
   "isDebug": false,
-  "sileoToastEnabled": false,
+  "tokenLog": false,
+  "isDevelopment": false,
   "hasSessionKey": false,
   "appKey": "mi-app",
-  "isDevelopment": false,
-  "defaultTitle": "Mi App",
+  "showHeaderButton": false,
+  "useCustomLoginTimeout": false,
+  "customLoginTimeout": 10000,
+  "stopLoaderOnFinish": true,
+  "timerInfiniteSession": "",
+  "customDeviceType": "",
+  "sileoToastEnabled": false,
+  "sileoToastConfig": {
+    "position": "bottom-center",
+    "options": {
+      "fill": "#000000",
+      "duration": 2000,
+      "styles": {
+        "title": "text-white font-semibold",
+        "description": "text-white/75",
+        "badge": "bg-white/20"
+      }
+    }
+  },
+  "pwa": {
+    "enabled": false,
+    "promptOnLoad": false,
+    "customPrompt": false
+  },
   "routes": [
     { "path": "/dashboard", "title": "Dashboard" },
     { "path": "/perfil", "title": "Perfil" }
@@ -100,7 +123,6 @@ Crea el archivo `public/config.json` en tu proyecto. Este archivo se carga en ti
 | `infiniteSession` | `boolean` | Si es `true`, la sesión nunca expira |
 | `timeDeducted` | `number` | Milisegundos a restar a la expiración del token para el refresco anticipado |
 | `alertTimeout` | `number` | Duración (ms) de las notificaciones de alerta |
-| `axiosTimeout` | `number` | Timeout de las peticiones HTTP en milisegundos |
 | `axiosErrors` | `object` | Mensajes de error personalizados para 401, 404 y errores genéricos |
 | `clearLoginFormOnError` | `boolean` | Limpia los campos del formulario de login cuando ocurre un error |
 | `autoLogin` | `boolean` | Habilita el auto-login machine-to-machine |
@@ -1077,10 +1099,10 @@ my-app/
   "heartbeatEndpoint": "/auth/refresh",
   "firstPrivatePath": "/dashboard",
   "firstPrivateTitle": "Dashboard",
+  "defaultTitle": "Mi App",
   "infiniteSession": false,
   "timeDeducted": 60000,
   "alertTimeout": 4000,
-  "axiosTimeout": 10000,
   "axiosErrors": {
     "unauthorized": "Tu sesión ha expirado.",
     "notFound": "Página no encontrada.",
@@ -1090,11 +1112,34 @@ my-app/
   "autoLogin": false,
   "backendToken": "",
   "isDebug": false,
-  "sileoToastEnabled": false,
+  "tokenLog": false,
+  "isDevelopment": false,
   "hasSessionKey": false,
   "appKey": "mi-app",
-  "isDevelopment": false,
-  "defaultTitle": "Mi App",
+  "showHeaderButton": false,
+  "useCustomLoginTimeout": false,
+  "customLoginTimeout": 10000,
+  "stopLoaderOnFinish": true,
+  "timerInfiniteSession": "",
+  "customDeviceType": "",
+  "sileoToastEnabled": false,
+  "sileoToastConfig": {
+    "position": "bottom-center",
+    "options": {
+      "fill": "#000000",
+      "duration": 2000,
+      "styles": {
+        "title": "text-white font-semibold",
+        "description": "text-white/75",
+        "badge": "bg-white/20"
+      }
+    }
+  },
+  "pwa": {
+    "enabled": false,
+    "promptOnLoad": false,
+    "customPrompt": false
+  },
   "routes": [
     { "path": "/dashboard", "title": "Dashboard" },
     { "path": "/perfil", "title": "Perfil" }

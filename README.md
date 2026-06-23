@@ -63,10 +63,10 @@ Create a file `public/config.json` in your project. This file is loaded at runti
   "heartbeatEndpoint": "/auth/refresh",
   "firstPrivatePath": "/dashboard",
   "firstPrivateTitle": "Dashboard",
+  "defaultTitle": "My App",
   "infiniteSession": false,
   "timeDeducted": 60000,
   "alertTimeout": 4000,
-  "axiosTimeout": 10000,
   "axiosErrors": {
     "unauthorized": "Session expired. Please log in again.",
     "notFound": "Resource not found.",
@@ -76,11 +76,34 @@ Create a file `public/config.json` in your project. This file is loaded at runti
   "autoLogin": false,
   "backendToken": "",
   "isDebug": false,
-  "sileoToastEnabled": false,
+  "tokenLog": false,
+  "isDevelopment": false,
   "hasSessionKey": false,
   "appKey": "myapp",
-  "isDevelopment": false,
-  "defaultTitle": "My App",
+  "showHeaderButton": false,
+  "useCustomLoginTimeout": false,
+  "customLoginTimeout": 10000,
+  "stopLoaderOnFinish": true,
+  "timerInfiniteSession": "",
+  "customDeviceType": "",
+  "sileoToastEnabled": false,
+  "sileoToastConfig": {
+    "position": "bottom-center",
+    "options": {
+      "fill": "#000000",
+      "duration": 2000,
+      "styles": {
+        "title": "text-white font-semibold",
+        "description": "text-white/75",
+        "badge": "bg-white/20"
+      }
+    }
+  },
+  "pwa": {
+    "enabled": false,
+    "promptOnLoad": false,
+    "customPrompt": false
+  },
   "routes": [
     { "path": "/dashboard", "title": "Dashboard" },
     { "path": "/profile", "title": "Profile" }
@@ -100,7 +123,6 @@ Create a file `public/config.json` in your project. This file is loaded at runti
 | `infiniteSession` | `boolean` | If `true`, session never expires |
 | `timeDeducted` | `number` | Milliseconds to subtract from token expiry for early refresh |
 | `alertTimeout` | `number` | Duration (ms) to show alert notifications |
-| `axiosTimeout` | `number` | HTTP request timeout in milliseconds |
 | `axiosErrors` | `object` | Custom error messages for 401, 404, and generic errors |
 | `clearLoginFormOnError` | `boolean` | Clear login form fields when an error occurs |
 | `autoLogin` | `boolean` | Enable machine-to-machine auto-login |
@@ -1075,10 +1097,10 @@ my-app/
   "heartbeatEndpoint": "/auth/refresh",
   "firstPrivatePath": "/dashboard",
   "firstPrivateTitle": "Dashboard",
+  "defaultTitle": "My App",
   "infiniteSession": false,
   "timeDeducted": 60000,
   "alertTimeout": 4000,
-  "axiosTimeout": 10000,
   "axiosErrors": {
     "unauthorized": "Your session has expired.",
     "notFound": "Page not found.",
@@ -1088,11 +1110,34 @@ my-app/
   "autoLogin": false,
   "backendToken": "",
   "isDebug": false,
-  "sileoToastEnabled": false,
+  "tokenLog": false,
+  "isDevelopment": false,
   "hasSessionKey": false,
   "appKey": "myapp",
-  "isDevelopment": false,
-  "defaultTitle": "My App",
+  "showHeaderButton": false,
+  "useCustomLoginTimeout": false,
+  "customLoginTimeout": 10000,
+  "stopLoaderOnFinish": true,
+  "timerInfiniteSession": "",
+  "customDeviceType": "",
+  "sileoToastEnabled": false,
+  "sileoToastConfig": {
+    "position": "bottom-center",
+    "options": {
+      "fill": "#000000",
+      "duration": 2000,
+      "styles": {
+        "title": "text-white font-semibold",
+        "description": "text-white/75",
+        "badge": "bg-white/20"
+      }
+    }
+  },
+  "pwa": {
+    "enabled": false,
+    "promptOnLoad": false,
+    "customPrompt": false
+  },
   "routes": [
     { "path": "/dashboard", "title": "Dashboard" },
     { "path": "/profile", "title": "Profile" }

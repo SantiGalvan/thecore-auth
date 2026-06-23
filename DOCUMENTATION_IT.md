@@ -63,10 +63,10 @@ Crea il file `public/config.json` nel tuo progetto. Questo file viene caricato a
   "heartbeatEndpoint": "/auth/refresh",
   "firstPrivatePath": "/dashboard",
   "firstPrivateTitle": "Dashboard",
+  "defaultTitle": "La mia App",
   "infiniteSession": false,
   "timeDeducted": 60000,
   "alertTimeout": 4000,
-  "axiosTimeout": 10000,
   "axiosErrors": {
     "unauthorized": "Sessione scaduta. Effettua nuovamente il login.",
     "notFound": "Risorsa non trovata.",
@@ -76,11 +76,34 @@ Crea il file `public/config.json` nel tuo progetto. Questo file viene caricato a
   "autoLogin": false,
   "backendToken": "",
   "isDebug": false,
-  "sileoToastEnabled": false,
+  "tokenLog": false,
+  "isDevelopment": false,
   "hasSessionKey": false,
   "appKey": "mia-app",
-  "isDevelopment": false,
-  "defaultTitle": "La mia App",
+  "showHeaderButton": false,
+  "useCustomLoginTimeout": false,
+  "customLoginTimeout": 10000,
+  "stopLoaderOnFinish": true,
+  "timerInfiniteSession": "",
+  "customDeviceType": "",
+  "sileoToastEnabled": false,
+  "sileoToastConfig": {
+    "position": "bottom-center",
+    "options": {
+      "fill": "#000000",
+      "duration": 2000,
+      "styles": {
+        "title": "text-white font-semibold",
+        "description": "text-white/75",
+        "badge": "bg-white/20"
+      }
+    }
+  },
+  "pwa": {
+    "enabled": false,
+    "promptOnLoad": false,
+    "customPrompt": false
+  },
   "routes": [
     { "path": "/dashboard", "title": "Dashboard" },
     { "path": "/profilo", "title": "Profilo" }
@@ -100,7 +123,6 @@ Crea il file `public/config.json` nel tuo progetto. Questo file viene caricato a
 | `infiniteSession` | `boolean` | Se `true`, la sessione non scade mai |
 | `timeDeducted` | `number` | Millisecondi da sottrarre alla scadenza del token per il refresh anticipato |
 | `alertTimeout` | `number` | Durata (ms) della visualizzazione degli alert |
-| `axiosTimeout` | `number` | Timeout delle richieste HTTP in millisecondi |
 | `axiosErrors` | `object` | Messaggi di errore personalizzati per 401, 404 ed errori generici |
 | `clearLoginFormOnError` | `boolean` | Pulisce i campi del form di login in caso di errore |
 | `autoLogin` | `boolean` | Abilita il login automatico machine-to-machine |
@@ -1075,10 +1097,10 @@ my-app/
   "heartbeatEndpoint": "/auth/refresh",
   "firstPrivatePath": "/dashboard",
   "firstPrivateTitle": "Dashboard",
+  "defaultTitle": "La mia App",
   "infiniteSession": false,
   "timeDeducted": 60000,
   "alertTimeout": 4000,
-  "axiosTimeout": 10000,
   "axiosErrors": {
     "unauthorized": "La tua sessione è scaduta.",
     "notFound": "Pagina non trovata.",
@@ -1088,11 +1110,34 @@ my-app/
   "autoLogin": false,
   "backendToken": "",
   "isDebug": false,
-  "sileoToastEnabled": false,
+  "tokenLog": false,
+  "isDevelopment": false,
   "hasSessionKey": false,
   "appKey": "mia-app",
-  "isDevelopment": false,
-  "defaultTitle": "La mia App",
+  "showHeaderButton": false,
+  "useCustomLoginTimeout": false,
+  "customLoginTimeout": 10000,
+  "stopLoaderOnFinish": true,
+  "timerInfiniteSession": "",
+  "customDeviceType": "",
+  "sileoToastEnabled": false,
+  "sileoToastConfig": {
+    "position": "bottom-center",
+    "options": {
+      "fill": "#000000",
+      "duration": 2000,
+      "styles": {
+        "title": "text-white font-semibold",
+        "description": "text-white/75",
+        "badge": "bg-white/20"
+      }
+    }
+  },
+  "pwa": {
+    "enabled": false,
+    "promptOnLoad": false,
+    "customPrompt": false
+  },
   "routes": [
     { "path": "/dashboard", "title": "Dashboard" },
     { "path": "/profilo", "title": "Profilo" }
