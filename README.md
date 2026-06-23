@@ -1,6 +1,6 @@
 # thecore-auth — Documentation (English)
 
-> 🇮🇹 [Documentazione in Italiano](./DOCUMENTATION_IT.md) | 🇪🇸 [Documentación en Español](./DOCUMENTATION_ES.md)
+> 🇮🇹 [Documentazione in Italiano](https://github.com/SantiGalvan/thecore-auth/blob/main/DOCUMENTATION_IT.md) | 🇪🇸 [Documentación en Español](https://github.com/SantiGalvan/thecore-auth/blob/main/DOCUMENTATION_ES.md)
 
 > Version: 0.0.214 | License: MIT | Author: Santiago Galvan
 
@@ -219,7 +219,7 @@ export default function App() {
 
 ### ConfigProvider / useConfig
 
-[→ Full reference](./docs/en/contexts/ConfigProvider.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/contexts/ConfigProvider.md)
 
 Loads and exposes the runtime `config.json` configuration. Also provides IndexedDB utilities and the current date helper.
 
@@ -252,7 +252,7 @@ function MyComponent() {
 
 ### AuthProvider / useAuth
 
-[→ Full reference](./docs/en/contexts/AuthProvider.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/contexts/AuthProvider.md)
 
 Manages JWT authentication state, token refresh, and login/logout.
 
@@ -286,7 +286,7 @@ function Header() {
 
 ### LoadingProvider / useLoading
 
-[→ Full reference](./docs/en/contexts/LoadingProvider.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/contexts/LoadingProvider.md)
 
 Global loading spinner visible over the entire application.
 
@@ -319,7 +319,7 @@ function SaveButton() {
 
 ### AlertProvider / useAlert
 
-[→ Full reference](./docs/en/contexts/AlertProvider.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/contexts/AlertProvider.md)
 
 Displays in-app notifications of type `danger`, `info`, `success`, or `warning`.
 
@@ -356,7 +356,7 @@ function SubmitForm() {
 
 ### ModalProvider / useModal
 
-[→ Full reference](./docs/en/contexts/ModalProvider.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/contexts/ModalProvider.md)
 
 Centralized modal system supporting `submit`, `delete`, and `custom` modal types.
 
@@ -400,7 +400,7 @@ function UserList() {
 
 ### LoginFormProvider / useLoginForm
 
-[→ Full reference](./docs/en/contexts/LoginFormProvider.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/contexts/LoginFormProvider.md)
 
 Manages the login form state and customization options.
 
@@ -436,7 +436,7 @@ import { LoginFormProvider } from 'thecore-auth';
 
 ### RouteProvider / useRoutesInjection
 
-[→ Full reference](./docs/en/contexts/RouteProvider.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/contexts/RouteProvider.md)
 
 Registers public and private routes to be rendered by `PackageRoutes`.
 
@@ -463,7 +463,7 @@ const publicRoutes = [
 
 ### PackageRoutes
 
-[→ Full reference](./docs/en/routing/PackageRoutes.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/routing/PackageRoutes.md)
 
 The main routing component. Renders public routes, the login page, and wraps private routes with authentication guards.
 
@@ -498,7 +498,7 @@ The main routing component. Renders public routes, the login page, and wraps pri
 
 ### Login
 
-[→ Full reference](./docs/en/pages/Login.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/pages/Login.md)
 
 Pre-built login page. Automatically used by `PackageRoutes` at the `/` path.
 
@@ -506,7 +506,7 @@ Pre-built login page. Automatically used by `PackageRoutes` at the `/` path.
 
 ### SmartLogin
 
-[→ Full reference](./docs/en/pages/SmartLogin.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/pages/SmartLogin.md)
 
 PWA-ready login page with advanced features. Drop-in replacement for `Login` with full
 customization, accessibility improvements, and better mobile support.
@@ -545,7 +545,7 @@ All `overrideStyle` values from `LoginFormProvider` continue to work with `Smart
 
 ### LoginForm
 
-[→ Full reference](./docs/en/components/LoginForm.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/components/LoginForm.md)
 
 Login form UI built on top of `LoginFormProvider`. Can be used standalone inside a custom layout.
 
@@ -559,7 +559,7 @@ import { LoginForm } from 'thecore-auth';
 
 ### DefaultLayout
 
-[→ Full reference](./docs/en/layouts/DefaultLayout.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/layouts/DefaultLayout.md)
 
 Layout wrapper that renders `Loading`, `Alert`, `Modal`, and an optional toast layer alongside the page content.
 
@@ -577,7 +577,7 @@ import { DefaultLayout } from 'thecore-auth';
 
 ### Input / InputLabel
 
-[→ Full reference](./docs/en/components/Input.md) | [InputLabel](./docs/en/components/InputLabel.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/components/Input.md) | [InputLabel](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/components/InputLabel.md)
 
 Basic form input and label components.
 
@@ -598,7 +598,7 @@ import { Input, InputLabel } from 'thecore-auth';
 
 ### InputDate / InputStartEndDate
 
-[→ Full reference](./docs/en/components/InputDate.md) | [InputStartEndDate](./docs/en/components/InputStartEndDate.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/components/InputDate.md) | [InputStartEndDate](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/components/InputStartEndDate.md)
 
 Date picker and date range picker components.
 
@@ -630,7 +630,7 @@ import { InputDate, InputStartEndDate } from 'thecore-auth';
 
 ### FileDropzone
 
-[→ Full reference](./docs/en/components/FileDropzone.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/components/FileDropzone.md)
 
 Drag-and-drop file upload area.
 
@@ -647,7 +647,7 @@ import { FileDropzone } from 'thecore-auth';
 
 ### SwitchRadio
 
-[→ Full reference](./docs/en/components/SwitchRadio.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/components/SwitchRadio.md)
 
 A toggle switch (controlled or uncontrolled).
 
@@ -661,7 +661,7 @@ import { SwitchRadio } from 'thecore-auth';
 
 ### SingleSelect / MultiSelect
 
-[→ Full reference](./docs/en/components/SingleSelect.md) | [MultiSelect](./docs/en/components/MultiSelect.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/components/SingleSelect.md) | [MultiSelect](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/components/MultiSelect.md)
 
 Dropdown select components.
 
@@ -691,7 +691,7 @@ import { SingleSelect, MultiSelect } from 'thecore-auth';
 
 ### Loading / LoadingComponent / Loader / LogoLoader
 
-[→ Full reference](./docs/en/components/Loading.md) | [LoadingComponent](./docs/en/components/LoadingComponent.md) | [Loader](./docs/en/components/Loader.md) | [LogoLoader](./docs/en/components/LogoLoader.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/components/Loading.md) | [LoadingComponent](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/components/LoadingComponent.md) | [Loader](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/components/Loader.md) | [LogoLoader](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/components/LogoLoader.md)
 
 Loading state components.
 
@@ -709,7 +709,7 @@ import { Loader } from 'thecore-auth';
 
 ### Alert
 
-[→ Full reference](./docs/en/components/Alert.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/components/Alert.md)
 
 Notification banner controlled by `AlertProvider`. Renders automatically when `activeAlert` is called.
 
@@ -717,7 +717,7 @@ Notification banner controlled by `AlertProvider`. Renders automatically when `a
 
 ### AuthPage / AuthAdmin
 
-[→ Full reference](./docs/en/middlewares/AuthPage.md) | [AuthAdmin](./docs/en/middlewares/AuthAdmin.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/middlewares/AuthPage.md) | [AuthAdmin](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/middlewares/AuthAdmin.md)
 
 Route guards for authentication and admin roles.
 
@@ -735,7 +735,7 @@ import { AuthPage, AuthAdmin } from 'thecore-auth';
 
 ### useStorage
 
-[→ Full reference](./docs/en/hooks/useStorage.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/hooks/useStorage.md)
 
 State synchronized with `localStorage`.
 
@@ -756,7 +756,7 @@ Returns `[state, setState, remove]`.
 
 ### useAuthStorage
 
-[→ Full reference](./docs/en/hooks/useAuthStorage.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/hooks/useAuthStorage.md)
 
 Manages `accessToken` and `user` in localStorage.
 
@@ -770,7 +770,7 @@ const { token, user, setToken, setUser, storageLogout } = useAuthStorage();
 
 ### useIndexedDB
 
-[→ Full reference](./docs/en/hooks/useIndexedDB.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/hooks/useIndexedDB.md)
 
 Full CRUD operations on an IndexedDB object store.
 
@@ -798,7 +798,7 @@ await db.remove(1);
 
 ### useForm
 
-[→ Full reference](./docs/en/hooks/useForm.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/hooks/useForm.md)
 
 Form state management with file upload support.
 
@@ -832,7 +832,7 @@ const { values, handleChange, files, addFiles, resetForm } = useForm({
 
 ### useDevice
 
-[→ Full reference](./docs/en/hooks/useDevice.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/hooks/useDevice.md)
 
 Detect the user's device type, OS, and browser.
 
@@ -860,7 +860,7 @@ const { isMobile, isDesktop, os, browser } = useDevice();
 
 ### useOrientation
 
-[→ Full reference](./docs/en/hooks/useOrientation.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/hooks/useOrientation.md)
 
 Detect portrait or landscape orientation.
 
@@ -874,7 +874,7 @@ const orientation = useOrientation(); // 'portrait' | 'landscape'
 
 ### useViewportHeight
 
-[→ Full reference](./docs/en/hooks/useViewportHeight.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/hooks/useViewportHeight.md)
 
 Reads the actual viewport height and exposes it as a CSS variable `--vh`.
 
@@ -888,7 +888,7 @@ const { height, vh } = useViewportHeight({ getValues: true });
 
 ### useSafeArea
 
-[→ Full reference](./docs/en/hooks/useSafeArea.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/hooks/useSafeArea.md)
 
 Adds the `with-safe-area` class to `<body>` when on devices with a notch or safe area insets (iPhone X+, etc.).
 
@@ -902,7 +902,7 @@ useSafeArea(['/login']); // exclude these paths
 
 ### useClickOutside
 
-[→ Full reference](./docs/en/hooks/useClickOutside.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/hooks/useClickOutside.md)
 
 Fire a callback when the user clicks outside a referenced element.
 
@@ -920,7 +920,7 @@ useClickOutside(ref, () => setOpen(false));
 
 ### UsePageTitle
 
-[→ Full reference](./docs/en/hooks/UsePageTitle.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/hooks/UsePageTitle.md)
 
 Update `document.title` automatically based on the current route.
 
@@ -935,7 +935,7 @@ UsePageTitle(routes, 'My App');
 
 ### useToast
 
-[→ Full reference](./docs/en/hooks/useToast.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/hooks/useToast.md)
 
 Mobile-optimized toast notifications via the Sileo library.
 
@@ -961,7 +961,7 @@ toast.promise(fetchData(), {
 
 ### useCalendar
 
-[→ Full reference](./docs/en/hooks/useCalendar.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/hooks/useCalendar.md)
 
 Calendar utilities with public holiday detection.
 
@@ -992,7 +992,7 @@ const days = getDaysInMonth(0, 2025); // January 2025
 
 ### Date Utilities
 
-[→ Full reference](./docs/en/utils/dateUtils.md) | [fetchAxiosConfig](./docs/en/utils/fetchAxiosConfig.md)
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/utils/dateUtils.md) | [fetchAxiosConfig](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/utils/fetchAxiosConfig.md)
 
 ```jsx
 import {
@@ -1347,9 +1347,9 @@ Override them in your own `:root {}` block after importing the package CSS.
 
 | Language | Link |
 |----------|------|
-| 🇬🇧 English | [docs/en/css/css-variables.md](./docs/en/css/css-variables.md) |
-| 🇮🇹 Italiano | [docs/it/css-variables.md](./docs/it/css-variables.md) |
-| 🇪🇸 Español | [docs/es/css-variables.md](./docs/es/css-variables.md) |
+| 🇬🇧 English | [docs/en/css/css-variables.md](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/css/css-variables.md) |
+| 🇮🇹 Italiano | [docs/it/css-variables.md](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/it/css-variables.md) |
+| 🇪🇸 Español | [docs/es/css-variables.md](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/es/css-variables.md) |
 
 Quick reference — most commonly overridden:
 
@@ -1373,9 +1373,9 @@ Full API reference, style override guide, and usage examples for the centralized
 
 | Language | Link |
 |----------|------|
-| 🇬🇧 English | [docs/en/modal.md](./docs/en/modal.md) |
-| 🇮🇹 Italiano | [docs/it/modal.md](./docs/it/modal.md) |
-| 🇪🇸 Español | [docs/es/modal.md](./docs/es/modal.md) |
+| 🇬🇧 English | [docs/en/modal.md](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/modal.md) |
+| 🇮🇹 Italiano | [docs/it/modal.md](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/it/modal.md) |
+| 🇪🇸 Español | [docs/es/modal.md](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/es/modal.md) |
 
 ---
 
