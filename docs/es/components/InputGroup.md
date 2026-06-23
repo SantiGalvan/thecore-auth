@@ -1,6 +1,6 @@
 # InputGroup
 
-> [English](../../../docs/components/InputGroup.md) | [Versione italiana](../../it/components/InputGroup.md)
+> [English](../../../docs/en/components/InputGroup.md) | [Versione italiana](../../it/components/InputGroup.md)
 
 ## Descripción general
 

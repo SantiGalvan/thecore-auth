@@ -1,6 +1,6 @@
 # ModalHeader
 
-> [English](../../../docs/components/ModalHeader.md) | [Versione italiana](../../../docs/it/components/ModalHeader.md)
+> [English](../../../docs/en/components/ModalHeader.md) | [Versione italiana](../../../docs/it/components/ModalHeader.md)
 
 > ⚙️ **Componente interno** — no importable directamente. Usado dentro de `DefaultLayout`. Interactúa con el sistema modal a través de [`useModal`](../../contexts/ModalProvider.md).
 

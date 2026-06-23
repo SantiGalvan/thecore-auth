@@ -1,6 +1,6 @@
 # useStorage
 
-> [English](../../../docs/hooks/useStorage.md) | [Versione italiana](../../it/hooks/useStorage.md)
+> [English](../../../docs/en/hooks/useStorage.md) | [Versione italiana](../../it/hooks/useStorage.md)
 
 ## Descripción general
 

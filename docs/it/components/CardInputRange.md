@@ -1,6 +1,6 @@
 # CardInputRange
 
-> [English](../../../docs/components/CardInputRange.md) | [Versión española](../../es/components/CardInputRange.md)
+> [English](../../../docs/en/components/CardInputRange.md) | [Versión española](../../es/components/CardInputRange.md)
 
 ## Panoramica
 

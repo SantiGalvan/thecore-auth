@@ -1,6 +1,6 @@
 # InputGroup
 
-> [English](../../../docs/components/InputGroup.md) | [Versión española](../../es/components/InputGroup.md)
+> [English](../../../docs/en/components/InputGroup.md) | [Versión española](../../es/components/InputGroup.md)
 
 ## Panoramica
 

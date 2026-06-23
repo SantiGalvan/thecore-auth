@@ -1,6 +1,6 @@
 # useForm
 
-> [English](../../../docs/hooks/useForm.md) | [Versión española](../../es/hooks/useForm.md)
+> [English](../../../docs/en/hooks/useForm.md) | [Versión española](../../es/hooks/useForm.md)
 
 ## Panoramica
 

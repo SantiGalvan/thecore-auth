@@ -1,6 +1,6 @@
 # ConfigFileReaderAllBrowser
 
-> [English](../../../docs/components/ConfigFileReaderAllBrowser.md) | [Versione italiana](../../it/components/ConfigFileReaderAllBrowser.md)
+> [English](../../../docs/en/components/ConfigFileReaderAllBrowser.md) | [Versione italiana](../../it/components/ConfigFileReaderAllBrowser.md)
 
 ## Descripción general
 

@@ -1,6 +1,6 @@
 # LoginForm
 
-> [English](../../../docs/components/LoginForm.md) | [Versione italiana](../../../docs/it/components/LoginForm.md)
+> [English](../../../docs/en/components/LoginForm.md) | [Versione italiana](../../../docs/it/components/LoginForm.md)
 
 ## Descripción general
 

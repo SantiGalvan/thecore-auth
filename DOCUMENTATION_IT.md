@@ -197,6 +197,8 @@ export default function App() {
 
 ### ConfigProvider / useConfig
 
+[→ Riferimento completo](./docs/it/contexts/ConfigProvider.md)
+
 Carica ed espone la configurazione runtime da `config.json`. Fornisce anche utility per IndexedDB e la data corrente.
 
 ```jsx
@@ -227,6 +229,8 @@ function MioComponente() {
 ---
 
 ### AuthProvider / useAuth
+
+[→ Riferimento completo](./docs/it/contexts/AuthProvider.md)
 
 Gestisce lo stato dell'autenticazione JWT, il refresh del token e le operazioni di login/logout.
 
@@ -260,6 +264,8 @@ function Header() {
 
 ### LoadingProvider / useLoading
 
+[→ Riferimento completo](./docs/it/contexts/LoadingProvider.md)
+
 Spinner di caricamento globale, visibile sull'intera applicazione.
 
 ```jsx
@@ -290,6 +296,8 @@ function BottoneSalva() {
 ---
 
 ### AlertProvider / useAlert
+
+[→ Riferimento completo](./docs/it/contexts/AlertProvider.md)
 
 Mostra notifiche in-app di tipo `danger`, `info`, `success` o `warning`.
 
@@ -325,6 +333,8 @@ function FormInvio() {
 ---
 
 ### ModalProvider / useModal
+
+[→ Riferimento completo](./docs/it/contexts/ModalProvider.md)
 
 Sistema modal centralizzato con supporto ai tipi `submit`, `delete` e `custom`.
 
@@ -368,6 +378,8 @@ function ListaUtenti() {
 
 ### LoginFormProvider / useLoginForm
 
+[→ Riferimento completo](./docs/it/contexts/LoginFormProvider.md)
+
 Gestisce lo stato e la personalizzazione del form di login.
 
 ```jsx
@@ -402,6 +414,8 @@ import { LoginFormProvider } from 'thecore-auth';
 
 ### RouteProvider / useRoutesInjection
 
+[→ Riferimento completo](./docs/it/contexts/RouteProvider.md)
+
 Registra le rotte pubbliche e private da renderizzare tramite `PackageRoutes`.
 
 ```jsx
@@ -426,6 +440,8 @@ const publicRoutes = [
 ## Componenti
 
 ### PackageRoutes
+
+[→ Riferimento completo](./docs/it/routing/PackageRoutes.md)
 
 Il componente di routing principale. Renderizza le rotte pubbliche, la pagina di login e protegge le rotte private con i guard di autenticazione.
 
@@ -460,11 +476,15 @@ Il componente di routing principale. Renderizza le rotte pubbliche, la pagina di
 
 ### Login
 
+[→ Riferimento completo](./docs/it/pages/Login.md)
+
 Pagina di login pre-costruita. Usata automaticamente da `PackageRoutes` al percorso `/`.
 
 ---
 
 ### SmartLogin
+
+[→ Riferimento completo](./docs/it/pages/SmartLogin.md)
 
 Pagina di login PWA-ready con funzionalità avanzate. Sostituta diretta di `Login` con
 personalizzazione completa, miglioramenti all'accessibilità e miglior supporto mobile.
@@ -503,6 +523,8 @@ Tutti i valori `overrideStyle` di `LoginFormProvider` continuano a funzionare co
 
 ### LoginForm
 
+[→ Riferimento completo](./docs/it/components/LoginForm.md)
+
 Interfaccia del form di login basata su `LoginFormProvider`. Può essere usata autonomamente in un layout personalizzato.
 
 ```jsx
@@ -514,6 +536,8 @@ import { LoginForm } from 'thecore-auth';
 ---
 
 ### DefaultLayout
+
+[→ Riferimento completo](./docs/it/layouts/DefaultLayout.md)
 
 Layout wrapper che renderizza `Loading`, `Alert`, `Modal` e un layer di toast opzionale insieme al contenuto della pagina.
 
@@ -530,6 +554,8 @@ import { DefaultLayout } from 'thecore-auth';
 ---
 
 ### Input / InputLabel
+
+[→ Riferimento completo](./docs/it/components/Input.md) | [InputLabel](./docs/it/components/InputLabel.md)
 
 Componenti base per input e label dei form.
 
@@ -549,6 +575,8 @@ import { Input, InputLabel } from 'thecore-auth';
 ---
 
 ### InputDate / InputStartEndDate
+
+[→ Riferimento completo](./docs/it/components/InputDate.md) | [InputStartEndDate](./docs/it/components/InputStartEndDate.md)
 
 Componenti per la selezione di una data singola o un intervallo di date.
 
@@ -580,6 +608,8 @@ import { InputDate, InputStartEndDate } from 'thecore-auth';
 
 ### FileDropzone
 
+[→ Riferimento completo](./docs/it/components/FileDropzone.md)
+
 Area di upload file con drag-and-drop.
 
 ```jsx
@@ -595,6 +625,8 @@ import { FileDropzone } from 'thecore-auth';
 
 ### SwitchRadio
 
+[→ Riferimento completo](./docs/it/components/SwitchRadio.md)
+
 Toggle switch (controllato o non controllato).
 
 ```jsx
@@ -606,6 +638,8 @@ import { SwitchRadio } from 'thecore-auth';
 ---
 
 ### SingleSelect / MultiSelect
+
+[→ Riferimento completo](./docs/it/components/SingleSelect.md) | [MultiSelect](./docs/it/components/MultiSelect.md)
 
 Componenti dropdown per selezione singola o multipla.
 
@@ -635,6 +669,8 @@ import { SingleSelect, MultiSelect } from 'thecore-auth';
 
 ### Loading / LoadingComponent / Loader / LogoLoader
 
+[→ Riferimento completo](./docs/it/components/Loading.md) | [LoadingComponent](./docs/it/components/LoadingComponent.md) | [Loader](./docs/it/components/Loader.md) | [LogoLoader](./docs/it/components/LogoLoader.md)
+
 Componenti per gli stati di caricamento.
 
 ```jsx
@@ -651,11 +687,15 @@ import { Loader } from 'thecore-auth';
 
 ### Alert
 
+[→ Riferimento completo](./docs/it/components/Alert.md)
+
 Banner di notifica controllato da `AlertProvider`. Viene renderizzato automaticamente quando viene chiamato `activeAlert`.
 
 ---
 
 ### AuthPage / AuthAdmin
+
+[→ Riferimento completo](./docs/it/middlewares/AuthPage.md) | [AuthAdmin](./docs/it/middlewares/AuthAdmin.md)
 
 Guard di rotta per l'autenticazione e i ruoli admin.
 
@@ -672,6 +712,8 @@ import { AuthPage, AuthAdmin } from 'thecore-auth';
 ## Hook
 
 ### useStorage
+
+[→ Riferimento completo](./docs/it/hooks/useStorage.md)
 
 Stato sincronizzato con `localStorage`.
 
@@ -692,6 +734,8 @@ Restituisce `[state, setState, remove]`.
 
 ### useAuthStorage
 
+[→ Riferimento completo](./docs/it/hooks/useAuthStorage.md)
+
 Gestisce `accessToken` e `user` nel localStorage.
 
 ```jsx
@@ -703,6 +747,8 @@ const { token, user, setToken, setUser, storageLogout } = useAuthStorage();
 ---
 
 ### useIndexedDB
+
+[→ Riferimento completo](./docs/it/hooks/useIndexedDB.md)
 
 Operazioni CRUD complete su un object store di IndexedDB.
 
@@ -729,6 +775,8 @@ await db.remove(1);
 ---
 
 ### useForm
+
+[→ Riferimento completo](./docs/it/hooks/useForm.md)
 
 Gestione dello stato del form con supporto all'upload di file.
 
@@ -762,6 +810,8 @@ const { values, handleChange, files, addFiles, resetForm } = useForm({
 
 ### useDevice
 
+[→ Riferimento completo](./docs/it/hooks/useDevice.md)
+
 Rileva il tipo di dispositivo, il sistema operativo e il browser dell'utente.
 
 ```jsx
@@ -788,6 +838,8 @@ const { isMobile, isDesktop, os, browser } = useDevice();
 
 ### useOrientation
 
+[→ Riferimento completo](./docs/it/hooks/useOrientation.md)
+
 Rileva l'orientamento portrait o landscape.
 
 ```jsx
@@ -799,6 +851,8 @@ const orientamento = useOrientation(); // 'portrait' | 'landscape'
 ---
 
 ### useViewportHeight
+
+[→ Riferimento completo](./docs/it/hooks/useViewportHeight.md)
 
 Legge l'altezza effettiva del viewport e la espone come variabile CSS `--vh`.
 
@@ -812,6 +866,8 @@ const { height, vh } = useViewportHeight({ getValues: true });
 
 ### useSafeArea
 
+[→ Riferimento completo](./docs/it/hooks/useSafeArea.md)
+
 Aggiunge la classe `with-safe-area` al `<body>` sui dispositivi con notch o safe area (iPhone X+, ecc.).
 
 ```jsx
@@ -823,6 +879,8 @@ useSafeArea(['/login']); // esclude questi percorsi
 ---
 
 ### useClickOutside
+
+[→ Riferimento completo](./docs/it/hooks/useClickOutside.md)
 
 Esegue una callback quando l'utente clicca al di fuori di un elemento referenziato.
 
@@ -840,6 +898,8 @@ useClickOutside(ref, () => setAperto(false));
 
 ### UsePageTitle
 
+[→ Riferimento completo](./docs/it/hooks/UsePageTitle.md)
+
 Aggiorna automaticamente `document.title` in base alla rotta corrente.
 
 ```jsx
@@ -852,6 +912,8 @@ UsePageTitle(rotte, 'La mia App');
 ---
 
 ### useToast
+
+[→ Riferimento completo](./docs/it/hooks/useToast.md)
 
 Notifiche toast ottimizzate per mobile tramite la libreria Sileo.
 
@@ -876,6 +938,8 @@ toast.promise(fetchData(), {
 ---
 
 ### useCalendar
+
+[→ Riferimento completo](./docs/it/hooks/useCalendar.md)
 
 Utilità per il calendario con rilevamento dei giorni festivi.
 
@@ -905,6 +969,8 @@ const giorni = getDaysInMonth(0, 2025); // Gennaio 2025
 ## Funzioni di utilità
 
 ### Utilità per le date
+
+[→ Riferimento completo](./docs/it/utils/dateUtils.md) | [fetchAxiosConfig](./docs/it/utils/fetchAxiosConfig.md)
 
 ```jsx
 import {
@@ -1237,7 +1303,7 @@ Sovrascrivile nel tuo blocco `:root {}` dopo aver importato il CSS del pacchetto
 | Lingua | Link |
 |--------|------|
 | 🇬🇧 English | [docs/css-variables.md](./docs/css-variables.md) |
-| 🇮🇹 Italiano | [docs/it/css-variables.md](./docs/it/css-variables.md) |
+| 🇮🇹 Italiano | [docs/it/css/css-variables.md](./docs/it/css/css-variables.md) |
 | 🇪🇸 Español | [docs/es/css-variables.md](./docs/es/css-variables.md) |
 
 ---

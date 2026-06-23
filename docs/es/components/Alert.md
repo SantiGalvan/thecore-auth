@@ -1,6 +1,6 @@
 # Alert
 
-> [English](../../../docs/components/Alert.md) | [Versione italiana](../../../docs/it/components/Alert.md)
+> [English](../../../docs/en/components/Alert.md) | [Versione italiana](../../../docs/it/components/Alert.md)
 
 ## Descripción general
 

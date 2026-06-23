@@ -1,6 +1,6 @@
 # LogoLoader
 
-> [English](../../../docs/components/LogoLoader.md) | [Versión española](../../../docs/es/components/LogoLoader.md)
+> [English](../../../docs/en/components/LogoLoader.md) | [Versión española](../../../docs/es/components/LogoLoader.md)
 
 ## Panoramica
 

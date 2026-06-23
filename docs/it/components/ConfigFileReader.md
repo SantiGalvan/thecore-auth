@@ -1,6 +1,6 @@
 # ConfigFileReader
 
-> [English](../../../docs/components/ConfigFileReader.md) | [Versión española](../../es/components/ConfigFileReader.md)
+> [English](../../../docs/en/components/ConfigFileReader.md) | [Versión española](../../es/components/ConfigFileReader.md)
 
 ## Panoramica
 

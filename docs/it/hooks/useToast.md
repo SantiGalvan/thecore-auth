@@ -1,6 +1,6 @@
 # useToast
 
-> [English](../../../docs/hooks/useToast.md) | [Versión española](../../es/hooks/useToast.md)
+> [English](../../../docs/en/hooks/useToast.md) | [Versión española](../../es/hooks/useToast.md)
 
 ## Panoramica
 

@@ -197,6 +197,8 @@ export default function App() {
 
 ### ConfigProvider / useConfig
 
+[→ Full reference](./docs/en/contexts/ConfigProvider.md)
+
 Loads and exposes the runtime `config.json` configuration. Also provides IndexedDB utilities and the current date helper.
 
 ```jsx
@@ -227,6 +229,8 @@ function MyComponent() {
 ---
 
 ### AuthProvider / useAuth
+
+[→ Full reference](./docs/en/contexts/AuthProvider.md)
 
 Manages JWT authentication state, token refresh, and login/logout.
 
@@ -260,6 +264,8 @@ function Header() {
 
 ### LoadingProvider / useLoading
 
+[→ Full reference](./docs/en/contexts/LoadingProvider.md)
+
 Global loading spinner visible over the entire application.
 
 ```jsx
@@ -290,6 +296,8 @@ function SaveButton() {
 ---
 
 ### AlertProvider / useAlert
+
+[→ Full reference](./docs/en/contexts/AlertProvider.md)
 
 Displays in-app notifications of type `danger`, `info`, `success`, or `warning`.
 
@@ -325,6 +333,8 @@ function SubmitForm() {
 ---
 
 ### ModalProvider / useModal
+
+[→ Full reference](./docs/en/contexts/ModalProvider.md)
 
 Centralized modal system supporting `submit`, `delete`, and `custom` modal types.
 
@@ -368,6 +378,8 @@ function UserList() {
 
 ### LoginFormProvider / useLoginForm
 
+[→ Full reference](./docs/en/contexts/LoginFormProvider.md)
+
 Manages the login form state and customization options.
 
 ```jsx
@@ -402,6 +414,8 @@ import { LoginFormProvider } from 'thecore-auth';
 
 ### RouteProvider / useRoutesInjection
 
+[→ Full reference](./docs/en/contexts/RouteProvider.md)
+
 Registers public and private routes to be rendered by `PackageRoutes`.
 
 ```jsx
@@ -426,6 +440,8 @@ const publicRoutes = [
 ## Components
 
 ### PackageRoutes
+
+[→ Full reference](./docs/en/routing/PackageRoutes.md)
 
 The main routing component. Renders public routes, the login page, and wraps private routes with authentication guards.
 
@@ -460,11 +476,15 @@ The main routing component. Renders public routes, the login page, and wraps pri
 
 ### Login
 
+[→ Full reference](./docs/en/pages/Login.md)
+
 Pre-built login page. Automatically used by `PackageRoutes` at the `/` path.
 
 ---
 
 ### SmartLogin
+
+[→ Full reference](./docs/en/pages/SmartLogin.md)
 
 PWA-ready login page with advanced features. Drop-in replacement for `Login` with full
 customization, accessibility improvements, and better mobile support.
@@ -503,6 +523,8 @@ All `overrideStyle` values from `LoginFormProvider` continue to work with `Smart
 
 ### LoginForm
 
+[→ Full reference](./docs/en/components/LoginForm.md)
+
 Login form UI built on top of `LoginFormProvider`. Can be used standalone inside a custom layout.
 
 ```jsx
@@ -514,6 +536,8 @@ import { LoginForm } from 'thecore-auth';
 ---
 
 ### DefaultLayout
+
+[→ Full reference](./docs/en/layouts/DefaultLayout.md)
 
 Layout wrapper that renders `Loading`, `Alert`, `Modal`, and an optional toast layer alongside the page content.
 
@@ -530,6 +554,8 @@ import { DefaultLayout } from 'thecore-auth';
 ---
 
 ### Input / InputLabel
+
+[→ Full reference](./docs/en/components/Input.md) | [InputLabel](./docs/en/components/InputLabel.md)
 
 Basic form input and label components.
 
@@ -549,6 +575,8 @@ import { Input, InputLabel } from 'thecore-auth';
 ---
 
 ### InputDate / InputStartEndDate
+
+[→ Full reference](./docs/en/components/InputDate.md) | [InputStartEndDate](./docs/en/components/InputStartEndDate.md)
 
 Date picker and date range picker components.
 
@@ -580,6 +608,8 @@ import { InputDate, InputStartEndDate } from 'thecore-auth';
 
 ### FileDropzone
 
+[→ Full reference](./docs/en/components/FileDropzone.md)
+
 Drag-and-drop file upload area.
 
 ```jsx
@@ -595,6 +625,8 @@ import { FileDropzone } from 'thecore-auth';
 
 ### SwitchRadio
 
+[→ Full reference](./docs/en/components/SwitchRadio.md)
+
 A toggle switch (controlled or uncontrolled).
 
 ```jsx
@@ -606,6 +638,8 @@ import { SwitchRadio } from 'thecore-auth';
 ---
 
 ### SingleSelect / MultiSelect
+
+[→ Full reference](./docs/en/components/SingleSelect.md) | [MultiSelect](./docs/en/components/MultiSelect.md)
 
 Dropdown select components.
 
@@ -635,6 +669,8 @@ import { SingleSelect, MultiSelect } from 'thecore-auth';
 
 ### Loading / LoadingComponent / Loader / LogoLoader
 
+[→ Full reference](./docs/en/components/Loading.md) | [LoadingComponent](./docs/en/components/LoadingComponent.md) | [Loader](./docs/en/components/Loader.md) | [LogoLoader](./docs/en/components/LogoLoader.md)
+
 Loading state components.
 
 ```jsx
@@ -651,11 +687,15 @@ import { Loader } from 'thecore-auth';
 
 ### Alert
 
+[→ Full reference](./docs/en/components/Alert.md)
+
 Notification banner controlled by `AlertProvider`. Renders automatically when `activeAlert` is called.
 
 ---
 
 ### AuthPage / AuthAdmin
+
+[→ Full reference](./docs/en/middlewares/AuthPage.md) | [AuthAdmin](./docs/en/middlewares/AuthAdmin.md)
 
 Route guards for authentication and admin roles.
 
@@ -672,6 +712,8 @@ import { AuthPage, AuthAdmin } from 'thecore-auth';
 ## Hooks
 
 ### useStorage
+
+[→ Full reference](./docs/en/hooks/useStorage.md)
 
 State synchronized with `localStorage`.
 
@@ -692,6 +734,8 @@ Returns `[state, setState, remove]`.
 
 ### useAuthStorage
 
+[→ Full reference](./docs/en/hooks/useAuthStorage.md)
+
 Manages `accessToken` and `user` in localStorage.
 
 ```jsx
@@ -703,6 +747,8 @@ const { token, user, setToken, setUser, storageLogout } = useAuthStorage();
 ---
 
 ### useIndexedDB
+
+[→ Full reference](./docs/en/hooks/useIndexedDB.md)
 
 Full CRUD operations on an IndexedDB object store.
 
@@ -729,6 +775,8 @@ await db.remove(1);
 ---
 
 ### useForm
+
+[→ Full reference](./docs/en/hooks/useForm.md)
 
 Form state management with file upload support.
 
@@ -762,6 +810,8 @@ const { values, handleChange, files, addFiles, resetForm } = useForm({
 
 ### useDevice
 
+[→ Full reference](./docs/en/hooks/useDevice.md)
+
 Detect the user's device type, OS, and browser.
 
 ```jsx
@@ -788,6 +838,8 @@ const { isMobile, isDesktop, os, browser } = useDevice();
 
 ### useOrientation
 
+[→ Full reference](./docs/en/hooks/useOrientation.md)
+
 Detect portrait or landscape orientation.
 
 ```jsx
@@ -799,6 +851,8 @@ const orientation = useOrientation(); // 'portrait' | 'landscape'
 ---
 
 ### useViewportHeight
+
+[→ Full reference](./docs/en/hooks/useViewportHeight.md)
 
 Reads the actual viewport height and exposes it as a CSS variable `--vh`.
 
@@ -812,6 +866,8 @@ const { height, vh } = useViewportHeight({ getValues: true });
 
 ### useSafeArea
 
+[→ Full reference](./docs/en/hooks/useSafeArea.md)
+
 Adds the `with-safe-area` class to `<body>` when on devices with a notch or safe area insets (iPhone X+, etc.).
 
 ```jsx
@@ -823,6 +879,8 @@ useSafeArea(['/login']); // exclude these paths
 ---
 
 ### useClickOutside
+
+[→ Full reference](./docs/en/hooks/useClickOutside.md)
 
 Fire a callback when the user clicks outside a referenced element.
 
@@ -840,6 +898,8 @@ useClickOutside(ref, () => setOpen(false));
 
 ### UsePageTitle
 
+[→ Full reference](./docs/en/hooks/UsePageTitle.md)
+
 Update `document.title` automatically based on the current route.
 
 ```jsx
@@ -852,6 +912,8 @@ UsePageTitle(routes, 'My App');
 ---
 
 ### useToast
+
+[→ Full reference](./docs/en/hooks/useToast.md)
 
 Mobile-optimized toast notifications via the Sileo library.
 
@@ -876,6 +938,8 @@ toast.promise(fetchData(), {
 ---
 
 ### useCalendar
+
+[→ Full reference](./docs/en/hooks/useCalendar.md)
 
 Calendar utilities with public holiday detection.
 
@@ -905,6 +969,8 @@ const days = getDaysInMonth(0, 2025); // January 2025
 ## Utility Functions
 
 ### Date Utilities
+
+[→ Full reference](./docs/en/utils/dateUtils.md) | [fetchAxiosConfig](./docs/en/utils/fetchAxiosConfig.md)
 
 ```jsx
 import {
@@ -1236,7 +1302,7 @@ Override them in your own `:root {}` block after importing the package CSS.
 
 | Language | Link |
 |----------|------|
-| 🇬🇧 English | [docs/css-variables.md](./docs/css-variables.md) |
+| 🇬🇧 English | [docs/en/css/css-variables.md](./docs/en/css/css-variables.md) |
 | 🇮🇹 Italiano | [docs/it/css-variables.md](./docs/it/css-variables.md) |
 | 🇪🇸 Español | [docs/es/css-variables.md](./docs/es/css-variables.md) |
 
@@ -1262,7 +1328,7 @@ Full API reference, style override guide, and usage examples for the centralized
 
 | Language | Link |
 |----------|------|
-| 🇬🇧 English | [docs/modal.md](./docs/modal.md) |
+| 🇬🇧 English | [docs/en/modal.md](./docs/en/modal.md) |
 | 🇮🇹 Italiano | [docs/it/modal.md](./docs/it/modal.md) |
 | 🇪🇸 Español | [docs/es/modal.md](./docs/es/modal.md) |
 

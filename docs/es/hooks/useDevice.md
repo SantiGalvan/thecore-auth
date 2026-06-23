@@ -1,6 +1,6 @@
 # useDevice
 
-> [English](../../../docs/hooks/useDevice.md) | [Versione italiana](../../it/hooks/useDevice.md)
+> [English](../../../docs/en/hooks/useDevice.md) | [Versione italiana](../../it/hooks/useDevice.md)
 
 ## Descripción general
 

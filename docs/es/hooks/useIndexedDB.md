@@ -1,6 +1,6 @@
 # useIndexedDB
 
-> [English](../../../docs/hooks/useIndexedDB.md) | [Versione italiana](../../it/hooks/useIndexedDB.md)
+> [English](../../../docs/en/hooks/useIndexedDB.md) | [Versione italiana](../../it/hooks/useIndexedDB.md)
 
 ## Descripción general
 

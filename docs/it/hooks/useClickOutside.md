@@ -1,6 +1,6 @@
 # useClickOutside
 
-> [English](../../../docs/hooks/useClickOutside.md) | [Versión española](../../es/hooks/useClickOutside.md)
+> [English](../../../docs/en/hooks/useClickOutside.md) | [Versión española](../../es/hooks/useClickOutside.md)
 
 ## Panoramica
 

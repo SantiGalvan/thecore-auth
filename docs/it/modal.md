@@ -1,6 +1,6 @@
 # Sistema Modal — thecore-auth
 
-> 🇬🇧 [Documentazione Modal in Inglese](../modal.md) | 🇪🇸 [Documentación Modal en Español](../es/modal.md)
+> 🇬🇧 [Documentazione Modal in Inglese](../en/modal.md) | 🇪🇸 [Documentación Modal en Español](../es/modal.md)
 
 Il modal fornito da `thecore-auth` è un sistema di dialogo centralizzato e guidato dal contesto.
 Supporta tre varianti predefinite (`submit`, `delete`, `custom`), override completi dello stile e integrazione nativa con i form — tutto controllato tramite un singolo hook `useModal()` da qualsiasi punto dell'app.
