@@ -13,6 +13,7 @@ import { useLoginForm } from "./contexts/login/LoginFormContext";
 import { ModalProvider } from "./contexts/modal/ModalContext";
 import { useModal } from "./contexts/modal/ModalContext";
 import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
@@ -71,6 +72,7 @@ import './css/loader.css';
 
 export {
     BrowserRouter,
+    HashRouter,
     LoadingProvider,
     useLoading,
     ConfigProvider,
