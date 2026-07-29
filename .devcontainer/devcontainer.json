@@ -13,12 +13,18 @@
 				"eamodio.gitlens",
 				"vscode-icons-team.vscode-icons",
 				"aaron-bond.better-comments",
-				"github.vscode-github-actions"
+				"github.vscode-github-actions",
+				"midudev.better-svg",
+				"Anthropic.claude-code",
+				"mhutchie.git-graph",
+				"kisstkondoros.vscode-gutter-preview"
 			]
 		}
 	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
+	"features": {
+		"ghcr.io/devcontainers/features/github-cli:1": {}
+	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
