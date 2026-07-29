@@ -7,3 +7,4 @@ of every entry lives under `docs/it/changelog/`.
 ## 0.0.217
 
 - [docs-rewrite-agents-for-thecore-auth](docs/en/changelog/2026-07-29-0.0.217-docs-rewrite-agents-for-thecore-auth.md) — rewrite AGENTS.md (+ IT/ES translations) so it reflects thecore-auth instead of the Bancolini planner app it had been overwritten with
+- [use-environment-info-hook](docs/en/changelog/2026-07-29-0.0.217-use-environment-info-hook.md) — add internal `useEnvironmentInfo` hook for non-permission browser signals, plus the Vitest + React Testing Library setup this repo was missing
