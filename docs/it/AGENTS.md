@@ -34,10 +34,10 @@ Prima di fare qualsiasi cosa, classifica la richiesta in uno di questi tipi:
 | `code` | `src/`, dipendenze, test | ✅ Sì — Step 1–5 |
 | `config` | `public/config.json`, `vite.config.js` | ✅ Sì — Step 1–5 |
 | `docs` | `AGENTS.md`, `.claude/skills/`, `.claude/settings.json` hook | ✅ Sì — Step 1–5 |
-| `readme` | `README.md`, `CHANGELOG.md`, traduzioni | Step 1 leggero + aggiornamento traduzioni |
+| `readme` | `README.md`, `CHANGELOG.md`, `DOCUMENTATION_IT.md`/`DOCUMENTATION_ES.md` | Step 1 leggero + aggiornamento traduzioni |
 
 **Perché `config` e `docs` richiedono il flusso completo:**
-- Le modifiche a `public/config.json` influenzano il comportamento runtime dell'app.
+- Le modifiche a `public/config.json` influenzano il comportamento runtime dell'app demo di dev/test.
 - Le modifiche a `AGENTS.md` influenzano ogni sessione AI futura su questo repo — una regola errata si propaga ovunque.
 - Skill e hook cambiano ciò che l'AI fa automaticamente — stesso livello di rischio del codice.
 
@@ -53,13 +53,19 @@ STEP 2 ─ Puoi risolvere tutto in conversazione?
           NO  → /prototype (sessione usa e getta) → /handoff (riporta il risultato) → torna allo STEP 1
 
 STEP 3 ─ È una build multi-sessione? (> 1 issue, > 1 componente, stima > 2h)
-          SÌ  → /to-prd   (PRD come issue)
+          SÌ  → /to-prd   (PRD come GitHub Issue)
                 /to-issues (split in issue indipendenti, verticalmente sliced)
                 Poi: una NUOVA sessione per issue → /implement con PRD + singola issue
           NO  → /implement nella stessa finestra di contesto
 
 STEP 4 ─ Git workflow (vedi §2)
           Feature branch → commit atomici → PR verso main → stop, nessun merge autonomo
+
+STEP 4.5 ─ Changelog (vedi §2.9) — OBBLIGATORIO prima di ogni push
+            1. Crea docs/en/changelog/YYYY-MM-DD-X.Y.Z-branch-name.md usando il template al §2.9
+            2. Aggiorna l'indice master CHANGELOG.md con un link + una riga di riepilogo
+            3. Crea la traduzione italiana in docs/it/changelog/
+            Non fare push prima che questo step sia completo.
 
 STEP 5 ─ /tdd
           Ogni implementazione segue il ciclo red-green-refactor.
@@ -79,7 +85,7 @@ Bug report / feature request ricevuto dall'esterno?
 ```
 Hai un momento libero tra un task e l'altro? Esegui:
 → /improve-codebase-architecture
-   Legge CONTEXT.md e docs/adr/ e identifica opportunità di miglioramento.
+   Legge CONTEXT.md e docs/en/adr/ e identifica opportunità di miglioramento.
    Ogni opportunità diventa un'idea → rientra nel flusso principale allo STEP 1.
 ```
 
@@ -180,7 +186,8 @@ BREAKING CHANGE: aggiungi come footer o con ! dopo il tipo
 
 ### 2.5 GitHub Issues — tracciamento di issue e task (OBBLIGATORIO)
 
-Questo progetto usa **GitHub Issues** come sistema di tracciamento.
+Questo progetto usa **GitHub Issues** come sistema di tracciamento, insieme ad Asana (vedi §2.6) —
+sono entrambi obbligatori, non alternative.
 Repository: [https://github.com/SantiGalvan/thecore-auth](https://github.com/SantiGalvan/thecore-auth)
 
 **Ogni implementazione deve avere una corrispondente GitHub Issue.**
@@ -198,8 +205,9 @@ Repository: [https://github.com/SantiGalvan/thecore-auth](https://github.com/San
 3. Al termine: chiudi la issue tramite la descrizione della PR (`Closes #123`).
 
 **Regola di tracciabilità obbligatoria:**
-Ogni modifica al codebase — per quanto piccola — deve avere una GitHub Issue corrispondente.
-Prima di terminare una sessione, verifica che tutte le modifiche siano tracciate. Crea eventuali issue mancanti immediatamente.
+Ogni modifica al codebase — per quanto piccola — deve avere una GitHub Issue corrispondente **e**
+un subtask Asana corrispondente (§2.6). Prima di terminare una sessione, verifica che tutte le
+modifiche siano tracciate in entrambi i sistemi. Crea eventuali issue/subtask mancanti immediatamente.
 
 **GitHub CLI:**
 ```bash
@@ -213,7 +221,44 @@ gh issue list
 gh issue view 123
 ```
 
-### 2.6 Regole per le PR
+### 2.6 Asana — tracciamento sprint (OBBLIGATORIO)
+
+Ogni GitHub Issue sopra ottiene anche un task Asana corrispondente, così la sprint board del team
+riflette il lavoro fatto su questo repo. I task Asana sono **in aggiunta a** GitHub Issues, non un
+sostituto.
+
+**Progetto: sempre "Sviluppo Sprint" — mai "MyTask"** (quel progetto appartiene all'app planner di
+Bancolini, un codebase diverso). Non chiedere all'utente quale progetto usare — è fisso.
+
+**Come risolvere progetto e sprint corrente (nessun GID hardcoded — cercali ogni volta):**
+1. Chiama lo strumento di elenco workspace per trovare il GID del workspace `bancolini.com`.
+2. Chiama `asana_get_projects_for_workspace` su quel workspace e trova il progetto chiamato
+   **"Sviluppo Sprint"** per nome — non assumere mai che il suo GID sia stabile tra sessioni.
+3. Chiama `asana_get_project_sections` sul GID di quel progetto.
+4. Trova la sezione chiamata `Sprint DD Mmm–DD Mmm YYYY` il cui intervallo di date include oggi.
+   **Usa sempre lo sprint corrente.** Non usare mai il Backlog a meno che non esista nessuna
+   sezione sprint attiva.
+
+**Struttura per ogni implementazione:**
+- **Task principale** → un task per implementazione, nominato in italiano come descrizione semplice
+  senza prefisso Conventional Commits (es. `Aggiunta traduzione spagnola alla documentazione`, non
+  `docs(readme): add spanish translation`).
+- **Subtask** → un subtask per ogni GitHub Issue di questa implementazione, che referenzia il numero
+  della issue (es. `Tradurre AGENTS.md in spagnolo (#42)`).
+
+**Regole per ogni task e subtask creato:**
+- **Lingua**: nomi e descrizioni dei task sempre in **italiano** (è uno strumento interno di
+  tracciamento del team Bancolini — indipendente dalla [regola inglese](#4-regole-di-lingua-obbligatorio)
+  che governa il codice e la documentazione del repo).
+- **Assegnatario**: sempre `"me"`.
+- **Sezione**: sempre la sezione dello sprint corrente (vedi sopra).
+
+**Ciclo di vita:**
+1. Prima di iniziare: crea il task principale + un subtask per ogni GitHub Issue.
+2. Durante il lavoro: marca ogni subtask come completo quando la sua GitHub Issue viene chiusa.
+3. Quando tutti i subtask sono completi: marca il task principale come completo.
+
+### 2.7 Regole per le PR
 
 - La PR va sempre verso `main`, **non fare mai push diretto su main**.
 - Apri sempre come **draft** — la revisione umana è obbligatoria prima del merge.
@@ -221,7 +266,7 @@ gh issue view 123
 - Collega la PR alla issue corrispondente: `Closes #<numero-issue>` nella descrizione.
 - Dopo aver aperto la PR, restituisci l'URL all'utente e fermati.
 
-### 2.7 Comandi git VIETATI (senza esplicita approvazione umana)
+### 2.8 Comandi git VIETATI (senza esplicita approvazione umana)
 
 ```bash
 # NON eseguire mai autonomamente:
@@ -233,6 +278,57 @@ git push origin main
 ```
 
 Se hai bisogno di uno di questi, **spiega il motivo all'utente e aspetta conferma scritta**.
+
+### 2.9 Template entry di changelog (OBBLIGATORIO — step 4.5)
+
+Ogni push deve essere accompagnato da un file in `docs/en/changelog/` con questa convenzione di
+naming:
+
+```
+docs/en/changelog/YYYY-MM-DD-X.Y.Z-<branch-name>.md
+```
+
+Dove `X.Y.Z` è la versione attuale in `package.json` al momento del push — usa sempre il numero
+di versione reale, mai un placeholder come `unreleased`.
+
+Una corrispondente traduzione italiana deve essere creata in `docs/it/changelog/` con lo stesso
+nome file. **Nessuna traduzione spagnola** — i changelog sono note tecniche interne, non
+documentazione pubblica della libreria (a differenza di `README.md`/`DOCUMENTATION_ES.md`, vedi §4).
+
+**Template:**
+
+```markdown
+# <Titolo descrittivo della modifica>
+
+## Contesto
+Perché è stato fatto questo lavoro — bug report, richiesta utente, o decisione presa in una
+sessione di grilling.
+
+## Tracciamento
+Link alla/e GitHub Issue e al task/subtask Asana principale.
+
+## Branch & Versione
+- **Branch:** `<branch-name>`
+- **Versione:** `X.Y.Z` (o `unreleased`)
+
+## File modificati
+| File | Modifica |
+|------|----------|
+| `path/to/file.jsx` | Descrizione in una riga di cosa è cambiato in questo file |
+
+## Modifiche tecniche
+Snippet chiave del codice finale con un commento che spiega il perché, non il cosa.
+
+## Motivazione
+Il ragionamento dietro la soluzione scelta — perché questo approccio e non un altro.
+```
+
+Dopo aver creato l'entry, aggiungi una riga all'indice master `CHANGELOG.md` sotto l'intestazione
+di versione corretta:
+
+```markdown
+- [branch-name](docs/en/changelog/YYYY-MM-DD-X.Y.Z-branch-name.md) — descrizione in una riga
+```
 
 ---
 
@@ -247,6 +343,7 @@ Se hai bisogno di uno di questi, **spiega il motivo all'utente e aspetta conferm
 - **Notifiche**: Sileo (toast ottimizzati per mobile)
 - **Rilevamento dispositivo**: `ua-parser-js`
 - **Calendario/festività**: `date-holidays`
+- **Asset SVG**: `vite-plugin-svgr` (importa i file `.svg` come componenti React)
 - **Lint**: ESLint 9
 
 ## Struttura del progetto
@@ -314,9 +411,12 @@ docs/
     utils/            # dateUtils, fetchAxiosConfig
     css/              # css-variables.md
     modal.md          # Guida completa al sistema modal (API useModal)
-  it/                 # Traduzioni in italiano (specchia la struttura en/)
-  es/                 # Traduzioni in spagnolo (specchia la struttura en/)
-  adr/                # Architecture Decision Records
+    adr/              # Architecture Decision Records (inglese, primario)
+    changelog/        # Un file per ogni modifica rilasciata (inglese, primario — vedi §2.9)
+    releases/         # RELEASES.md — note di rilascio leggibili (inglese, primario — vedi §5)
+  it/                 # Traduzioni in italiano (specchia la struttura en/, incluso adr/, changelog/, releases/)
+  es/                 # Traduzioni in spagnolo (specchia solo la doc componenti/hook/context di en/ —
+                      # niente adr/, changelog/, o releases/, vedi §4)
 deploy-scripts/     # Utility di deploy e template Docker
 public/
   config.json       # Configurazione runtime per dev/test (non inclusa nel pacchetto npm)
@@ -366,21 +466,28 @@ git diff --cached | grep -iE "(password|secret|key|token|api_key|private)" && ec
 - **Messaggi di commit** — già richiesto dal §2.4 (Conventional Commits in inglese).
 - **PR** — titolo, descrizione, label tecniche.
 
-**Unica eccezione consentita:**
+**Uniche eccezioni consentite:**
 
 - **Stringhe visibili all'utente finale (UI)** che devono apparire in una lingua specifica per un requisito di prodotto.
+- **Nomi e descrizioni di task/subtask Asana** (§2.6) — sempre in italiano, una convenzione interna
+  del team indipendente dalla lingua di codice/documentazione del repo.
 
-**Regola trilingue per il Markdown:**
+**Regola di traduzione Markdown — l'ambito varia per tipo di documento:**
 
-Ogni file `.md` deve essere scritto in **inglese** come lingua primaria. Per ogni file `.md` primario
-creato o aggiornato, le corrispondenti traduzioni in italiano e spagnolo devono essere create o aggiornate:
+La documentazione **pubblica** della libreria è trilingue (EN primario, traduzioni IT/ES) perché
+letta da consumer esterni. La documentazione **interna** di processo ingegneristico (changelog, ADR)
+è solo EN+IT, dato che non ha pubblico al di fuori del team Bancolini che mantiene questo repo.
 
 | Primario (Inglese) | Italiano | Spagnolo |
 |---|---|---|
 | `AGENTS.md` | `docs/it/AGENTS.md` | `docs/es/AGENTS.md` |
 | `README.md` | `DOCUMENTATION_IT.md` | `DOCUMENTATION_ES.md` |
+| `docs/en/**` (riferimento componenti/hook/context) | `docs/it/**` | `docs/es/**` |
+| `docs/en/adr/*.md` | `docs/it/adr/*.md` | *(nessuna)* |
+| `docs/en/changelog/*.md` | `docs/it/changelog/*.md` | *(nessuna)* |
+| `docs/en/releases/RELEASES.md` | `docs/it/releases/RELEASES.md` | *(nessuna)* |
 
-Tutte e tre le versioni devono rimanere sincronizzate dopo ogni aggiornamento.
+Tutte le versioni di una riga devono rimanere sincronizzate dopo ogni aggiornamento.
 
 ```javascript
 // ✅ CORRETTO
@@ -394,26 +501,39 @@ function formattaEtichettaData(voce) { /* ... */ }
 
 ## 5. VERSIONAMENTO
 
-La versione si trova in `package.json`. Ogni bump di versione corrisponde a un commit con
-messaggio `X.Y.Z` + aggiornamento di `CHANGELOG.md`.
+La versione si trova in `package.json`. Ogni bump di versione è una decisione deliberata presa
+dall'utente — l'agente non deve mai fare il bump di versione autonomamente.
+
+**Quando l'utente chiede di fare il bump di versione, segui questa sequenza in ordine:**
+
+1. Scrivi il riepilogo del rilascio in `docs/en/releases/RELEASES.md` (leggibile, in cima al file):
+   - Aggiungi un'intestazione `## [X.Y.Z] — YYYY-MM-DD`
+   - Riassumi cosa è cambiato in linguaggio semplice
+   - Collega alle voci `docs/en/changelog/` rilevanti per i dettagli tecnici
+2. Crea la traduzione italiana in `docs/it/releases/RELEASES.md` (nessuno spagnolo, vedi §4)
+3. Crea un task Asana standalone `Release X.Y.Z` (§2.6) nella sezione dello sprint corrente:
+   - Assegnatario: `"me"`
+   - Descrizione: il contenuto scritto allo step 1, **scritto in italiano**
+   - **Marcalo subito come completato** — il rilascio è già live a questo punto
+4. Esegui il comando di bump di versione:
 
 ```bash
 npm run increment-version   # bump patch + git push
 ```
 
-Dopo ogni bump di versione, aggiorna il numero di versione in `README.md`, `DOCUMENTATION_IT.md`
-e `DOCUMENTATION_ES.md`.
+5. Aggiorna il numero di versione in `README.md`, `DOCUMENTATION_IT.md` e `DOCUMENTATION_ES.md`.
 
 ---
 
 ## 6. ARCHITECTURE DECISION RECORDS
 
-Le decisioni architetturali si trovano in `docs/adr/`.
-Formato: `docs/adr/NNNN-<kebab-title>.md` (Lightweight ADR, Michael Nygard).
+Le decisioni architetturali si trovano in `docs/en/adr/`, tradotte in `docs/it/adr/` (nessuno
+spagnolo, vedi §4).
+Formato: `docs/en/adr/NNNN-<kebab-title>.md` (Lightweight ADR, Michael Nygard).
 
 Quando prendi una decisione che impatta l'architettura:
-1. Crea o aggiorna l'ADR corrispondente.
-2. Committa nella stessa PR della modifica che ha motivato la decisione.
+1. Crea o aggiorna l'ADR corrispondente (inglese) e la sua traduzione italiana.
+2. Committa entrambi nella stessa PR della modifica che ha motivato la decisione.
 3. Aggiorna `CONTEXT.md` se la decisione introduce nuovo linguaggio di dominio.
 
 ---
@@ -428,9 +548,13 @@ Prima di ogni `git push`, verifica:
 - [ ] Il codice e i commenti sono in inglese?
 - [ ] Nessun segreto o credenziale nel diff?
 - [ ] Esiste la GitHub Issue corrispondente ed è referenziata nella PR?
+- [ ] Esiste il task/subtask Asana corrispondente, nello sprint corrente di "Sviluppo Sprint"?
+- [ ] Ho creato l'entry di changelog in `docs/en/changelog/` e la sua traduzione italiana? (step 4.5)
+- [ ] Ho aggiornato l'indice master `CHANGELOG.md` con un link + una riga di riepilogo?
 - [ ] La PR è verso `main`?
 - [ ] La PR è aperta come draft?
-- [ ] Tutte e tre le lingue della documentazione (EN, IT, ES) sono aggiornate se la doc è cambiata?
+- [ ] Le lingue di documentazione rilevanti sono aggiornate? (EN+IT+ES per la doc pubblica, EN+IT
+      per changelog/ADR/release, vedi §4)
 
 ---
 
@@ -460,8 +584,10 @@ Prima di ogni `git push`, verifica:
 Dopo ogni modifica significativa, aggiorna:
 1. `README.md` + `DOCUMENTATION_IT.md` + `DOCUMENTATION_ES.md` — se l'API pubblica, le prop, gli hook o la configurazione cambiano
 2. `AGENTS.md` + `docs/it/AGENTS.md` + `docs/es/AGENTS.md` — se l'architettura o le convenzioni cambiano
-3. `README.md` — se cambiano i passi di installazione o il comportamento a livello di pacchetto
-4. `CHANGELOG.md` — sempre, con la data odierna e la versione corrente
+3. `docs/en/changelog/YYYY-MM-DD-X.Y.Z-branch.md` + `docs/it/changelog/` — sempre (§2.9)
+4. `CHANGELOG.md` — sempre, con un link alla nuova entry di changelog
+5. `docs/en/adr/` + `docs/it/adr/` — solo quando la modifica comporta una decisione architetturale (§6)
+6. `docs/en/releases/RELEASES.md` + `docs/it/releases/RELEASES.md` — solo sui bump di versione (§5)
 
 ---
 
@@ -473,3 +599,4 @@ Dopo ogni modifica significativa, aggiorna:
 - Non fare push direttamente su `main`
 - Non fare merge di PR autonomamente
 - Non pubblicare su npm (`npm publish`) senza esplicita approvazione umana
+- Non creare task Asana in nessun progetto diverso da "Sviluppo Sprint" per questo repo
