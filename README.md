@@ -77,6 +77,7 @@ Create a file `public/config.json` in your project. This file is loaded at runti
   "backendToken": "",
   "isDebug": false,
   "tokenLog": false,
+  "environmentInfoLog": false,
   "isDevelopment": false,
   "hasSessionKey": false,
   "appKey": "myapp",
@@ -137,6 +138,7 @@ Create a file `public/config.json` in your project. This file is loaded at runti
 | `routes` | `array` | Array of `{ path, title }` for automatic page title updates |
 | `configRoutes` | `array` | Additional custom routes injected by the package |
 | `tokenLog` | `boolean` | Log JWT token details to the console (debug) |
+| `environmentInfoLog` | `boolean` | Log every `useEnvironmentInfo` read to the console (debug); missing or `false` disables logging |
 | `showHeaderButton` | `boolean` | Show a logout button in the default header |
 | `useCustomLoginTimeout` | `boolean` | Enable a custom timeout for the login request |
 | `customLoginTimeout` | `number` | Timeout (ms) for the login request when `useCustomLoginTimeout` is `true` |
@@ -857,6 +859,32 @@ const { isMobile, isDesktop, os, browser } = useDevice();
 
 ---
 
+### useEnvironmentInfo
+
+[→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/hooks/useEnvironmentInfo.md)
+
+Reads browser/device signals that do not require a permission prompt (hardware, locale, connectivity, media-query preferences, storage estimate). Every read is logged to the console only when `environmentInfoLog` is `true` in `config.json`; if the key is missing or `false`, the hook still works normally and simply stays silent.
+
+```jsx
+import { useEnvironmentInfo } from 'thecore-auth';
+
+const { hardwareConcurrency, language, isOnline, connection, capabilities } = useEnvironmentInfo();
+```
+
+| Returned value | Type | Description |
+|----------------|------|-------------|
+| `hardwareConcurrency`, `deviceMemory`, `maxTouchPoints`, `cookieEnabled`, `screen`, `userAgentData` | — | Static values, computed once |
+| `capabilities` | `object` | Presence flags: `bluetooth`, `usb`, `serial`, `hid`, `wakeLock`, `share`, `clipboard`, `serviceWorker`, `gpu`, `gamepads`, `geolocation`, `permissions`, `xr` |
+| `language`, `languages`, `timeZone`, `locale` | — | Re-read on `languagechange` |
+| `devicePixelRatio` | `number` | Re-read on `resize` |
+| `orientation` | `object` | Re-read on `screen.orientation` `change` |
+| `isOnline` | `boolean` | Re-read on `online`/`offline` |
+| `connection` | `object \| undefined` | `navigator.connection` snapshot, re-read on its `change` event |
+| `prefersColorSchemeDark`, `prefersReducedMotion`, `prefersContrastMore`, `forcedColorsActive`, `prefersReducedData`, `isStandalonePwa` | `boolean` | Media-query preferences, each independently reactive |
+| `storageUsage`, `storageQuota`, `refreshStorageEstimate` | — | `navigator.storage.estimate()`, read once at mount; call `refreshStorageEstimate()` to re-read |
+
+---
+
 ### useOrientation
 
 [→ Full reference](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/en/hooks/useOrientation.md)
@@ -1110,6 +1138,7 @@ my-app/
   "backendToken": "",
   "isDebug": false,
   "tokenLog": false,
+  "environmentInfoLog": false,
   "isDevelopment": false,
   "hasSessionKey": false,
   "appKey": "myapp",
