@@ -2,7 +2,7 @@
 
 > 🇮🇹 [Documentazione in Italiano](https://github.com/SantiGalvan/thecore-auth/blob/main/DOCUMENTATION_IT.md) | 🇪🇸 [Documentación en Español](https://github.com/SantiGalvan/thecore-auth/blob/main/DOCUMENTATION_ES.md)
 
-> Version: 0.0.214 | License: MIT | Author: Santiago Galvan
+> Version: 0.0.218 | License: MIT | Author: Santiago Galvan
 
 ---
 
