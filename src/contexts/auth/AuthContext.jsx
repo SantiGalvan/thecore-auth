@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 import { useConfig } from "../config/ConfigContext.jsx";
@@ -20,6 +20,10 @@ const AuthProvider = ({ children }) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(null);
     const [timeoutToken, setTimeoutToken] = useState();
+    // Il listener 'load' viene registrato una sola volta (deps []) e non si
+    // riaggancia mai: legge il token da questo ref, sempre aggiornato, invece
+    // che dalla variabile `token` chiusa nella closure del primo render.
+    const tokenRef = useRef(token);
     const [sessionTimeout, setSessionTimeout] = useState();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [autoLoginError, setAutoLoginError] = useState(null);
@@ -214,18 +218,27 @@ const AuthProvider = ({ children }) => {
 
     const handleLoad = () => {
 
+        // Legge il token corrente dal ref, non dalla closure del render in
+        // cui il listener è stato registrato (vedi tokenRef sopra).
+        const currentToken = tokenRef.current;
+
         // Controllo che il token sia valido
-        if (checkTokenValidity(token)) {
+        if (checkTokenValidity(currentToken)) {
             if (tokenLog) console.log('[Auth]: Ricarico pagina → controllo scadenza token');
 
             // Aggiorna gli state dei timer e heartbeat
-            getTokenExpiry(token);
+            getTokenExpiry(currentToken);
         } else {
             // Token scaduto o non valido → logout
             if (tokenLog) console.warn('[Auth]: Token non valido al reload, eseguo logout');
             logout();
         }
     };
+
+    // Mantiene tokenRef sincronizzato con il token corrente ad ogni render.
+    useEffect(() => {
+        tokenRef.current = token;
+    }, [token]);
 
     // useEffect per il controllo del Token
     useEffect(() => {
