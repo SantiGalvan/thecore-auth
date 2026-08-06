@@ -105,3 +105,15 @@ utile da entrare nell'API pubblica.
   documentazione pubblica (`README.md`, `DOCUMENTATION_IT.md`,
   `DOCUMENTATION_ES.md`); diventerà obbligatorio nel momento in cui verrà
   esportato da `src/index.js`.
+
+## Aggiornamento — 2026-08-06
+
+L'hook è ora esportato da `src/index.js` e documentato in `README.md` /
+`DOCUMENTATION_IT.md` / `DOCUMENTATION_ES.md`. Le chiamate `console.log` per
+singolo campo non sono più incondizionate: sono controllate da
+`environmentInfoLog` in `public/config.json` (letto via `useConfig()`), con
+default `false`. Una chiave assente si comporta come `false` — l'hook non
+lancia mai un'eccezione per questo motivo. Questo non cambia la decisione sullo
+scope dei segnali sopra descritta; cambia solo la visibilità dei log esistenti
+e lo stato pubblico/interno dell'hook. La persistenza resta fuori perimetro,
+invariata rispetto alla decisione originale.

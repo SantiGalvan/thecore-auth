@@ -98,3 +98,14 @@ the public API.
 - Because the hook is internal, no public documentation (`README.md`,
   `DOCUMENTATION_IT.md`, `DOCUMENTATION_ES.md`) update is required yet; this will
   become mandatory the moment it is exported from `src/index.js`.
+
+## Update — 2026-08-06
+
+The hook is now exported from `src/index.js` and documented in `README.md` /
+`DOCUMENTATION_IT.md` / `DOCUMENTATION_ES.md`. Per-field `console.log` calls are
+no longer unconditional: they are gated behind `environmentInfoLog` in
+`public/config.json` (read via `useConfig()`), defaulting to `false`. A missing
+key is treated the same as `false` — the hook never throws for it. This does
+not change the signal-scope decision above; it only changes visibility of the
+existing logs and the hook's public/internal status. Persistence remains out
+of scope, unchanged from the original decision.
