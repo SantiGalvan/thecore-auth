@@ -35,6 +35,7 @@ import { useSafeArea } from "./hooks/safe-area/useSafeArea";
 import { useForm } from "./hooks/form/useForm";
 import { useCalendar } from "./hooks/calendar/useCalendar";
 import { useClickOutside } from "./hooks/ui/useClickOutside";
+import { useEnvironmentInfo } from "./hooks/environment/useEnvironmentInfo";
 import PackageRoutes from "./routes/PackageRoutes";
 import AuthPage from "./middlewares/auth/AuthPage";
 import AuthAdmin from "./middlewares/admin/AuthAdmin";
@@ -131,6 +132,7 @@ export {
     useForm,
     useCalendar,
     useClickOutside,
+    useEnvironmentInfo,
     FileDropzone,
     SwitchRadio,
     InputDate,

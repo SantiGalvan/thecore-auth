@@ -1,12 +1,21 @@
-import { describe, it, expect, vi, afterEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { useEnvironmentInfo } from "./useEnvironmentInfo";
+import { useConfig } from "../../contexts/config/ConfigContext.jsx";
+
+vi.mock("../../contexts/config/ConfigContext.jsx", () => ({
+    useConfig: vi.fn(),
+}));
 
 const defineNavigatorProp = (name, value) => {
     Object.defineProperty(navigator, name, { value, configurable: true });
 };
 
 describe("useEnvironmentInfo - static fields", () => {
+    beforeEach(() => {
+        useConfig.mockReturnValue({ environmentInfoLog: true });
+    });
+
     afterEach(() => {
         vi.restoreAllMocks();
     });
@@ -17,15 +26,6 @@ describe("useEnvironmentInfo - static fields", () => {
         const { result } = renderHook(() => useEnvironmentInfo());
 
         expect(result.current.hardwareConcurrency).toBe(8);
-    });
-
-    it("logs every field individually with the [useEnvironmentInfo] prefix", () => {
-        defineNavigatorProp("hardwareConcurrency", 8);
-        const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
-
-        renderHook(() => useEnvironmentInfo());
-
-        expect(logSpy).toHaveBeenCalledWith("[useEnvironmentInfo] hardwareConcurrency:", 8);
     });
 
     it("exposes deviceMemory as undefined when the browser does not support it", () => {
@@ -100,8 +100,13 @@ describe("useEnvironmentInfo - static fields", () => {
 });
 
 describe("useEnvironmentInfo - dynamic fields", () => {
+    beforeEach(() => {
+        useConfig.mockReturnValue({ environmentInfoLog: true });
+    });
+
     afterEach(() => {
         vi.restoreAllMocks();
+        defineNavigatorProp("storage", undefined);
     });
 
     it("updates language, languages and timeZone together on languagechange", () => {
@@ -276,5 +281,40 @@ describe("useEnvironmentInfo - dynamic fields", () => {
 
         expect(result.current.storageUsage).toBe(200);
         expect(estimate).toHaveBeenCalledTimes(2);
+    });
+});
+
+describe("useEnvironmentInfo - config-gated logging", () => {
+    afterEach(() => {
+        vi.restoreAllMocks();
+    });
+
+    it("logs every field individually with the [useEnvironmentInfo] prefix when environmentInfoLog is true", () => {
+        useConfig.mockReturnValue({ environmentInfoLog: true });
+        defineNavigatorProp("hardwareConcurrency", 8);
+        const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+
+        renderHook(() => useEnvironmentInfo());
+
+        expect(logSpy).toHaveBeenCalledWith("[useEnvironmentInfo] hardwareConcurrency:", 8);
+    });
+
+    it("does not log anything when environmentInfoLog is false", () => {
+        useConfig.mockReturnValue({ environmentInfoLog: false });
+        const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+
+        renderHook(() => useEnvironmentInfo());
+
+        expect(logSpy).not.toHaveBeenCalled();
+    });
+
+    it("does not log and does not throw when environmentInfoLog is missing from config.json", () => {
+        useConfig.mockReturnValue({});
+        const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+
+        const { result } = renderHook(() => useEnvironmentInfo());
+
+        expect(logSpy).not.toHaveBeenCalled();
+        expect(result.current.isOnline).toBeDefined();
     });
 });

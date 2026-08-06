@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
+import { useConfig } from "../../contexts/config/ConfigContext.jsx";
 
-const logField = (name, value) => {
-    console.log(`[useEnvironmentInfo] ${name}:`, value);
+const logField = (enabled, name, value) => {
+    if (enabled) console.log(`[useEnvironmentInfo] ${name}:`, value);
     return value;
 };
 
 const hasFeature = (name) => Boolean(navigator[name]);
 
-const getCapabilities = () =>
-    logField("capabilities", {
+const getCapabilities = (enabled) =>
+    logField(enabled, "capabilities", {
         bluetooth: hasFeature("bluetooth"),
         usb: hasFeature("usb"),
         serial: hasFeature("serial"),
@@ -24,12 +25,12 @@ const getCapabilities = () =>
         xr: hasFeature("xr"),
     });
 
-const getStaticEnvironmentInfo = () => ({
-    hardwareConcurrency: logField("hardwareConcurrency", navigator.hardwareConcurrency),
-    deviceMemory: logField("deviceMemory", navigator.deviceMemory),
-    maxTouchPoints: logField("maxTouchPoints", navigator.maxTouchPoints),
-    cookieEnabled: logField("cookieEnabled", navigator.cookieEnabled),
-    screen: logField("screen", {
+const getStaticEnvironmentInfo = (enabled) => ({
+    hardwareConcurrency: logField(enabled, "hardwareConcurrency", navigator.hardwareConcurrency),
+    deviceMemory: logField(enabled, "deviceMemory", navigator.deviceMemory),
+    maxTouchPoints: logField(enabled, "maxTouchPoints", navigator.maxTouchPoints),
+    cookieEnabled: logField(enabled, "cookieEnabled", navigator.cookieEnabled),
+    screen: logField(enabled, "screen", {
         width: window.screen.width,
         height: window.screen.height,
         availWidth: window.screen.availWidth,
@@ -37,6 +38,7 @@ const getStaticEnvironmentInfo = () => ({
         colorDepth: window.screen.colorDepth,
     }),
     userAgentData: logField(
+        enabled,
         "userAgentData",
         navigator.userAgentData
             ? {
@@ -46,10 +48,10 @@ const getStaticEnvironmentInfo = () => ({
               }
             : undefined
     ),
-    capabilities: getCapabilities(),
+    capabilities: getCapabilities(enabled),
 });
 
-const getLocaleInfo = () => {
+const getLocaleInfo = (enabled) => {
     const language = navigator.language;
     const languages = navigator.languages;
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -58,24 +60,25 @@ const getLocaleInfo = () => {
         : {};
 
     return {
-        language: logField("language", language),
-        languages: logField("languages", languages),
-        timeZone: logField("timeZone", timeZone),
-        locale: logField("locale", { numberingSystem, calendar }),
+        language: logField(enabled, "language", language),
+        languages: logField(enabled, "languages", languages),
+        timeZone: logField(enabled, "timeZone", timeZone),
+        locale: logField(enabled, "locale", { numberingSystem, calendar }),
     };
 };
 
-const getOrientation = () => {
+const getOrientation = (enabled) => {
     const orientation = window.screen.orientation;
-    return logField("orientation", {
+    return logField(enabled, "orientation", {
         type: orientation?.type,
         angle: orientation?.angle,
     });
 };
 
-const getConnectionSnapshot = () => {
+const getConnectionSnapshot = (enabled) => {
     const connection = navigator.connection;
     return logField(
+        enabled,
         "connection",
         connection
             ? {
@@ -98,43 +101,46 @@ const MEDIA_QUERY_FIELDS = {
     isStandalonePwa: "(display-mode: standalone)",
 };
 
-const readMediaQuery = (field, query) => {
+const readMediaQuery = (enabled, field, query) => {
     if (typeof window.matchMedia !== "function") return undefined;
-    return logField(field, window.matchMedia(query).matches);
+    return logField(enabled, field, window.matchMedia(query).matches);
 };
 
-const useMediaQueryPreference = (field, query) => {
-    const [value, setValue] = useState(() => readMediaQuery(field, query));
+const useMediaQueryPreference = (enabled, field, query) => {
+    const [value, setValue] = useState(() => readMediaQuery(enabled, field, query));
 
     useEffect(() => {
         if (typeof window.matchMedia !== "function") return undefined;
 
         const mediaQueryList = window.matchMedia(query);
-        const handleChange = (event) => setValue(logField(field, event.matches));
+        const handleChange = (event) => setValue(logField(enabled, field, event.matches));
 
         mediaQueryList.addEventListener("change", handleChange);
         return () => mediaQueryList.removeEventListener("change", handleChange);
-    }, [field, query]);
+    }, [enabled, field, query]);
 
     return value;
 };
 
 const useEnvironmentInfo = () => {
-    const staticInfo = useMemo(() => getStaticEnvironmentInfo(), []);
-    const [localeInfo, setLocaleInfo] = useState(getLocaleInfo);
-    const [devicePixelRatio, setDevicePixelRatio] = useState(() => logField("devicePixelRatio", window.devicePixelRatio));
-    const [orientation, setOrientation] = useState(getOrientation);
-    const [isOnline, setIsOnline] = useState(() => logField("isOnline", navigator.onLine));
-    const [connection, setConnection] = useState(getConnectionSnapshot);
+    const { environmentInfoLog } = useConfig();
+    const loggingEnabled = Boolean(environmentInfoLog);
+
+    const staticInfo = useMemo(() => getStaticEnvironmentInfo(loggingEnabled), [loggingEnabled]);
+    const [localeInfo, setLocaleInfo] = useState(() => getLocaleInfo(loggingEnabled));
+    const [devicePixelRatio, setDevicePixelRatio] = useState(() => logField(loggingEnabled, "devicePixelRatio", window.devicePixelRatio));
+    const [orientation, setOrientation] = useState(() => getOrientation(loggingEnabled));
+    const [isOnline, setIsOnline] = useState(() => logField(loggingEnabled, "isOnline", navigator.onLine));
+    const [connection, setConnection] = useState(() => getConnectionSnapshot(loggingEnabled));
     const [storageEstimate, setStorageEstimate] = useState({ storageUsage: undefined, storageQuota: undefined });
 
     const mediaPreferences = {
-        prefersColorSchemeDark: useMediaQueryPreference("prefersColorSchemeDark", MEDIA_QUERY_FIELDS.prefersColorSchemeDark),
-        prefersReducedMotion: useMediaQueryPreference("prefersReducedMotion", MEDIA_QUERY_FIELDS.prefersReducedMotion),
-        prefersContrastMore: useMediaQueryPreference("prefersContrastMore", MEDIA_QUERY_FIELDS.prefersContrastMore),
-        forcedColorsActive: useMediaQueryPreference("forcedColorsActive", MEDIA_QUERY_FIELDS.forcedColorsActive),
-        prefersReducedData: useMediaQueryPreference("prefersReducedData", MEDIA_QUERY_FIELDS.prefersReducedData),
-        isStandalonePwa: useMediaQueryPreference("isStandalonePwa", MEDIA_QUERY_FIELDS.isStandalonePwa),
+        prefersColorSchemeDark: useMediaQueryPreference(loggingEnabled, "prefersColorSchemeDark", MEDIA_QUERY_FIELDS.prefersColorSchemeDark),
+        prefersReducedMotion: useMediaQueryPreference(loggingEnabled, "prefersReducedMotion", MEDIA_QUERY_FIELDS.prefersReducedMotion),
+        prefersContrastMore: useMediaQueryPreference(loggingEnabled, "prefersContrastMore", MEDIA_QUERY_FIELDS.prefersContrastMore),
+        forcedColorsActive: useMediaQueryPreference(loggingEnabled, "forcedColorsActive", MEDIA_QUERY_FIELDS.forcedColorsActive),
+        prefersReducedData: useMediaQueryPreference(loggingEnabled, "prefersReducedData", MEDIA_QUERY_FIELDS.prefersReducedData),
+        isStandalonePwa: useMediaQueryPreference(loggingEnabled, "isStandalonePwa", MEDIA_QUERY_FIELDS.isStandalonePwa),
     };
 
     const readStorageEstimate = async () => {
@@ -142,37 +148,37 @@ const useEnvironmentInfo = () => {
 
         const { usage, quota } = await navigator.storage.estimate();
         setStorageEstimate({
-            storageUsage: logField("storageUsage", usage),
-            storageQuota: logField("storageQuota", quota),
+            storageUsage: logField(loggingEnabled, "storageUsage", usage),
+            storageQuota: logField(loggingEnabled, "storageQuota", quota),
         });
     };
 
     useEffect(() => {
-        const handleLanguageChange = () => setLocaleInfo(getLocaleInfo());
+        const handleLanguageChange = () => setLocaleInfo(getLocaleInfo(loggingEnabled));
 
         window.addEventListener("languagechange", handleLanguageChange);
         return () => window.removeEventListener("languagechange", handleLanguageChange);
-    }, []);
+    }, [loggingEnabled]);
 
     useEffect(() => {
-        const handleResize = () => setDevicePixelRatio(logField("devicePixelRatio", window.devicePixelRatio));
+        const handleResize = () => setDevicePixelRatio(logField(loggingEnabled, "devicePixelRatio", window.devicePixelRatio));
 
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    }, [loggingEnabled]);
 
     useEffect(() => {
         const screenOrientation = window.screen.orientation;
         if (!screenOrientation) return undefined;
 
-        const handleOrientationChange = () => setOrientation(getOrientation());
+        const handleOrientationChange = () => setOrientation(getOrientation(loggingEnabled));
 
         screenOrientation.addEventListener("change", handleOrientationChange);
         return () => screenOrientation.removeEventListener("change", handleOrientationChange);
-    }, []);
+    }, [loggingEnabled]);
 
     useEffect(() => {
-        const handleConnectivityChange = () => setIsOnline(logField("isOnline", navigator.onLine));
+        const handleConnectivityChange = () => setIsOnline(logField(loggingEnabled, "isOnline", navigator.onLine));
 
         window.addEventListener("online", handleConnectivityChange);
         window.addEventListener("offline", handleConnectivityChange);
@@ -180,17 +186,17 @@ const useEnvironmentInfo = () => {
             window.removeEventListener("online", handleConnectivityChange);
             window.removeEventListener("offline", handleConnectivityChange);
         };
-    }, []);
+    }, [loggingEnabled]);
 
     useEffect(() => {
         const connectionApi = navigator.connection;
         if (!connectionApi) return undefined;
 
-        const handleConnectionChange = () => setConnection(getConnectionSnapshot());
+        const handleConnectionChange = () => setConnection(getConnectionSnapshot(loggingEnabled));
 
         connectionApi.addEventListener("change", handleConnectionChange);
         return () => connectionApi.removeEventListener("change", handleConnectionChange);
-    }, []);
+    }, [loggingEnabled]);
 
     useEffect(() => {
         readStorageEstimate();
