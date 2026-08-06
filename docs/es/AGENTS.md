@@ -376,6 +376,7 @@ src/
     auth/           # useAuthStorage
     calendar/       # useCalendar
     device/         # useDevice
+    environment/    # useEnvironmentInfo
     form/           # useForm
     indexedDB/      # useIndexedDB
     orientation/    # useOrientation
