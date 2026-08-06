@@ -77,6 +77,7 @@ Crea el archivo `public/config.json` en tu proyecto. Este archivo se carga en ti
   "backendToken": "",
   "isDebug": false,
   "tokenLog": false,
+  "environmentInfoLog": false,
   "isDevelopment": false,
   "hasSessionKey": false,
   "appKey": "mi-app",
@@ -137,6 +138,7 @@ Crea el archivo `public/config.json` en tu proyecto. Este archivo se carga en ti
 | `routes` | `array` | Array de `{ path, title }` para la actualización automática del título |
 | `configRoutes` | `array` | Rutas adicionales inyectadas por el paquete |
 | `tokenLog` | `boolean` | Registra los detalles del token JWT en consola (debug) |
+| `environmentInfoLog` | `boolean` | Registra en consola cada lectura de `useEnvironmentInfo` (debug); ausente o `false` desactiva el registro |
 | `showHeaderButton` | `boolean` | Muestra un botón de logout en el header predeterminado |
 | `useCustomLoginTimeout` | `boolean` | Habilita un timeout personalizado para la petición de login |
 | `customLoginTimeout` | `number` | Timeout (ms) para el login cuando `useCustomLoginTimeout` es `true` |
@@ -859,6 +861,32 @@ const { isMobile, isDesktop, os, browser } = useDevice();
 
 ---
 
+### useEnvironmentInfo
+
+[→ Referencia completa](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/es/hooks/useEnvironmentInfo.md)
+
+Lee señales del navegador/dispositivo que no requieren un aviso de permiso (hardware, configuración regional, conectividad, preferencias de media-query, estimación de almacenamiento). Cada lectura se registra en consola solo cuando `environmentInfoLog` es `true` en `config.json`; si falta la clave o es `false`, el hook sigue funcionando con normalidad y simplemente permanece en silencio.
+
+```jsx
+import { useEnvironmentInfo } from 'thecore-auth';
+
+const { hardwareConcurrency, language, isOnline, connection, capabilities } = useEnvironmentInfo();
+```
+
+| Valor devuelto | Tipo | Descripción |
+|----------------|------|-------------|
+| `hardwareConcurrency`, `deviceMemory`, `maxTouchPoints`, `cookieEnabled`, `screen`, `userAgentData` | — | Valores estáticos, calculados una sola vez |
+| `capabilities` | `object` | Flags de presencia: `bluetooth`, `usb`, `serial`, `hid`, `wakeLock`, `share`, `clipboard`, `serviceWorker`, `gpu`, `gamepads`, `geolocation`, `permissions`, `xr` |
+| `language`, `languages`, `timeZone`, `locale` | — | Releídos en `languagechange` |
+| `devicePixelRatio` | `number` | Releído en `resize` |
+| `orientation` | `object` | Releído en `screen.orientation` `change` |
+| `isOnline` | `boolean` | Releído en `online`/`offline` |
+| `connection` | `object \| undefined` | Snapshot de `navigator.connection`, releído en su evento `change` |
+| `prefersColorSchemeDark`, `prefersReducedMotion`, `prefersContrastMore`, `forcedColorsActive`, `prefersReducedData`, `isStandalonePwa` | `boolean` | Preferencias de media-query, cada una reactiva de forma independiente |
+| `storageUsage`, `storageQuota`, `refreshStorageEstimate` | — | `navigator.storage.estimate()`, leído una vez al montar; llamar a `refreshStorageEstimate()` para releer |
+
+---
+
 ### useOrientation
 
 [→ Referencia completa](https://github.com/SantiGalvan/thecore-auth/blob/main/docs/es/hooks/useOrientation.md)
@@ -1112,6 +1140,7 @@ my-app/
   "backendToken": "",
   "isDebug": false,
   "tokenLog": false,
+  "environmentInfoLog": false,
   "isDevelopment": false,
   "hasSessionKey": false,
   "appKey": "mi-app",
